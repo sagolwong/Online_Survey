@@ -19,7 +19,7 @@ const userSchema = new Schema({
         trim: true
     }, role: {
         type: String,
-        enum: ["Admin", "Responder", "Researcher"],
+        enum: ["ADMIN", "RESPONDER", "RESEARCHER"],
         required: true,
     }, gender: String,
     job: String,

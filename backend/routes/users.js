@@ -30,7 +30,7 @@ router.post("/register", (req, res) => {
               lastname: req.body.lastname,
               email: req.body.email,
               password: req.body.password,
-              role: "Responder"
+              role: "RESPONDER"
           });
           // Hash password before saving in database
           bcrypt.genSalt(10, (err, salt) => {
@@ -95,6 +95,45 @@ router.post("/login", (req, res) => {
       });
   });
 });
+
+router.route('/create').post((req, res) => {
+    /*const email = req.body.email;
+    const password = req.body.password;
+    const firstname = req.body.firstname;
+    const lastname = req.body.lastname;
+    const role = "ADMIN";
+  
+    const newUser = new User({
+      email,
+      password,
+      firstname,
+      lastname,
+      role
+    });*/
+
+    const newUser = new User({
+        firstname: req.body.firstname,
+        lastname: req.body.lastname,
+        email: req.body.email,
+        password: req.body.password,
+        role: "ADMIN"
+    });
+    // Hash password before saving in database
+    bcrypt.genSalt(10, (err, salt) => {
+        bcrypt.hash(newUser.password, salt, (err, hash) => {
+            if (err) throw err;
+            newUser.password = hash;
+            newUser
+                .save()
+                .then(user => res.json(user))
+                .catch(err => console.log(err));
+        });
+    });
+  
+    /*newUser.save()
+      .then(() => res.json('Admin create!'))
+      .catch(err => res.status(400).json('Error: ' + err));*/
+  });
 
 router.route('/:id').get((req, res) => {
   User.findById(req.params.id)
