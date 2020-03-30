@@ -7,6 +7,7 @@ import PropTypes from "prop-types";
 import setAuthToken from "./utils/setAuthToken";
 import { setCurrentUser, logoutUser } from "./actions/authActions";
 import store from "./store";
+import PrivateRoute from "./components/private-route/PrivateRoute";
 
 import Navbar from './components/layout/Navbar'
 import Sidebar from './components/layout/Sidebar'
@@ -14,6 +15,7 @@ import Footer from './components/layout/Footer'
 import Landing from './components/layout/Landing'
 import Register from './components/auth/Register';
 import Login from './components/auth/Login';
+import Requests from './views/Requests';
 
 // Check for token to keep user logged in
 if (localStorage.jwtOSToken) {
@@ -37,7 +39,8 @@ if (localStorage.jwtOSToken) {
 class App extends Component {
 
   showComponent(){
-    if(this.props.statusPage) return
+    if(this.props.statusPage.blankPage) return
+    else if(!this.props.statusPage.blankPage) return <Sidebar />
   }
 
   renderRouter() {
@@ -46,6 +49,7 @@ class App extends Component {
         <Route exact path="/" component={Landing} />
         <Route exact path="/register" component={Register} />
         <Route exact path="/login" component={Login} />
+        <PrivateRoute exact path="/requests" component={Requests} />
       </Switch>
     )
   }
@@ -55,9 +59,10 @@ class App extends Component {
       <BrowserRouter>
         <div>
           <Navbar />
+          {this.showComponent()}
           {this.renderRouter()}
-          <Footer />
         </div>
+        {console.log(this.props.statusPage)}
       </BrowserRouter>
     )
   }
