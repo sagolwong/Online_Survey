@@ -36,6 +36,10 @@ if (localStorage.jwtOSToken) {
 
 class App extends Component {
 
+  showComponent(){
+    if(this.props.statusPage) return
+  }
+
   renderRouter() {
     return (
       <Switch>
@@ -51,7 +55,6 @@ class App extends Component {
       <BrowserRouter>
         <div>
           <Navbar />
-          <Sidebar />
           {this.renderRouter()}
           <Footer />
         </div>
@@ -60,9 +63,11 @@ class App extends Component {
   }
 }
 App.propTypes = {
-  auth: PropTypes.object.isRequired
+  auth: PropTypes.object.isRequired,
+  statusPage: PropTypes.object.isRequired
 };
 const mapStateToProps = (state) => ({
-  auth: state.auth
+  auth: state.auth,
+  statusPage: state.statusPage
 });
 export default connect(mapStateToProps)(App);
