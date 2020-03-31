@@ -19,7 +19,7 @@ class Navbar extends Component {
             <div>
                 <header className="main-header">
                     {/* Logo */}
-                    <a href="/" className="logo">
+                    <a href="/requests" className="logo">
                         {/* mini logo for sidebar mini 50x50 pixels */}
                         <span className="logo-mini"><b>OS</b>FR</span>
                         {/* logo for regular state and mobile devices */}
@@ -32,7 +32,7 @@ class Navbar extends Component {
                             role={this.props.auth.user.role}
                             perform="navbar:toggle-button"
                             yes={() => (
-                                <a href="/" className="sidebar-toggle" data-toggle="push-menu" role="button">
+                                <a href="/requests" className="sidebar-toggle" data-toggle="push-menu" role="button">
                                     <span className="sr-only">Toggle navigation</span>
                                 </a>
                             )}
@@ -137,7 +137,7 @@ class Navbar extends Component {
                                                 {/* Menu Footer*/}
                                                 <li className="user-footer">
                                                     <div className="pull-left">
-                                                        <a href="/" className="btn btn-default btn-flat">โปรไฟล์</a>
+                                                        <a href="/user-profile" className="btn btn-default btn-flat">โปรไฟล์</a>
                                                     </div>
                                                     <div className="pull-right">
                                                         <a onClick={this.onLogoutClick} className="btn btn-default btn-flat">ออกจากระบบ</a>

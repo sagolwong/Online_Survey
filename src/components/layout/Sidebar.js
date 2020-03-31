@@ -22,7 +22,7 @@ class Sidebar extends Component {
                                 <Can
                                     role={this.props.auth.user.role}
                                     perform="sidebar:link-profile"
-                                    yes={() => (<a href="/">ดูโปรไฟล์ของคุณ</a>)}
+                                    yes={() => (<a href="/user-profile">ดูโปรไฟล์ของคุณ</a>)}
                                     no={() => ""}
                                 />
                             </div>
@@ -37,7 +37,7 @@ class Sidebar extends Component {
                                 yes={() => (
                                     <li className="treeview">
                                         <a href="/">
-                                            <i className="fa fa-dashboard" /> <span>โปรเจคล่าสุด</span>
+                                            <i className="fa fa-folder" /> <span>โปรเจคล่าสุด</span>
                                             <span className="pull-right-container">
                                                 <i className="fa fa-angle-left pull-right" />
                                             </span>
@@ -56,7 +56,7 @@ class Sidebar extends Component {
                                 yes={() => (
                                     <li className="treeview">
                                         <a href="/">
-                                            <i className="fa fa-pie-chart" />
+                                            <i className="fa fa-file-text" />
                                             <span>แบบสอบถามที่ทำครั้งล่าสุด</span>
                                             <span className="pull-right-container">
                                                 <i className="fa fa-angle-left pull-right" />
@@ -82,10 +82,13 @@ class Sidebar extends Component {
         )
     }
 }
+
 Sidebar.propTypes = {
     auth: PropTypes.object.isRequired
 };
+
 const mapStateToProps = state => ({
     auth: state.auth
 });
+
 export default connect(mapStateToProps)(Sidebar);

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import { Button } from 'reactstrap';
 
 import { showComponent } from "../actions/setPageActions";
 
@@ -13,7 +14,7 @@ class Requests extends Component {
     render() {
         return (
             <div>
-                
+
             </div>
         )
     }

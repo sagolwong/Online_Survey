@@ -16,6 +16,7 @@ import Landing from './components/layout/Landing'
 import Register from './components/auth/Register';
 import Login from './components/auth/Login';
 import Requests from './views/Requests';
+import UserProfile from './views/UserProfile';
 
 // Check for token to keep user logged in
 if (localStorage.jwtOSToken) {
@@ -38,9 +39,9 @@ if (localStorage.jwtOSToken) {
 
 class App extends Component {
 
-  showComponent(){
-    if(this.props.statusPage.blankPage) return
-    else if(!this.props.statusPage.blankPage) return <Sidebar />
+  showComponent() {
+    if (this.props.statusPage.blankPage) return
+    else if (!this.props.statusPage.blankPage) return <Sidebar />
   }
 
   renderRouter() {
@@ -50,6 +51,7 @@ class App extends Component {
         <Route exact path="/register" component={Register} />
         <Route exact path="/login" component={Login} />
         <PrivateRoute exact path="/requests" component={Requests} />
+        <PrivateRoute exact path="/user-profile" component={UserProfile} />
       </Switch>
     )
   }
@@ -63,6 +65,7 @@ class App extends Component {
           {this.renderRouter()}
         </div>
         {console.log(this.props.statusPage)}
+        {console.log(this.props.auth.user)}
       </BrowserRouter>
     )
   }
