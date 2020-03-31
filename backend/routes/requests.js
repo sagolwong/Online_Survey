@@ -29,6 +29,12 @@ router.route('/:id').get((req, res) => {
     .catch(err => res.status(400).json('Error: ' + err));
 });
 
+router.route('/count/:id').get((req, res) => {
+    Request.find({ userId: req.params.id }).count()
+    .then(requests => res.json(requests))
+    .catch(err => res.status(400).json('Error: ' + err));
+});
+
 router.route('/find/:id').get((req, res) => {
     Request.find({ surveyId: req.params.id })
     .then(requests => res.json(requests))

@@ -147,12 +147,12 @@ router.route('/:id').delete((req, res) => {
     .catch(err => res.status(400).json('Error: ' + err));
 });
 
-/*router.route('/upgrade/:id').post((req, res) => {
+router.route('/upgrade/:id').post((req, res) => {
   User.findById(req.params.id)
     .then(user => {
       user.gender = req.body.gender;
-      user.age = Number(req.body.age);
-      user.role = "Researcher";
+      user.job = req.body.job;
+      user.role = "RESEARCHER";
 
 
       user.save()
@@ -160,7 +160,7 @@ router.route('/:id').delete((req, res) => {
         .catch(err => res.status(400).json('Error: ' + err));
     })
     .catch(err => res.status(400).json('Error: ' + err));
-});*/
+});
 
 router.route('/edit/:id').post((req, res) => {
   User.findById(req.params.id)
