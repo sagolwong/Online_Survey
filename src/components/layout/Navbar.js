@@ -96,7 +96,7 @@ class Navbar extends Component {
                                     perform="navbar:project"
                                     yes={() => (
                                         <li className="dropdown">
-                                            <a href="">โปรเจค</a>
+                                            <a href="/projects">โปรเจค</a>
                                         </li>
                                     )}
                                     no={() => ""}

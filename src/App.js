@@ -20,6 +20,7 @@ import UserProfile from './views/UserProfile';
 import ErrorPage from './components/error/ErrorPage';
 import PrivateResearcherRoute from './components/private-route/PrivateResearcherRoute';
 import CreateProject from './views/CreateProject';
+import Projects from './views/Projects';
 
 // Check for token to keep user logged in
 if (localStorage.jwtOSToken) {
@@ -57,6 +58,7 @@ class App extends Component {
         <PrivateRoute exact path="/user-profile" component={UserProfile} />
         <PrivateRoute exact path="/error-page" component={ErrorPage} />
         <PrivateResearcherRoute exact path="/create-project" component={CreateProject} />
+        <PrivateResearcherRoute exact path="/projects" component={Projects} />
       </Switch>
     )
   }
