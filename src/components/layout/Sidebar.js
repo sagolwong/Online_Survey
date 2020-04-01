@@ -43,7 +43,7 @@ class Sidebar extends Component {
                                             </span>
                                         </a>
                                         <ul className="treeview-menu">
-                                            <li><a href="index.html"><i className="fa fa-circle-o" /> Dashboard v1</a></li>
+                                            <li><a href="/create-project"><i className="fa fa-plus" /> เพิ่มโปรเจคใหม่</a></li>
                                             <li><a href="index2.html"><i className="fa fa-circle-o" /> Dashboard v2</a></li>
                                         </ul>
                                     </li>

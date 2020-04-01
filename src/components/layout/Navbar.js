@@ -72,7 +72,7 @@ class Navbar extends Component {
                                         <li className="dropdown notifications-menu">
                                             <a href="/requests" >
                                                 <i className="fa fa-bell-o" />
-                                                <span className="label label-warning">{this.state.countRequests}</span>
+                                                <span className="label label-warning">{this.state.countRequests !== 0 ? this.state.countRequests:""}</span>
                                             </a>
                                         </li>
                                     )}

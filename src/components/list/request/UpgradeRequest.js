@@ -59,7 +59,7 @@ export default class UpgradeRequest extends Component {
 
     render() {
         return (
-            <div className="col-md-6">
+            <div style={{width: "500px"}}>
                 <div className="box box-widget collapsed-box">
                     <div className="box-header with-border">
                         <div className="user-block">

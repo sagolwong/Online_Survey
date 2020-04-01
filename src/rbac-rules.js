@@ -45,7 +45,6 @@ const rules = {
             "navbar:survey",
             "navbar:project",
             "navbar:user",
-            "sidebar:link-profile",
             "sidebar:recent-project",
             "sidebar:recent-other-survey",
         ]
