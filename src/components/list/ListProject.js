@@ -10,7 +10,7 @@ export default class ListProject extends Component {
 
     goToManageProject() {
         const projectId = this.props.project._id;
-        window.location = `/requests`;
+        window.location = `/project-management/${projectId}`;
     }
 
     render() {

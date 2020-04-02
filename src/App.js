@@ -21,6 +21,7 @@ import ErrorPage from './components/error/ErrorPage';
 import PrivateResearcherRoute from './components/private-route/PrivateResearcherRoute';
 import CreateProject from './views/CreateProject';
 import Projects from './views/Projects';
+import ProjectManagement from './views/ProjectManagement';
 
 // Check for token to keep user logged in
 if (localStorage.jwtOSToken) {
@@ -59,6 +60,7 @@ class App extends Component {
         <PrivateRoute exact path="/error-page" component={ErrorPage} />
         <PrivateResearcherRoute exact path="/create-project" component={CreateProject} />
         <PrivateResearcherRoute exact path="/projects" component={Projects} />
+        <PrivateResearcherRoute exact path="/project-management/:projectId" component={ProjectManagement} />
       </Switch>
     )
   }

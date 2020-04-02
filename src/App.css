@@ -41,3 +41,16 @@
   color: black;
   background-color: #9c9c9c34;
 }
+
+.listSampleGroup:hover{
+  height: 92px;
+  color: black;
+  border: 1px solid #0bdb2e;
+}
+
+.bg-template {
+  background-color: #d6e1e6;
+  width: 100%;
+  height: 150px;
+ /* border: 8px solid #ecf0f5;*/
+}

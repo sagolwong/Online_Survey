@@ -73,7 +73,7 @@ class CreateProject extends Component {
 
         if (await this.state.profile.recentProjects.length < 10) {
             await this.state.profile.recentProjects.unshift(this.state.project._id)
-            
+
             const editRecentProject = await {
                 recentOtherSurveys: this.state.profile.recentOtherSurveys,
                 recentProjects: this.state.profile.recentProjects
@@ -94,7 +94,7 @@ class CreateProject extends Component {
                 .then(res => console.log(res.data));
         }
 
-        //window.location = await '/project-management/' + this.state.project._id;
+        window.location = await '/project-management/' + this.state.project._id;
     }
 
     render() {

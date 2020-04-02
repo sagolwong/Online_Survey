@@ -36,7 +36,7 @@ class Sidebar extends Component {
                                 perform="sidebar:recent-project"
                                 yes={() => (
                                     <li className="treeview">
-                                        <a href="/">
+                                        <a href="/projects">
                                             <i className="fa fa-folder" /> <span>โปรเจคล่าสุด</span>
                                             <span className="pull-right-container">
                                                 <i className="fa fa-angle-left pull-right" />
