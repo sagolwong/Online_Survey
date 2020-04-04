@@ -40,6 +40,10 @@ class Projects extends Component {
         )
     }
 
+    goToCreateProject(){
+        window.location = `/create-project`;
+    }
+
     render() {
         return (
             <div className="content-wrapper">
@@ -60,6 +64,15 @@ class Projects extends Component {
                             <h3 className="box-title">รายการโปรเจค</h3>
                         </div>
                     </div>
+
+                    <div className="box  box-solid">
+                        <div className="listCreate" onClick={this.goToCreateProject.bind(this)}>
+                            <div className="box-body" align="center">
+                                <i className="fa fa-plus-circle" /> เพิ่มโปรเจคใหม่
+                            </div>
+                        </div>
+                    </div>
+                    
                     {this.showGroupProject()}
                 </section>
             </div>

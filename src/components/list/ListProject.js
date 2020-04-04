@@ -18,7 +18,7 @@ export default class ListProject extends Component {
             <div className="box box-warning box-solid" >
                 <div className="list" onClick={this.goToManageProject}>
                     <div className="box-body">
-                        {this.props.project.nameProject}
+                        <i className="fa fa-folder-o" /> {this.props.project.nameProject}
                     </div>
                 </div>
             </div>
