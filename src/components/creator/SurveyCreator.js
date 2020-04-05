@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import PropTypes from "prop-types";
 
-import { addStep2, backToStep1 } from "../../actions/surveyActions";
+import { addStep2, backToStep1, addDraftStep2 } from "../../actions/surveyActions";
 
 import * as SurveyJSCreator from "survey-creator";
 import * as SurveyKo from "survey-knockout";
@@ -58,15 +58,56 @@ class SurveyCreator extends Component {
         window.localStorage.removeItem("LocalStorageSurvey");
     }
 
-    /*backToStep1() {
-        this.props.backToStep1();
-    }*/
+    saveDraft() {
+        console.log(JSON.parse(JSON.stringify(this.surveyCreator.text)));
+        //window.localStorage.setItem("LocalStorageSurvey", this.surveyCreator.text);
+        let builtIns = [];
+        let formSurvey;
+
+        if (this.props.builtIns.builtInWidgetGender) {
+            builtIns = builtIns.concat({ builtInWidget: "gender" })
+        }
+        if (this.props.builtIns.builtInWidgetAges) {
+            builtIns = builtIns.concat({ builtInWidget: "ages" })
+        }
+        if (this.props.builtIns.builtInWidgetStatus) {
+            builtIns = builtIns.concat({ builtInWidget: "status" })
+        }
+        if (this.props.builtIns.builtInWidgetEducation) {
+            builtIns = builtIns.concat({ builtInWidget: "education" })
+        }
+        if (this.props.builtIns.builtInWidgetJob) {
+            builtIns = builtIns.concat({ builtInWidget: "job" })
+        }
+        if (this.props.builtIns.builtInWidgetIncome) {
+            builtIns = builtIns.concat({ builtInWidget: "income" })
+        }
+        console.log(builtIns)
+
+        if (builtIns[0] !== undefined) {
+            formSurvey = {
+                data: JSON.parse(JSON.stringify(this.surveyCreator.text)),
+                builtIns: builtIns,
+                status: "DRAFT"
+            }
+        } else {
+            formSurvey = {
+                data: JSON.parse(JSON.stringify(this.surveyCreator.text)),
+                status: "DRAFT"
+            }
+        }
+        console.log(formSurvey)
+
+        this.props.addDraftStep2(formSurvey);
+
+    }
 
     render() {
         return (
             <div>
                 <div id="surveyCreatorContainer" /><br></br>
-                <button className="btn btn-link" onClick={() => this.props.backToStep1()}>ย้อนกลับ</button>&nbsp;
+                <button className="btn btn-danger" onClick={() => this.props.backToStep1()}>ย้อนกลับ</button>&nbsp;
+                <button className="btn btn-warning" onClick={this.saveDraft.bind(this)}>บันทึกแบบร่าง</button>&nbsp;
                 <button className="btn btn-info" onClick={this.saveMySurvey}>ต่อไป</button>
             </div>
         )
@@ -116,6 +157,7 @@ class SurveyCreator extends Component {
 
 SurveyCreator.propTypes = {
     addStep2: PropTypes.func.isRequired,
+    addDraftStep2: PropTypes.func.isRequired,
     backToStep1: PropTypes.func.isRequired,
     survey: PropTypes.object.isRequired,
 };
@@ -123,4 +165,4 @@ SurveyCreator.propTypes = {
 const mapStateToProps = state => ({
     survey: state.survey
 });
-export default connect(mapStateToProps, { addStep2, backToStep1 })(SurveyCreator);
+export default connect(mapStateToProps, { addStep2, backToStep1, addDraftStep2 })(SurveyCreator);

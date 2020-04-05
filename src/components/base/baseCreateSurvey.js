@@ -87,6 +87,32 @@ class baseCreateSurvey extends Component {
                 status: this.props.survey.status
             }
             console.log(data);
+
+            axios.post(`/surveys/create`, data)
+                .then(res => {
+                    console.log(res.data)
+                    axios.get(`/surveys/${this.state.project._id}/` + data.nameSurvey)
+                        .then(response => {
+                            console.log(response.data[0]._id);
+                            if (this.props.survey.status === "ONLINE") {
+                                if (this.props.survey.dateToDo !== undefined) {
+                                    const frequency = {
+                                        surveyId: response.data[0]._id,
+                                        listTimeToDo: this.props.survey.dateToDo
+                                    }
+                                    axios.post(`/frequency/create`, frequency)
+                                        .then(res => console.log(res.data))
+                                }
+                                //window.location = '/survey-management/' + response.data[0]._id;
+                            } else if (this.props.survey.status === "DRAFT") {
+                                window.location = '/requests';
+                            }
+
+                        })
+                        .catch((error) => {
+                            console.log(error);
+                        })
+                });
         }
     }
 

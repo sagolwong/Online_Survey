@@ -6,7 +6,10 @@ import {
     ADD_STEP4,
     BACKTOSTEP1,
     BACKTOSTEP2,
-    BACKTOSTEP3
+    BACKTOSTEP3,
+    ADD_DRAFT_STEP1,
+    ADD_DRAFT_STEP2,
+    ADD_DRAFT_STEP3
 } from "../actions/types";
 
 let initialState = {
@@ -67,6 +70,38 @@ export default function (state = initialState, action) {
         case ADD_STEP4:
             return {
                 ...state,
+                status: action.data.status,
+                step: 5
+            };
+
+        case ADD_DRAFT_STEP1:
+            return {
+                ...state,
+                nameSurvey: action.data.surveyName,
+                description: action.data.description,
+                shareTo: action.data.shareTo,
+                wantName: action.data.wantName,
+                haveGroup: action.data.haveGroup,
+                status: action.data.status,
+                step: 5
+            };
+
+        case ADD_DRAFT_STEP2:
+            return {
+                ...state,
+                data: action.formSurvey.data,
+                builtIns: action.formSurvey.builtIns,
+                status: action.formSurvey.status,
+                step: 5
+            };
+
+        case ADD_DRAFT_STEP3:
+            return {
+                ...state,
+                frequency: action.data.frequency,
+                doOnce: action.data.doOnce,
+                openAndCloseTimes: action.data.openAndCloseTimes,
+                dateToDo: action.data.dateToDo,
                 status: action.data.status,
                 step: 5
             };

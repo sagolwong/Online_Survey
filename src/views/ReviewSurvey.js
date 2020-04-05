@@ -47,10 +47,7 @@ class ReviewSurvey extends Component {
         super(props);
 
         this.state = {
-            checkP: false,
-            project: {},
-            sampleGroup: {},
-            nameSampleGroup: "",
+            checkP: false
         };
         this.shareTo = this.shareTo.bind(this);
         this.wantName = this.wantName.bind(this);
@@ -160,6 +157,38 @@ class ReviewSurvey extends Component {
         }
 
         this.props.addStep4(data);
+    }
+
+    saveDraft() {
+        var data = {
+            status: "DRAFT"
+        }
+
+        this.props.addStep4(data);
+
+    }
+
+    savePrototype() {
+        const userId = this.props.auth.user.id;
+        const data = {
+            userId: userId,
+            nameSurvey: this.props.survey.nameSurvey,
+            description: this.props.survey.description,
+            shareTo: this.props.survey.shareTo,
+            wantName: this.props.survey.wantName,
+            haveGroup: this.props.survey.haveGroup,
+            frequency: this.props.survey.frequency,
+            doOnce: this.props.survey.doOnce,
+            openAndCloseTimes: this.props.survey.openAndCloseTimes,
+            builtIns: this.props.survey.builtIns,
+            data: this.props.survey.data
+        }
+        console.log(data);
+        axios.post(`/templates/create`, data)
+            .then(res => {
+                console.log(res.data)
+                this.setState({ checkP: true })
+            })
     }
 
     render() {
@@ -340,7 +369,13 @@ class ReviewSurvey extends Component {
 
                         </div>
                     </div>
-                    <button className="btn btn-link" onClick={() => this.props.backToStep3()}>ย้อนกลับ</button>&nbsp;
+                    <button className="btn btn-danger" onClick={() => this.props.backToStep3()}>ย้อนกลับ</button>&nbsp;
+                    <button className="btn btn-warning" onClick={this.saveDraft.bind(this)}>บันทึกแบบร่าง</button>&nbsp;
+                    {this.state.checkP ?
+                        <button className="btn btn-success" onClick={this.savePrototype.bind(this)} disabled>บันทึกต้นแบบ</button>
+                        : 
+                        <button className="btn btn-success" onClick={this.savePrototype.bind(this)}>บันทึกต้นแบบ</button>
+                    }&nbsp;
                     <button className="btn btn-info" onClick={this.publish.bind(this)}>เผยแพร่</button>
                 </section>
             </div >
@@ -351,10 +386,12 @@ class ReviewSurvey extends Component {
 ReviewSurvey.propTypes = {
     addStep4: PropTypes.func.isRequired,
     backToStep3: PropTypes.func.isRequired,
+    auth: PropTypes.object.isRequired,
     survey: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = state => ({
+    auth: state.auth,
     survey: state.survey
 });
 

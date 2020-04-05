@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import PropTypes from "prop-types";
 
-import { addStep3, backToStep2 } from "../actions/surveyActions";
+import { addStep3, backToStep2, addDraftStep3 } from "../actions/surveyActions";
 
 class CreateSurvey3 extends Component {
     constructor(props) {
@@ -199,7 +199,7 @@ class CreateSurvey3 extends Component {
         }
         console.log(start);
         console.log(end);
-        
+
 
         if (this.state.setFreq && Number(this.state.frequency.amount) !== 0 && this.state.frequency.unitsOfTime !== "") {
             //set date for frequency
@@ -431,6 +431,38 @@ class CreateSurvey3 extends Component {
         }
 
         this.props.addStep3(data);
+        console.log(data);
+    }
+
+    saveDraft() {
+        console.log(this.state.dateToDo);
+
+        const start = {
+            day: Number(this.state.startDate),
+            month: Number(this.state.startMonth),
+            year: Number(this.state.startYear)
+        }
+        const end = {
+            day: Number(this.state.endDate),
+            month: Number(this.state.endMonth),
+            year: Number(this.state.endYear)
+        }
+        console.log(start);
+        console.log(end);
+        const openAndCloseTimes = {
+            start,
+            end
+        }
+
+        const data = {
+            frequency: this.state.frequency,
+            doOnce: this.state.doOnce,
+            openAndCloseTimes: openAndCloseTimes,
+            dateToDo: this.state.dateToDo,
+            status: "DRAFT"
+        }
+
+        this.props.addDraftStep3(data);
         console.log(data);
     }
 
@@ -764,7 +796,8 @@ class CreateSurvey3 extends Component {
                         </div>
                     }
 
-                    <button className="btn btn-link" onClick={() => this.props.backToStep2()}>ย้อนกลับ</button>&nbsp;
+                    <button className="btn btn-danger" onClick={() => this.props.backToStep2()}>ย้อนกลับ</button>&nbsp;
+                    <button className="btn btn-warning" onClick={this.saveDraft.bind(this)}>บันทึกแบบร่าง</button>&nbsp;
                     <button className="btn btn-info" onClick={this.onSubmit}>ต่อไป</button>
 
                     {this.state.dateToDo[0] !== undefined ? this.sendData() : ""}
@@ -777,6 +810,7 @@ class CreateSurvey3 extends Component {
 
 CreateSurvey3.propTypes = {
     addStep3: PropTypes.func.isRequired,
+    addDraftStep3: PropTypes.func.isRequired,
     backToStep2: PropTypes.func.isRequired,
     survey: PropTypes.object.isRequired,
 };
@@ -784,4 +818,4 @@ CreateSurvey3.propTypes = {
 const mapStateToProps = state => ({
     survey: state.survey
 });
-export default connect(mapStateToProps, { addStep3, backToStep2 })(CreateSurvey3);
+export default connect(mapStateToProps, { addStep3, backToStep2, addDraftStep3 })(CreateSurvey3);

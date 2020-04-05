@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 
-import { addStep1 } from "../actions/surveyActions";
+import { addStep1, addDraftStep1 } from "../actions/surveyActions";
 
 class CreateSurvey1 extends Component {
     constructor(props) {
@@ -58,6 +58,19 @@ class CreateSurvey1 extends Component {
         }
 
         this.props.addStep1(data);
+    }
+
+    saveDraft() {
+        const data = {
+            surveyName: this.state.surveyName,
+            description: this.state.description,
+            shareTo: this.state.shareTo,
+            wantName: this.state.wantName,
+            haveGroup: this.state.haveGroup,
+            status: "DRAFT"
+        }
+        //console.log(data);
+        this.props.addDraftStep1(data);
     }
 
     render() {
@@ -134,6 +147,7 @@ class CreateSurvey1 extends Component {
                                 : ""}
                         </div>
                     </div>
+                    <button className="btn btn-warning" onClick={this.saveDraft.bind(this)}>บันทึกแบบร่าง</button>&nbsp;
                     <button className="btn btn-info" onClick={this.onSubmit}>ต่อไป</button>
                 </section>
             </div>
@@ -143,6 +157,7 @@ class CreateSurvey1 extends Component {
 
 CreateSurvey1.propTypes = {
     addStep1: PropTypes.func.isRequired,
+    addDraftStep1: PropTypes.func.isRequired,
     survey: PropTypes.object.isRequired
 };
 
@@ -150,4 +165,4 @@ const mapStateToProps = state => ({
     survey: state.survey
 });
 
-export default connect(mapStateToProps, { addStep1 })(CreateSurvey1);
+export default connect(mapStateToProps, { addStep1, addDraftStep1 })(CreateSurvey1);
