@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import axios from 'axios';
 
 import { showComponent } from "../actions/setPageActions";
+
 import ListSampleGroup from '../components/list/ListSampleGroup';
 
 class ProjectManagement extends Component {
@@ -20,6 +21,7 @@ class ProjectManagement extends Component {
         }
         this.createSampleGroup = this.createSampleGroup.bind(this);
         this.showGroupSampleGroup = this.showGroupSampleGroup.bind(this);
+        this.goToCreateSurvey = this.goToCreateSurvey.bind(this);
     }
 
     componentDidMount() {
@@ -77,6 +79,9 @@ class ProjectManagement extends Component {
         )
     }
 
+    goToCreateSurvey() {
+        window.location = '/create-survey/' + this.props.match.params.projectId;
+    }
 
     render() {
         return (
@@ -108,7 +113,7 @@ class ProjectManagement extends Component {
                                             สร้าง <i className="fa fa-plus" />
                                         </button>
                                         <ul className="dropdown-menu">
-                                            <li><a href="#">สร้างแบบสอบถาม</a></li>
+                                            <li><a onClick={this.goToCreateSurvey}>สร้างแบบสอบถาม</a></li>
                                             <li><a data-toggle="modal" data-target="#modal-default">สร้างกลุ่มตัวอย่าง</a></li>
                                         </ul>
                                     </div>
@@ -164,7 +169,7 @@ ProjectManagement.propTypes = {
 };
 
 const mapStateToProps = state => ({
-    auth: state.auth
+    auth: state.auth,
 });
 
 export default connect(mapStateToProps, { showComponent })(ProjectManagement);

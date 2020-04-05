@@ -22,6 +22,7 @@ import PrivateResearcherRoute from './components/private-route/PrivateResearcher
 import CreateProject from './views/CreateProject';
 import Projects from './views/Projects';
 import ProjectManagement from './views/ProjectManagement';
+import baseCreateSurvey from './components/base/baseCreateSurvey';
 
 // Check for token to keep user logged in
 if (localStorage.jwtOSToken) {
@@ -61,6 +62,8 @@ class App extends Component {
         <PrivateResearcherRoute exact path="/create-project" component={CreateProject} />
         <PrivateResearcherRoute exact path="/projects" component={Projects} />
         <PrivateResearcherRoute exact path="/project-management/:projectId" component={ProjectManagement} />
+        <PrivateResearcherRoute exact path="/create-survey/:projectId" component={baseCreateSurvey} />
+        <PrivateResearcherRoute exact path="/create-survey/:projectId/:sampleGroupId" component={baseCreateSurvey} />
       </Switch>
     )
   }
@@ -81,10 +84,12 @@ class App extends Component {
 }
 App.propTypes = {
   auth: PropTypes.object.isRequired,
-  statusPage: PropTypes.object.isRequired
+  statusPage: PropTypes.object.isRequired,
+  survey: PropTypes.object.isRequired
 };
 const mapStateToProps = (state) => ({
   auth: state.auth,
-  statusPage: state.statusPage
+  statusPage: state.statusPage,
+  survey: state.survey
 });
 export default connect(mapStateToProps)(App);
