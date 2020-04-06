@@ -27,14 +27,16 @@ class CreateSurvey2 extends Component {
     }
 
     componentDidMount() {
-        this.props.survey.builtIns.map(widget => {
-            if (widget.builtInWidget === "gender") this.setState({ builtInWidgetGender: true })
-            else if (widget.builtInWidget === "ages") this.setState({ builtInWidgetAges: true })
-            else if (widget.builtInWidget === "status") this.setState({ builtInWidgetStatus: true })
-            else if (widget.builtInWidget === "education") this.setState({ builtInWidgetEducation: true })
-            else if (widget.builtInWidget === "job") this.setState({ builtInWidgetJob: true })
-            else if (widget.builtInWidget === "income") this.setState({ builtInWidgetIncome: true })
-        })
+        if (this.props.survey.builtIns !== undefined) {
+            this.props.survey.builtIns.map(widget => {
+                if (widget.builtInWidget === "gender") this.setState({ builtInWidgetGender: true })
+                else if (widget.builtInWidget === "ages") this.setState({ builtInWidgetAges: true })
+                else if (widget.builtInWidget === "status") this.setState({ builtInWidgetStatus: true })
+                else if (widget.builtInWidget === "education") this.setState({ builtInWidgetEducation: true })
+                else if (widget.builtInWidget === "job") this.setState({ builtInWidgetJob: true })
+                else if (widget.builtInWidget === "income") this.setState({ builtInWidgetIncome: true })
+            })
+        }
     }
 
     onChangeBuiltInWidgetGender() {

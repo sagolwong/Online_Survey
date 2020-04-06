@@ -21,7 +21,7 @@ class CreateSurvey3 extends Component {
         this.onChangeEndMonth = this.onChangeEndMonth.bind(this);
         // this.onChangeEndYear = this.onChangeEndYear.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
-        //this.sendData = this.sendData.bind(this);
+        this.sendData = this.sendData.bind(this);
 
         let newDate = new Date()
         let date = newDate.getDate();
@@ -469,6 +469,7 @@ class CreateSurvey3 extends Component {
     render() {
         return (
             <div>
+                {console.log(this.state)}
                 <section className="content-header">
 
                 </section>
@@ -576,7 +577,7 @@ class CreateSurvey3 extends Component {
                                 <h3 className="box-title">กำหนดเวลาเปิด/ปิดอัตโนมัติ</h3>
 
                                 <div className="box-tools pull-right">
-                                    <button type="button" className="btn btn-box-tool" data-widget="collapse"><i className="fa fa-minus" /></button>
+                                    <button type="button" className="btn btn-box-tool" data-widget="collapse" onClick={()=>this.setState({ schedule: false })}><i className="fa fa-minus" /></button>
                                 </div>
                             </div>
 
@@ -688,7 +689,7 @@ class CreateSurvey3 extends Component {
                                 <h3 className="box-title">กำหนดเวลาเปิด/ปิดอัตโนมัติ</h3>
 
                                 <div className="box-tools pull-right">
-                                    <button type="button" className="btn btn-box-tool" data-widget="collapse"><i className="fa fa-plus" /></button>
+                                    <button type="button" className="btn btn-box-tool" data-widget="collapse" onClick={()=>this.setState({ schedule: true })}><i className="fa fa-plus" /></button>
                                 </div>
                             </div>
 

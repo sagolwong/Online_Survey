@@ -63,13 +63,13 @@ class baseCreateSurvey extends Component {
     showForm() {
         if (this.props.survey.step === 1) {
             return <CreateSurvey1 />
-        } else if (this.props.survey.step === 2) {
+        }  if (this.props.survey.step === 2) {
             return <CreateSurvey2 />
-        } else if (this.props.survey.step === 3) {
+        }  if (this.props.survey.step === 3) {
             return <CreateSurvey3 />
-        } else if (this.props.survey.step === 4) {
+        }  if (this.props.survey.step === 4) {
             return <ReviewSurvey />
-        } else if (this.props.survey.step === 5) {
+        }  if (this.props.survey.step === 5) {
             const data = {
                 projectId: this.props.survey.projectId,
                 sampleGroupId: this.props.survey.sampleGroupId,
@@ -118,9 +118,9 @@ class baseCreateSurvey extends Component {
 
     render() {
         return (
-            <div className="content-wrapper">
+            <div className="bg-create-survey">
                 {this.showForm()}
-
+              
                 {console.log(this.props.survey)}
             </div>
         )
