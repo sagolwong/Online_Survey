@@ -6,26 +6,31 @@ import axios from 'axios';
 import { showComponent } from "../actions/setPageActions";
 
 import ListSampleGroup from '../components/list/ListSampleGroup';
+import ListSurvey from '../components/list/ListSurvey';
+import ListTemplate from '../components/list/ListTemplate';
 
 class ProjectManagement extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            success: false,
-            checkShowPrototype: false,
+            //checkShowPrototype: false,
             nameSampleGroup: "",
             project: {},
             surveys: [],
             sampleGroups: [],
-            listPrototype: []
+            listTemplate: []
         }
         this.createSampleGroup = this.createSampleGroup.bind(this);
+        this.showGroupDraft = this.showGroupDraft.bind(this);
+        this.showGroupSurvey = this.showGroupSurvey.bind(this);
+        this.showTemplate = this.showTemplate.bind(this);
         this.showGroupSampleGroup = this.showGroupSampleGroup.bind(this);
         this.goToCreateSurvey = this.goToCreateSurvey.bind(this);
     }
 
     componentDidMount() {
         const projectId = this.props.match.params.projectId;
+        const userId = this.props.auth.user.id;
 
         this.props.showComponent();
 
@@ -42,6 +47,19 @@ class ProjectManagement extends Component {
                 console.log(error);
             })
 
+        // GET Collection survey
+        axios.get(`/surveys/` + projectId)
+            .then(response => {
+                this.setState({
+                    surveys: response.data
+                })
+
+                console.log(this.state.surveys);
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+
         //GET Collection sampleGroup
         axios.get(`/sampleGroups/` + projectId)
             .then(response => {
@@ -53,6 +71,33 @@ class ProjectManagement extends Component {
             .catch((error) => {
                 console.log(error);
             })
+
+        //GET Collection template
+        axios.get('/templates/' + userId)
+            .then(response => {
+                this.setState({
+                    listTemplate: response.data
+                })
+                console.log(this.state.listTemplate)
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+    }
+
+    async componentDidUpdate(prevProps, prevState) {
+        if (prevState.success !== this.state.success) {
+            await axios.get(`http://localhost:5000/sampleGroups/` + this.props.match.params.projectId)
+                .then(response => {
+                    this.setState({
+                        sampleGroups: response.data
+                    })
+                    console.log(this.state.sampleGroups);
+                })
+                .catch((error) => {
+                    console.log(error);
+                })
+        }
     }
 
     onChange = e => {
@@ -71,10 +116,44 @@ class ProjectManagement extends Component {
 
     }
 
+    showGroupSurvey() {
+        return (
+            this.state.surveys.map(res => {
+                if (res.sampleGroupId === "") {
+                    if (res.status === "ONLINE") {
+                        return <ListSurvey survey={res} />
+                    }
+                }
+            })
+        )
+    }
+
+    showGroupDraft() {
+        return (
+            this.state.surveys.map(res => {
+                if (res.sampleGroupId === "") {
+                    if (res.status === "DRAFT") {
+                        return <ListSurvey survey={res} />
+                    }
+                }
+            })
+        )
+    }
+
     showGroupSampleGroup() {
         return (
             this.state.sampleGroups.map(res => {
                 return <ListSampleGroup sampleGroup={res} projectId={this.props.match.params.projectId} />
+            })
+        )
+    }
+
+    showTemplate() {
+        return (
+            this.state.listTemplate.map((res, index) => {
+                if (index < 3) {
+                    return <ListTemplate template={res} projectId={this.props.match.params.projectId} />
+                }
             })
         )
     }
@@ -118,6 +197,7 @@ class ProjectManagement extends Component {
                                         </ul>
                                     </div>
                                 </div>
+                                {this.showTemplate()}
                             </div>
 
                         </div>
@@ -150,11 +230,21 @@ class ProjectManagement extends Component {
                             </div>
                         </div>
 
-                        <div className="row-md-6">
-                            <h4 style={{ marginLeft: "10px" }}>แบบร่าง</h4>
-                            <h4 style={{ marginLeft: "10px" }}>แบบสอบถาม</h4>
-                            <h4 style={{ marginLeft: "10px" }}>กลุ่มตัวอย่าง</h4>
-                            {this.showGroupSampleGroup()}
+                        <div className="row-md-8" style={{ marginLeft: "15px" }}>
+                            <div className="row">
+                                <h4 style={{ marginLeft: "10px" }}>แบบร่าง</h4>
+                                {this.showGroupDraft()}
+                            </div>
+
+                            <div className="row">
+                                <h4 style={{ marginLeft: "10px" }}>แบบสอบถาม</h4>
+                                {this.showGroupSurvey()}
+                            </div>
+
+                            <div className="row">
+                                <h4 style={{ marginLeft: "10px" }}>กลุ่มตัวอย่าง</h4>
+                                {this.showGroupSampleGroup()}
+                            </div>
                         </div>
                     </div>
                 </section>

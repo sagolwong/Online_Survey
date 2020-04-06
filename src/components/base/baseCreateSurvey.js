@@ -50,6 +50,12 @@ class baseCreateSurvey extends Component {
                 .catch((error) => {
                     console.log(error);
                 })
+        } else {
+            this.setState({
+                sampleGroup: {
+                    _id: ""
+                }
+            })
         }
         const data = await {
             projectId: this.state.project._id,
@@ -63,13 +69,13 @@ class baseCreateSurvey extends Component {
     showForm() {
         if (this.props.survey.step === 1) {
             return <CreateSurvey1 />
-        }  if (this.props.survey.step === 2) {
+        } if (this.props.survey.step === 2) {
             return <CreateSurvey2 />
-        }  if (this.props.survey.step === 3) {
+        } if (this.props.survey.step === 3) {
             return <CreateSurvey3 />
-        }  if (this.props.survey.step === 4) {
+        } if (this.props.survey.step === 4) {
             return <ReviewSurvey />
-        }  if (this.props.survey.step === 5) {
+        } if (this.props.survey.step === 5) {
             const data = {
                 projectId: this.props.survey.projectId,
                 sampleGroupId: this.props.survey.sampleGroupId,
@@ -120,7 +126,7 @@ class baseCreateSurvey extends Component {
         return (
             <div className="bg-create-survey">
                 {this.showForm()}
-              
+
                 {console.log(this.props.survey)}
             </div>
         )

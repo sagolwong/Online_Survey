@@ -3,7 +3,7 @@ import axios from 'axios';
 import { connect } from 'react-redux';
 import PropTypes from "prop-types";
 
-import { addStep4, backToStep3 } from "../actions/surveyActions";
+import { addStep4, backToStep3, backToEditStep1, editStep2 } from "../actions/surveyActions";
 
 import * as Survey from "survey-react";
 import "survey-react/survey.css";
@@ -57,10 +57,40 @@ class ReviewSurvey extends Component {
         this.showSurvey = this.showSurvey.bind(this);
     }
 
+    componentDidMount() {
+        if (this.props.type === "template") {
+            axios.get(`/projects/` + this.props.survey.projectId)
+                .then(response => {
+                    this.setState({
+                        project: response.data
+                    })
+                    console.log(this.state.projects);
+                })
+                .catch((error) => {
+                    console.log(error);
+                })
+            if (this.props.survey.sampleGroupId !== "") {
+                axios.get(`/sampleGroups/find/` + this.props.survey.sampleGroupId)
+                    .then(response => {
+                        this.setState({
+                            sampleGroup: response.data,
+                            nameSampleGroup: response.data.nameSampleGroup
+                        })
+                        console.log(this.state.sampleGroups);
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    })
+            } else if (this.props.survey.nameSampleGroup !== "") {
+                this.setState({ nameSampleGroup: this.props.survey.nameSampleGroup })
+            }
+        }
+    }
+
     shareTo() {
-        if (this.props.survey.shareTo === "open") return "กลุ่มเปิด";
-        else if (this.props.survey.shareTo === "close") return "กลุ่มปิด";
-        else if (this.props.survey.shareTo === "public") return "กลุ่มสาธารณะ";
+        if (this.props.survey.shareTo === "OPEN") return "กลุ่มเปิด";
+        else if (this.props.survey.shareTo === "CLOSE") return "กลุ่มปิด";
+        else if (this.props.survey.shareTo === "PUBLIC") return "กลุ่มสาธารณะ";
     }
 
     wantName() {
@@ -156,7 +186,11 @@ class ReviewSurvey extends Component {
             status: "ONLINE"
         }
 
-        this.props.addStep4(data);
+        if (this.props.type !== undefined) {
+            this.props.editStep2(data);
+        } else {
+            this.props.addStep4(data);
+        }
     }
 
     saveDraft() {
@@ -164,8 +198,11 @@ class ReviewSurvey extends Component {
             status: "DRAFT"
         }
 
-        this.props.addStep4(data);
-
+        if (this.props.type !== undefined) {
+            this.props.editStep2(data);
+        } else {
+            this.props.addStep4(data);
+        }
     }
 
     savePrototype() {
@@ -369,11 +406,11 @@ class ReviewSurvey extends Component {
 
                         </div>
                     </div>
-                    <button className="btn btn-danger" onClick={() => this.props.backToStep3()}>ย้อนกลับ</button>&nbsp;
+                    <button className="btn btn-danger" onClick={this.props.type !== undefined ? () => this.props.backToEditStep1() : () => this.props.backToStep3()}>ย้อนกลับ</button>&nbsp;
                     <button className="btn btn-warning" onClick={this.saveDraft.bind(this)}>บันทึกแบบร่าง</button>&nbsp;
                     {this.state.checkP ?
                         <button className="btn btn-success" onClick={this.savePrototype.bind(this)} disabled>บันทึกต้นแบบ</button>
-                        : 
+                        :
                         <button className="btn btn-success" onClick={this.savePrototype.bind(this)}>บันทึกต้นแบบ</button>
                     }&nbsp;
                     <button className="btn btn-info" onClick={this.publish.bind(this)}>เผยแพร่</button>
@@ -386,6 +423,8 @@ class ReviewSurvey extends Component {
 ReviewSurvey.propTypes = {
     addStep4: PropTypes.func.isRequired,
     backToStep3: PropTypes.func.isRequired,
+    backToEditStep1: PropTypes.func.isRequired,
+    editStep2: PropTypes.func.isRequired,
     auth: PropTypes.object.isRequired,
     survey: PropTypes.object.isRequired,
 };
@@ -395,4 +434,4 @@ const mapStateToProps = state => ({
     survey: state.survey
 });
 
-export default connect(mapStateToProps, { addStep4, backToStep3 })(ReviewSurvey);
+export default connect(mapStateToProps, { addStep4, backToStep3, backToEditStep1, editStep2 })(ReviewSurvey);

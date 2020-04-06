@@ -9,7 +9,12 @@ import {
     BACKTOSTEP3,
     ADD_DRAFT_STEP1,
     ADD_DRAFT_STEP2,
-    ADD_DRAFT_STEP3
+    ADD_DRAFT_STEP3,
+    EDIT_STEP0,
+    EDIT_STEP1,
+    EDIT_STEP2,
+    EDIT_DRAFT_STEP1,
+    BACKTOEDITSTEP1
 } from "../actions/types";
 
 let initialState = {
@@ -123,6 +128,76 @@ export default function (state = initialState, action) {
                 ...state,
                 comeFrom: "4-3",
                 step: 3
+            };
+
+        // edit survey
+        case EDIT_STEP0:
+            return {
+                ...state,
+                projectId: action.data.projectId,
+                sampleGroupId: action.data.sampleGroupId,
+                nameSurvey: action.data.nameSurvey,
+                description: action.data.description,
+                shareTo: action.data.shareTo,
+                wantName: action.data.wantName,
+                haveGroup: action.data.haveGroup,
+                frequency: action.data.frequency,
+                doOnce: action.data.doOnce,
+                openAndCloseTimes: action.data.openAndCloseTimes,
+                data: action.data.data,
+                builtIns: action.data.builtIns,
+                dateToDo: [],
+                status: action.data.status,
+                step: "e1"
+            };
+
+        case EDIT_STEP1:
+            return {
+                ...state,
+                nameSurvey: action.data.nameSurvey,
+                description: action.data.description,
+                shareTo: action.data.shareTo,
+                wantName: action.data.wantName,
+                haveGroup: action.data.haveGroup,
+                frequency: action.data.frequency,
+                doOnce: action.data.doOnce,
+                openAndCloseTimes: action.data.openAndCloseTimes,
+                data: action.data.data,
+                builtIns: action.data.builtIns,
+                dateToDo: action.data.dateToDo,
+                status: action.data.status,
+                step: "e2"
+            };
+
+        case EDIT_STEP2:
+            return {
+                ...state,
+                status: action.data.status,
+                step: "e3"
+            };
+
+        case EDIT_DRAFT_STEP1:
+            return {
+                ...state,
+                nameSurvey: action.data.nameSurvey,
+                description: action.data.description,
+                shareTo: action.data.shareTo,
+                wantName: action.data.wantName,
+                haveGroup: action.data.haveGroup,
+                frequency: action.data.frequency,
+                doOnce: action.data.doOnce,
+                openAndCloseTimes: action.data.openAndCloseTimes,
+                data: action.data.data,
+                builtIns: action.data.builtIns,
+                dateToDo: action.data.dateToDo,
+                status: action.data.status,
+                step: "e3"
+            };
+
+        case BACKTOEDITSTEP1:
+            return {
+                ...state,
+                step: "e1"
             };
 
         default:
