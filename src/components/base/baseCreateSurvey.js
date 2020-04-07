@@ -124,7 +124,7 @@ class baseCreateSurvey extends Component {
 
     render() {
         return (
-            <div className="bg-create-survey">
+            <div className="bg-blank-page">
                 {this.showForm()}
 
                 {console.log(this.props.survey)}

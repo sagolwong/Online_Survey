@@ -24,7 +24,11 @@ class Login extends Component {
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.auth.isAuthenticated) {
-            this.props.history.push("/requests"); // push user to request when they login
+            if (localStorage.surveyId) {
+                this.props.history.push("/invite-to-group/" + localStorage.surveyId);
+            } else {
+                this.props.history.push("/requests"); // push user to request when they login
+            }
         }
         if (nextProps.errors) {
             this.setState({

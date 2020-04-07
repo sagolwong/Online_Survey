@@ -192,7 +192,7 @@ class baseEditSurvey extends Component {
 
     render() {
         return (
-            <div className="bg-create-survey">
+            <div className="bg-blank-page">
                 {this.showEditForm()}
                 {console.log(this.props.survey)}
             </div>
