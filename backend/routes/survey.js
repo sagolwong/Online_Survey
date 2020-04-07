@@ -116,6 +116,19 @@ router.route('/member/:id').post((req, res) => {
         })
         .catch(err => res.status(400).json('Error: ' + err));
 });
+
+router.route('/status/:id').post((req, res) => {
+    Survey.findById(req.params.id)
+        .then(survey => {
+            survey.status = req.body.status;
+
+            survey.save()
+                .then(() => res.json('Status Survey update!'))
+                .catch(err => res.status(400).json('Error: ' + err));
+        })
+        .catch(err => res.status(400).json('Error: ' + err));
+});
+
 router.route('/editSurvey/:id').post((req, res) => {
     Survey.findById(req.params.id)
         .then(survey => {

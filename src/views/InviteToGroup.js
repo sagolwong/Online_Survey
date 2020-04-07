@@ -20,7 +20,13 @@ class InviteToGroup extends Component {
             listTimeToDo: [],
             nowDate: date,
             nowMonth: month,
-            nowYear: year
+            nowYear: year,
+            sdate: 0,
+            smonth: 0,
+            syear: 0,
+            edate: 0,
+            emonth: 0,
+            eyear: 0,
         }
         this.showRequestGroup = this.showRequestGroup.bind(this)
     }
@@ -35,7 +41,13 @@ class InviteToGroup extends Component {
                     if (this.props.auth.isAuthenticated) {
                         this.setState({
                             survey: response.data,
-                            already: true
+                            already: true,
+                            sdate: response.data.openAndCloseTimes.start.day,
+                            smonth: response.data.openAndCloseTimes.start.month,
+                            syear: response.data.openAndCloseTimes.start.year,
+                            edate: response.data.openAndCloseTimes.end.day,
+                            emonth: response.data.openAndCloseTimes.end.month,
+                            eyear: response.data.openAndCloseTimes.end.year,
                         })
                         console.log(this.state.survey);
                     } else {
@@ -64,8 +76,10 @@ class InviteToGroup extends Component {
                         }
                     })
                 }
-                if (this.state.checkGroup) {
-                    return this.showRequestGroup()
+                if ((this.state.nowYear <= this.state.syear && (this.state.nowMonth < this.state.smonth || (this.state.nowDate < this.state.sdate && this.state.nowDate >= this.state.sdate))) || (this.state.nowMonth === this.state.smonth && this.state.nowDate < this.state.sdate)) {
+                    if (this.state.checkGroup) {
+                        return this.showRequestGroup()
+                    }
                 }
             } else {
                 this.setState({
@@ -165,15 +179,15 @@ class InviteToGroup extends Component {
                     check = true;
                 }
             })
-        } else window.location = `/online-survey-check/${surveyId}`;
+        } else window.location = `/online-survey/${surveyId}`;
 
-        if (await check) window.location = `/online-survey-check/${surveyId}`;
+        if (await check) window.location = `/online-survey/${surveyId}`;
         else window.location = `/requests`;
 
     }
 
     goToAgreement() {
-        window.location = `/online-survey-check/${this.props.match.params.surveyId}`;
+        window.location = `/online-survey/${this.props.match.params.surveyId}`;
     }
 
     render() {

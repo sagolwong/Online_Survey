@@ -44,6 +44,7 @@ class EditSurvey extends Component {
     constructor(props) {
         super(props);
 
+        this.onChangeShareTo = this.onChangeShareTo.bind(this);
         this.onChangeWantName = this.onChangeWantName.bind(this);
         this.onChangeHaveGroup = this.onChangeHaveGroup.bind(this);
         this.onChangeBuiltInWidgetGender = this.onChangeBuiltInWidgetGender.bind(this);
@@ -193,6 +194,18 @@ class EditSurvey extends Component {
 
     onChange = e => {
         this.setState({ [e.target.id]: e.target.value });
+    }
+
+    onChangeShareTo(e) {
+        if (e.target.value === "PUBLIC") {
+            this.setState({
+                haveGroup: false,
+                checkHaveGroup: !this.state.checkHaveGroup
+            })
+        }
+        this.setState({
+            shareTo: e.target.value
+        })
     }
 
     onChangeWantName() {
@@ -788,7 +801,7 @@ class EditSurvey extends Component {
                                     id="shareTo"
                                     className="form-control"
                                     value={this.state.shareTo}
-                                    onChange={this.onChange}>
+                                    onChange={this.onChangeShareTo}>
                                     <option>ต้องการแสดงผลแบบใด?</option>
                                     <option value="CLOSE">กลุ่มปิด</option>
                                     <option value="OPEN">กลุ่มเปิด</option>
@@ -931,7 +944,7 @@ class EditSurvey extends Component {
                                 </div>
 
                                 <div className="col-md-3">
-                                    {this.props.survey.haveGroup ?
+                                    {this.state.haveGroup ?
                                         <div className="form-group">
                                             <label>
                                                 <input type="radio"
