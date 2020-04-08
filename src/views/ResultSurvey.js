@@ -12,7 +12,7 @@ class ResultSurvey extends Component {
         }
     }
 
-    componentDidMount(){
+    componentDidMount() {
         const surveyId = this.props.surveyId;
         const name = this.props.name;
 
@@ -20,12 +20,12 @@ class ResultSurvey extends Component {
             .then(response => {
                 if (response.data.shareTo === "OPEN" || response.data.shareTo === "CLOSE") {
                     this.setState({
-                        name: response.data.firstname
+                        name: this.props.auth.user.firstname + " " + this.props.auth.user.lastname
                     })
                 } else {
-                    this.setState({
-                        name: name
-                    })
+                    if (this.props.name !== "") this.setState({ name: name })
+                    else this.setState({ name: this.props.auth.user.firstname + " " + this.props.auth.user.lastname })
+
                 }
 
             })
@@ -34,7 +34,7 @@ class ResultSurvey extends Component {
             })
     }
 
-    goToMainPage(){
+    goToMainPage() {
         window.location = "/requests";
     }
 

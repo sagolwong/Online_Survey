@@ -65,7 +65,6 @@ class OnlineSurvey extends Component {
             checkEncrypt: false,
             encryptAnswer: false,
             checkSurvey: false,
-            showResult: false,
             secretKey: "",
             title: "",
             pages: [],
@@ -81,7 +80,6 @@ class OnlineSurvey extends Component {
         };
         this.onComplete = this.onComplete.bind(this);
         this.encryptAnswer = this.encryptAnswer.bind(this);
-        this.showResult = this.showResult.bind(this);
     }
 
     async componentDidMount() {
@@ -388,8 +386,6 @@ class OnlineSurvey extends Component {
                 var form = JSON.parse(this.state.survey.data);
                 if (this.state.survey.builtIns[0] !== undefined) {
                     form.pages.unshift(widget);
-                    /*form.pages[1] = form.pages[0];
-                    form.pages[0] = widget;*/
                 }
 
                 console.log(form.pages);
@@ -399,61 +395,58 @@ class OnlineSurvey extends Component {
                 return (
                     <div className="App">
                         {this.state.askEncrypt ?
-                            this.state.showResult ?
-                                this.showResult()
-                                :
-                                <section className="content">
-                                    <div className="box box-info">
-                                        <div className="box-header with-border">
-                                            <h3 className="box-title">ท่านต้องการปกปิดคำตอบของท่านหรือไม่</h3>
-                                        </div>
+                            <section className="content">
+                                <div className="box box-info">
+                                    <div className="box-header with-border">
+                                        <h3 className="box-title">ท่านต้องการปกปิดคำตอบของท่านหรือไม่</h3>
+                                    </div>
 
-                                        <div className="box-body">
-                                            <div className="row">
-                                                <div className="col-md-3">
-                                                    <div className="form-group">
-                                                        <label>
-                                                            <input type="radio"
-                                                                name="optionsRadios"
-                                                                id="optionsRadios1"
-                                                                onChange={this.onChangeEncrypt.bind(this)}
-                                                            /> ปกปิดคำตอบ
+                                    <div className="box-body">
+                                        <div className="row">
+                                            <div className="col-md-3">
+                                                <div className="form-group">
+                                                    <label>
+                                                        <input type="radio"
+                                                            name="optionsRadios"
+                                                            id="optionsRadios1"
+                                                            onChange={this.onChangeEncrypt.bind(this)}
+                                                        /> ปกปิดคำตอบ
                                                     </label>
-                                                    </div>
-                                                </div>
-
-
-                                                <div className="col-md-3">
-                                                    <div className="form-group">
-                                                        <label>
-                                                            <input type="radio"
-                                                                name="optionsRadios"
-                                                                id="optionsRadios2"
-                                                                onChange={this.onChangeDoNotEncrypt.bind(this)}
-                                                            /> ไม่ปกปิดคำตอบ
-                                                    </label>
-                                                    </div>
                                                 </div>
                                             </div>
-                                            {this.state.wantEncrypt ?
-                                                <input
-                                                    type="password"
-                                                    id="secretKey"
-                                                    className="form-control"
-                                                    placeholder="กรุณาใส่รหัสผ่านเพื่อใช้ปกปิดข้อมูลของท่าน"
-                                                    onChange={this.onChange}
-                                                /> : ""
-                                            }
 
+
+                                            <div className="col-md-3">
+                                                <div className="form-group">
+                                                    <label>
+                                                        <input type="radio"
+                                                            name="optionsRadios"
+                                                            id="optionsRadios2"
+                                                            onChange={this.onChangeDoNotEncrypt.bind(this)}
+                                                        /> ไม่ปกปิดคำตอบ
+                                                    </label>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div className="box-footer text-center">
-                                            {(this.state.wantEncrypt && (this.state.secretKey !== "")) || this.state.dontWantEncrypt ?
-                                                <button className="btn btn-info" onClick={this.confirm.bind(this)}>ยืนยัน</button>
-                                                : <button className="btn btn-info" disabled>ยืนยัน</button>
-                                            }
-                                        </div>
+                                        {this.state.wantEncrypt ?
+                                            <input
+                                                type="password"
+                                                id="secretKey"
+                                                className="form-control"
+                                                placeholder="กรุณาใส่รหัสผ่านเพื่อใช้ปกปิดข้อมูลของท่าน"
+                                                onChange={this.onChange}
+                                            /> : ""
+                                        }
+
                                     </div>
-                                </section>
+                                    <div className="box-footer text-center">
+                                        {(this.state.wantEncrypt && (this.state.secretKey !== "")) || this.state.dontWantEncrypt ?
+                                            <button className="btn btn-info" onClick={this.confirm.bind(this)}>ยืนยัน</button>
+                                            : <button className="btn btn-info" disabled>ยืนยัน</button>
+                                        }
+                                    </div>
+                                </div>
+                            </section>
                             : <div className="surveyjs">
                                 <h1>SurveyJS library in action:</h1>
                                 <Survey.Survey
@@ -674,9 +667,9 @@ class OnlineSurvey extends Component {
                 .then(res => console.log(res.data));
         }
 
-        await this.setState({
-            showResult: true,
-            checkEncrypt: false
+        await this.props.checked({
+            step: 3,
+            name: this.props.name
         })
     }
 
@@ -757,21 +750,8 @@ class OnlineSurvey extends Component {
         }
     }
 
-    showResult() {
-        return (
-            <div>
-                ขอบคุณ คุณ{this.props.name !== "" ? this.props.name : this.state.profile.firstname} เป็นอย่างมาก
-                <button className="btn btn-primary" onClick={this.goToMainPage.bind(this)}>กลับสู่หน้าหลัก</button>
-            </div>
-        )
-    }
-
-    goToMainPage() {
-        window.location = "/requests";
-    }
-
     render() {
-        if(this.state.checkEncrypt) this.sendData()
+        if (this.state.checkEncrypt) this.sendData()
         return (
             <div>
                 {this.showSurvey()}
