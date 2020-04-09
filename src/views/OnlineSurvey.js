@@ -386,6 +386,7 @@ class OnlineSurvey extends Component {
                 var form = JSON.parse(this.state.survey.data);
                 if (this.state.survey.builtIns[0] !== undefined) {
                     form.pages.unshift(widget);
+                    console.log(form)
                 }
 
                 console.log(form.pages);

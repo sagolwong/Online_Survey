@@ -19,8 +19,6 @@ class DecryptionRequest extends Component {
         };
         this.agree = this.agree.bind(this);
         this.disagree = this.disagree.bind(this);
-        this.toggleModal = this.toggleModal.bind(this);
-        this.onChangePassword = this.onChangePassword.bind(this);
     }
 
     componentDidMount() {
@@ -94,7 +92,11 @@ class DecryptionRequest extends Component {
         window.location = '/requests';
     }
 
-    onChange = e => this.setState({ [e.target.id]: e.target.value })
+    onChange = e => this.setState({ [e.target.id]: e.target.value, mistake: false })
+
+    goToSurveyManagement() {
+        window.location = "/survey-management/" + this.props.doOnlyRequest.data[0];
+    }
 
     render() {
         return (

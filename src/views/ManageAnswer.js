@@ -41,18 +41,6 @@ class ManageAnswer extends Component {
                 console.log(error);
             })
 
-        await axios.get(`/projects/find/` + this.state.survey.userId)
-            .then(response => {
-                this.setState({
-                    project: response.data,
-                    already: true
-                })
-                console.log(this.state.project[0]);
-            })
-            .catch((error) => {
-                console.log(error);
-            })
-
         await axios.get(`/answers/find/` + surveyId)
             .then(response => {
                 this.setState({
@@ -77,6 +65,18 @@ class ManageAnswer extends Component {
             })
             this.setState({ checkType: true })
         }
+
+        await axios.get(`/projects/find/` + this.state.survey.userId)
+            .then(response => {
+                this.setState({
+                    project: response.data,
+                    already: true
+                })
+                console.log(this.state.project[0]);
+            })
+            .catch((error) => {
+                console.log(error);
+            })
     }
 
     componentDidUpdate(prevProps, prevState) {
@@ -130,6 +130,8 @@ class ManageAnswer extends Component {
         console.log(this.state.listAnswer);
         return (
             this.state.listAnswer.map((res, index) => {
+                console.log(res)
+                console.log("index="+index)
                 return <ListAnswer answer={res} surveyType={this.state.survey.shareTo} surveyWantName={this.state.survey.wantName} index={index} delete={this.deleteAnswer} user={res.userId}/>
             })
         )

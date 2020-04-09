@@ -87,10 +87,10 @@ export default class DoOnlyRequest extends Component {
                     <div className="box-footer">
                         <div className="row-md-6">
                             <div className="col-md-6">
-                                <button style={{ width: "200px" }} className="btn btn-primary" onClick={this.agree}>เข้าร่วม</button>
+                                <button style={{ width: "200px" }} className="btn btn-primary" onClick={this.agree}>ทำ</button>
                             </div>
                             <div className="col-md-6">
-                                <button style={{ width: "200px" }} className="btn btn-danger" onClick={this.disagree}>ไม่เข้าร่วม</button>
+                                <button style={{ width: "200px" }} className="btn btn-danger" onClick={this.disagree}>ไม่ทำ</button>
                             </div>
                         </div>
                     </div>

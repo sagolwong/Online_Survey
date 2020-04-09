@@ -5,6 +5,8 @@ import axios from 'axios';
 
 import { showComponent } from "../actions/setPageActions";
 
+import ListSurveyReadOnly from "../components//list/ListSurveyReadOnly";
+
 class Surveys extends Component {
     constructor(props) {
         super(props);
@@ -60,7 +62,7 @@ class Surveys extends Component {
     showListSurvey() {
         return (
             this.state.surveys.map(res => {
-                return //<ListSurveyReadOnly survey={res}/>
+                return <ListSurveyReadOnly survey={res}/>
         })
         )
 
