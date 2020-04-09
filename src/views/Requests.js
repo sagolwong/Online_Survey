@@ -6,6 +6,10 @@ import axios from 'axios';
 import { showComponent } from "../actions/setPageActions";
 
 import UpgradeRequest from '../components/list/request/UpgradeRequest';
+import MemberRequest from '../components/list/request/MemberRequest';
+import DoOnlyRequest from '../components/list/request/DoOnlyRequest';
+import FrequencyRequest from '../components/list/request/FrequencyRequest';
+import DecryptionRequest from '../components/list/request/DecryptionRequest';
 
 class Requests extends Component {
     constructor(props) {
@@ -38,7 +42,11 @@ class Requests extends Component {
             return (
                 this.state.requests.map(res => {
                     if (res.typeRequest === "upgrade") return <UpgradeRequest upgradeRequest={res} />
-                })
+                    else if (res.typeRequest === "member") return <MemberRequest memberRequest={res} />
+                    else if (res.typeRequest === "doOnly") return <DoOnlyRequest doOnlyRequest={res} />
+                    else if (res.typeRequest === "frequency") return <FrequencyRequest frequencyRequest={res} />
+                    else if(res.typeRequest === "decryption") return <DecryptionRequest decryptionRequest={res} />
+                })  
             )
         } else {
             return <h2>ไม่มีรายการคำขอร้อง</h2>
