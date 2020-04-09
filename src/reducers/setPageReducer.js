@@ -16,6 +16,7 @@ export default function (state = initialState, action) {
             return {
                 blankPage: false
             };
+
         default:
             return state;
     }

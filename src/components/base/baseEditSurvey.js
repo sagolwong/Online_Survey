@@ -44,6 +44,7 @@ class baseEditSurvey extends Component {
                 })
 
             var data = await {
+                userId: this.state.survey.userId,
                 projectId: this.state.survey.projectId,
                 sampleGroupId: this.state.survey.sampleGroupId,
                 nameSurvey: this.state.survey.nameSurvey,
@@ -72,6 +73,7 @@ class baseEditSurvey extends Component {
                 })
 
             var data = await {
+                userId: this.state.template.userId,
                 projectId: projectId,
                 sampleGroupId: sampleGroupId,
                 nameSurvey: this.state.template.nameSurvey,
@@ -103,6 +105,7 @@ class baseEditSurvey extends Component {
             console.log(this.props.survey)
             if (this.props.match.params.type === "template") {
                 const data = {
+                    userId: this.props.survey.userId,
                     projectId: this.props.survey.projectId,
                     sampleGroupId: this.props.survey.sampleGroupId,
                     nameSurvey: this.props.survey.nameSurvey,
@@ -125,7 +128,7 @@ class baseEditSurvey extends Component {
                             .then(response => {
                                 console.log(response.data[0]._id);
                                 if (this.props.survey.status === "ONLINE") {
-                                    if (this.props.test.dateToDo !== undefined) {
+                                    if (this.props.survey.dateToDo !== undefined) {
                                         const frequency = {
                                             surveyId: response.data[0]._id,
                                             listTimeToDo: this.props.survey.dateToDo

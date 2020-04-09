@@ -58,6 +58,7 @@ class baseCreateSurvey extends Component {
             })
         }
         const data = await {
+            userId: this.props.auth.user.id,
             projectId: this.state.project._id,
             sampleGroupId: this.state.sampleGroup._id
         }
@@ -77,6 +78,7 @@ class baseCreateSurvey extends Component {
             return <ReviewSurvey />
         } if (this.props.survey.step === 5) {
             const data = {
+                userId: this.props.survey.userId,
                 projectId: this.props.survey.projectId,
                 sampleGroupId: this.props.survey.sampleGroupId,
                 nameSurvey: this.props.survey.nameSurvey,

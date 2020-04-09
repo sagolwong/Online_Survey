@@ -75,3 +75,7 @@
   background-color: #ecf0f5;
   height: auto;
 }
+
+.listAddName:hover {
+  background-color: #ecf0f5;
+}

@@ -18,6 +18,7 @@ import {
 } from "../actions/types";
 
 let initialState = {
+    userId: "",
     projectId: "",
     sampleGroupId: "",
     nameSurvey: "",
@@ -39,6 +40,7 @@ export default function (state = initialState, action) {
         case ADD_STEP0:
             return {
                 ...state,
+                userId: action.data.userId,
                 projectId: action.data.projectId,
                 sampleGroupId: action.data.sampleGroupId
             };
@@ -134,6 +136,7 @@ export default function (state = initialState, action) {
         case EDIT_STEP0:
             return {
                 ...state,
+                userId: action.data.userId,
                 projectId: action.data.projectId,
                 sampleGroupId: action.data.sampleGroupId,
                 nameSurvey: action.data.nameSurvey,

@@ -9,6 +9,7 @@ router.route('/').get((req, res) => {
 
 router.route('/create').post((req, res) => {
     const projectId = req.body.projectId;
+    const userId = req.body.userId;
     const sampleGroupId = req.body.sampleGroupId;
     const nameSurvey = req.body.nameSurvey;
     const description = req.body.description;
@@ -25,6 +26,7 @@ router.route('/create').post((req, res) => {
 
     const newSurvey = new Survey({
         projectId,
+        userId,
         sampleGroupId,
         nameSurvey,
         description,

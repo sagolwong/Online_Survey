@@ -108,7 +108,7 @@ class Navbar extends Component {
                                     yes={() => (
                                         <li className="dropdown user user-menu">
                                             <a href="/" className="dropdown-toggle" data-toggle="dropdown">
-                                                <img src="dist/img/user2-160x160.jpg" className="user-image" alt="User" />
+                                                <img src="/dist/img/user2-160x160.jpg" className="user-image" alt="User" />
                                                 <span className="hidden-xs">
                                                     {this.props.auth.user.role === "ADMIN" ? this.props.auth.user.firstname : this.props.auth.user.firstname + " " + this.props.auth.user.lastname}
                                                 </span>

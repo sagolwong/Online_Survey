@@ -49,6 +49,7 @@ class InviteToGroup extends Component {
                             emonth: response.data.openAndCloseTimes.end.month,
                             eyear: response.data.openAndCloseTimes.end.year,
                         })
+                        localStorage.removeItem("surveyId");
                         console.log(this.state.survey);
                     } else {
                         localStorage.setItem("surveyId", surveyId);

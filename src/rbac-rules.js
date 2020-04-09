@@ -11,6 +11,7 @@ const rules = {
             "sidebar:link-profile",
             "sidebar:recent-other-survey",
             "user-profile:upgrade",
+            "survey-management:survey-profile",
         ],
         /*dynamic: {
             "posts:edit": ({ userId, postOwnerId }) => {
@@ -30,6 +31,7 @@ const rules = {
             "sidebar:recent-project",
             "sidebar:recent-other-survey",
             "user-profile:show-more-profile",
+            "survey-management:survey-profile",
         ],
        /* dynamic: {
             "posts:edit": ({ userId, postOwnerId }) => {
@@ -47,6 +49,7 @@ const rules = {
             "navbar:user",
             "sidebar:recent-project",
             "sidebar:recent-other-survey",
+            "survey-management:survey-profile",
         ]
     }
 };

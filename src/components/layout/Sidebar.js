@@ -15,7 +15,7 @@ class Sidebar extends Component {
                         {/* Sidebar user panel */}
                         <div className="user-panel">
                             <div className="pull-left image">
-                                <img src="dist/img/user2-160x160.jpg" className="img-circle" alt="User" />
+                                <img src="/dist/img/user2-160x160.jpg" className="img-circle" alt="User" />
                             </div>
                             <div className="pull-left info">
                                 <p>{this.props.auth.user.role === "ADMIN" ? this.props.auth.user.firstname : this.props.auth.user.firstname + " " + this.props.auth.user.lastname}</p>
@@ -76,6 +76,7 @@ class Sidebar extends Component {
                         </ul>
                     </section>
                     {/* /.sidebar */}
+                    {console.log(this.props.auth.user.role)}
                 </aside>
             </div>
 

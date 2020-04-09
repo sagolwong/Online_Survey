@@ -26,6 +26,7 @@ import baseCreateSurvey from './components/base/baseCreateSurvey';
 import baseEditSurvey from './components/base/baseEditSurvey';
 import InviteToGroup from './views/InviteToGroup';
 import baseOnlineSurvey from './components/base/baseOnlineSurvey';
+import baseManageSurvey from './components/base/baseManageSurvey';
 
 // Check for token to keep user logged in
 if (localStorage.jwtOSToken) {
@@ -71,6 +72,7 @@ class App extends Component {
         <PrivateResearcherRoute exact path="/edit-survey/:type/:id/:projectId/:sampleGroupId" component={baseEditSurvey} />
         <Route exact path="/invite-to-group/:surveyId" component={InviteToGroup} />
         <Route exact path="/online-survey/:surveyId" component={baseOnlineSurvey} />
+        <PrivateRoute exact path="/survey-management/:surveyId" component={baseManageSurvey} />
       </Switch>
     )
   }
