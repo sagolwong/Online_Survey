@@ -27,6 +27,7 @@ import baseEditSurvey from './components/base/baseEditSurvey';
 import InviteToGroup from './views/InviteToGroup';
 import baseOnlineSurvey from './components/base/baseOnlineSurvey';
 import baseManageSurvey from './components/base/baseManageSurvey';
+import Surveys from './views/Surveys';
 
 // Check for token to keep user logged in
 if (localStorage.jwtOSToken) {
@@ -63,6 +64,7 @@ class App extends Component {
         <PrivateRoute exact path="/requests" component={Requests} />
         <PrivateRoute exact path="/user-profile" component={UserProfile} />
         <PrivateRoute exact path="/error-page" component={ErrorPage} />
+        <PrivateRoute exact path="/surveys" component={Surveys} />
         <PrivateResearcherRoute exact path="/create-project" component={CreateProject} />
         <PrivateResearcherRoute exact path="/projects" component={Projects} />
         <PrivateResearcherRoute exact path="/project-management/:projectId" component={ProjectManagement} />

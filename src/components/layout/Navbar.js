@@ -85,7 +85,7 @@ class Navbar extends Component {
                                     perform="navbar:survey"
                                     yes={() => (
                                         <li className="dropdown">
-                                            <a href="">แบบสอบถาม</a>
+                                            <a href="/surveys">แบบสอบถาม</a>
                                         </li>
                                     )}
                                     no={() => ""}
