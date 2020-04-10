@@ -15,7 +15,7 @@ export default class ListTemplate extends Component {
 
     render() {
         return (
-            <div className="col-md-3 col-sm-6 col-xs-12" style={{ marginTop: "3%" }}>
+            <div className="col-md-3 col-sm-6 col-xs-12">
                 <div className="listSampleGroup" onClick={this.goToEditSurvey.bind(this)}>
                     <div className="info-box">
                         <span className="info-box-icon bg-green"><i className="fa fa-file-text-o" /></span>

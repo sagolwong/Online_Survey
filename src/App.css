@@ -71,6 +71,11 @@
  /* border: 8px solid #ecf0f5;*/
 }
 
+.bg-template-full {
+  background-color: #d6e1e6;
+  height: 370px;
+}
+
 .bg-blank-page {
   background-color: #ecf0f5;
   height: auto;

@@ -31,6 +31,7 @@ import baseManageSurvey from './components/base/baseManageSurvey';
 import Surveys from './views/Surveys';
 import ManageMembers from './views/admin/ManageMembers';
 import ManageProject from './views/admin/ManageProject';
+import SampleGroupManagement from './views/SampleGroupManagement';
 
 // Check for token to keep user logged in
 if (localStorage.jwtOSToken) {
@@ -76,6 +77,7 @@ class App extends Component {
         <PrivateResearcherRoute exact path="/create-project" component={CreateProject} />
         <PrivateResearcherRoute exact path="/projects" component={Projects} />
         <PrivateResearcherRoute exact path="/project-management/:projectId" component={ProjectManagement} />
+        <PrivateResearcherRoute exact path="/project-management/sample-group-management/:projectId/:sampleGroupId" component={SampleGroupManagement} />
         <PrivateResearcherRoute exact path="/create-survey/:projectId" component={baseCreateSurvey} />
         <PrivateResearcherRoute exact path="/create-survey/:projectId/:sampleGroupId" component={baseCreateSurvey} />
         <PrivateResearcherRoute exact path="/edit-survey/:type/:id" component={baseEditSurvey} />

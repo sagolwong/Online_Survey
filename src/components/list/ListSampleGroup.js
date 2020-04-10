@@ -13,13 +13,13 @@ export default class ListSampleGroup extends Component {
         const projectId = this.props.projectId;
         const sampleGroupId = this.props.sampleGroup._id;
 
-        //window.location = `/project-management/sample-group-management/${projectId}/${sampleGroupId}`;
+        window.location = `/project-management/sample-group-management/${projectId}/${sampleGroupId}`;
     }
 
     render() {
         return (
             <div className="col-md-3 col-sm-6 col-xs-12">
-                <div className="listSampleGroup">
+                <div className="listSampleGroup" onClick={this.goToSampleGroup}>
                     <div className="info-box">
                         <span className="info-box-icon bg-yellow"><i className="fa fa-users" /></span>
                         <div className="info-box-content">
