@@ -14,14 +14,19 @@ export default class ListSurveyReadOnly extends Component {
     }
 
     render() {
-        return (
-            <div className="box box-warning box-solid" >
-                <div className="list" onClick={this.goToManageSurvey}>
-                    <div className="box-body">
-                        <i className="fa fa-file-o" /> {this.props.survey.nameSurvey}
+        if (this.props.sidebar) {
+            return <li><a onClick={this.goToManageSurvey}><i className="fa fa-file-o" /> {this.props.survey.nameSurvey}</a></li>
+        } else {
+            return (
+                <div className="box box-warning box-solid" >
+                    <div className="list" onClick={this.goToManageSurvey}>
+                        <div className="box-body">
+                            <i className="fa fa-file-o" /> {this.props.survey.nameSurvey}
+                        </div>
                     </div>
                 </div>
-            </div>
-        )
+            )
+        }
+
     }
 }

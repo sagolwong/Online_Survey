@@ -45,42 +45,47 @@ class ListProject extends Component {
     }
 
     render() {
-        return (
-            <div className="box box-warning box-solid" >
-                <div className="list">
-                    <div className="row">
-                        <div className="col-md-6" onClick={this.goToManageProject}>
-                            <div className="box-body">
-                                <div className="row-md-6">
-                                    <i className="fa fa-folder-o" /> {this.props.project.nameProject}
+        if (this.props.sidebar) {
+            return <li><a onClick={this.goToManageProject}><i className="fa fa-folder-o" /> {this.props.project.nameProject}</a></li>
+        } else {
+            return (
+                <div className="box box-warning box-solid" >
+                    <div className="list">
+                        <div className="row">
+                            <div className="col-md-6" onClick={this.goToManageProject}>
+                                <div className="box-body">
+                                    <div className="row-md-6">
+                                        <i className="fa fa-folder-o" /> {this.props.project.nameProject}
+                                    </div>
+
+                                    {this.props.auth.user.role === "ADMIN" ?
+                                        <div className="row-md-6 pull-left">
+                                            เจ้าของโปรเจค : {this.state.user.firstname + " " + this.state.user.lastname}
+                                        </div>
+                                        : ""
+                                    }
                                 </div>
 
-                                {this.props.auth.user.role === "ADMIN" ?
-                                    <div className="row-md-6 pull-left">
-                                        เจ้าของโปรเจค : {this.state.user.firstname + " " + this.state.user.lastname}
-                                    </div>
-                                    : ""
-                                }
                             </div>
-
-                        </div>
-                        <Can
-                            role={this.props.auth.user.role}
-                            perform="list-project:delete-project"
-                            yes={() => (
-                                <div className="col-md-6">
-                                    <div className="box-body">
-                                        <button type="button" className="btn btn-danger pull-right" onClick={this.deleteProject.bind(this)}><i className="fa fa-trash" /> ลบ</button>
+                            <Can
+                                role={this.props.auth.user.role}
+                                perform="list-project:delete-project"
+                                yes={() => (
+                                    <div className="col-md-6">
+                                        <div className="box-body">
+                                            <button type="button" className="btn btn-danger pull-right" onClick={this.deleteProject.bind(this)}><i className="fa fa-trash" /> ลบ</button>
+                                        </div>
                                     </div>
-                                </div>
-                            )}
-                            no={() => ""}
-                        />
+                                )}
+                                no={() => ""}
+                            />
+                        </div>
                     </div>
-                </div>
 
-            </div>
-        )
+                </div>
+            )
+        }
+
     }
 }
 

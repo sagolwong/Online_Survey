@@ -116,7 +116,7 @@ class Navbar extends Component {
                                             <ul className="dropdown-menu">
                                                 {/* User image */}
                                                 <li className="user-header">
-                                                    <img src="dist/img/user2-160x160.jpg" className="img-circle" alt="User" />
+                                                    <img src="/dist/img/user2-160x160.jpg" className="img-circle" alt="User" />
                                                     <p>
                                                         {this.props.auth.user.firstname + " " + this.props.auth.user.lastname} 
                                                         <small>{this.props.auth.user.role}</small>

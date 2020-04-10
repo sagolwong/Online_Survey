@@ -1,10 +1,93 @@
 import React, { Component } from 'react'
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import axios from 'axios';
 
 import Can from "../rbac/Can";
+import ListProject from '../list/ListProject';
+import ListSurveyReadOnly from '../list/ListSurveyReadOnly';
 
 class Sidebar extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            profile: {},
+            projects: [],
+            otherSurveys: []
+        }
+        this.listProjects = this.listProjects.bind(this);
+        this.listSurveys = this.listSurveys.bind(this);
+    }
+
+    async componentDidMount() {
+        const userId = this.props.auth.user.id;
+
+        await axios.get('/users/' + userId)
+            .then(response => {
+                this.setState({
+                    profile: response.data
+                })
+                console.log(this.state.profile.firstname);
+                console.log(this.state.profile.role);
+                console.log(this.state.profile._id);
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+        if (await this.state.profile.recentProjects !== undefined) {
+            console.log(this.state.profile.recentProjects);
+
+            this.state.profile.recentProjects.map(res => {
+                axios.get(`/projects/` + res)
+                    .then(response => {
+                        this.setState({
+                            projects: this.state.projects.concat(response.data)
+                        })
+
+                        console.log(this.state.projects);
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    })
+            })
+        }
+        if (await this.state.profile.recentOtherSurveys !== undefined) {
+            console.log(this.state.profile.recentOtherSurveys);
+
+            this.state.profile.recentOtherSurveys.map(res => {
+                axios.get(`/surveys/find/` + res)
+                    .then(response => {
+                        this.setState({
+                            otherSurveys: this.state.otherSurveys.concat(response.data)
+                        })
+
+                        console.log(this.state.otherSurveys);
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    })
+            })
+        }
+    }
+
+    listProjects() {
+        console.log(this.state.projects);
+        console.log(this.state.otherSurveys);
+        if (this.state.projects !== undefined) {
+            return (this.state.projects.map(res => {
+                return <ListProject project={res} sidebar={true}/>
+            }))
+        }
+    }
+
+    listSurveys() {
+        if (this.state.profile.recentOtherSurveys !== undefined) {
+            return (this.state.otherSurveys.map(res => {
+                return <ListSurveyReadOnly survey={res} sidebar={true}/>
+            }))
+        }
+    }
+
     render() {
         return (
             <div>
@@ -44,7 +127,7 @@ class Sidebar extends Component {
                                         </a>
                                         <ul className="treeview-menu">
                                             <li><a href="/create-project"><i className="fa fa-plus" /> เพิ่มโปรเจคใหม่</a></li>
-                                            <li><a href="index2.html"><i className="fa fa-circle-o" /> Dashboard v2</a></li>
+                                            {this.listProjects()}
                                         </ul>
                                     </li>
                                 )}
@@ -63,10 +146,7 @@ class Sidebar extends Component {
                                             </span>
                                         </a>
                                         <ul className="treeview-menu">
-                                            <li><a href="pages/charts/chartjs.html"><i className="fa fa-circle-o" /> ChartJS</a></li>
-                                            <li><a href="pages/charts/morris.html"><i className="fa fa-circle-o" /> Morris</a></li>
-                                            <li><a href="pages/charts/flot.html"><i className="fa fa-circle-o" /> Flot</a></li>
-                                            <li><a href="pages/charts/inline.html"><i className="fa fa-circle-o" /> Inline charts</a></li>
+                                            {this.listSurveys()}
                                         </ul>
                                     </li>
                                 )}

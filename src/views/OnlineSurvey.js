@@ -385,6 +385,8 @@ class OnlineSurvey extends Component {
 
                 var form = JSON.parse(this.state.survey.data);
                 if (this.state.survey.builtIns[0] !== undefined) {
+                    /*form.pages[1] = form.pages[0];
+                    form.pages[0] = widget;*/
                     form.pages.unshift(widget);
                     console.log(form)
                 }
@@ -470,9 +472,15 @@ class OnlineSurvey extends Component {
         }
     }
 
+    onValueChanged(result) {
+        console.log("value changed!");
+        console.log(result.data);
+    }
+
     async onComplete(result) {
-        //console.log("Complete! " + result);
-        const surveyId = this.props.surveyId;
+        console.log("Complete! " + JSON.stringify(result.data));
+        console.log(result.data);
+       /* const surveyId = this.props.surveyId;
         const userId = this.props.auth.user.id;
         const name = this.props.name;
         var resultAsString = result.data;
@@ -552,7 +560,7 @@ class OnlineSurvey extends Component {
                     checkEncrypt: true
                 })
             }
-        }
+        }*/
     }
 
     async sendData() {
