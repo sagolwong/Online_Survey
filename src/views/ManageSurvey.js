@@ -143,8 +143,8 @@ class ManageSurvey extends Component {
                             <div className="col-md-6">
                                 <h4>{name}</h4>
                             </div>
-                            <div className="col-md-6 text-right">
-                                <button className="btn btn-danger" onClick={() => {
+                            <div className="col-md-6">
+                                <button className="btn btn-danger pull-right" onClick={() => {
                                     this.setState(({ listName, listUser }) => {
                                         const mlistName = [...listName]
                                         const mlistUser = [...listUser]
@@ -214,7 +214,7 @@ class ManageSurvey extends Component {
                                 {member.firstname}  {member.lastname}
                             </div>
                             <div className="col-md-6">
-                                <button className="btn btn-danger" onClick={() => {
+                                <button className="btn btn-danger pull-right" onClick={() => {
                                     this.setState(({ members }) => {
                                         const mlistMember = [...members]
                                         mlistMember.splice(index, 1)
@@ -382,7 +382,7 @@ class ManageSurvey extends Component {
 
     render() {
         return (
-            <div className="content-wrapper">
+            <div>
                 {this.state.already ?
                     this.showComponent()
                     : <div>

@@ -71,7 +71,7 @@ class FollowResult extends Component {
         if (await this.state.frequency[0] !== undefined) {
             var date = []
             this.state.listTimeToDo.map(dates => {
-                date = date.concat(dates.day + "-" + dates.month + "-" + dates.year);
+                date = date.concat(dates.day + "/" + dates.month + "/" + dates.year);
             })
             this.setState({
                 listTimeToDo: date,
@@ -203,7 +203,7 @@ class FollowResult extends Component {
 
     render() {
         return (
-            <div className="content-wrapper">
+            <div>
                 {this.state.already ?
                     this.state.frequency[0] !== undefined ?
                         this.showTable()

@@ -54,7 +54,10 @@ class baseManageSurvey extends Component {
         return (
             <div>
                 <SideMenu selected={this.state.pageManage} surveyId={this.props.match.params.surveyId} ChangePage={this.onChangePageManage}/>
-                {this.showComponent()}
+               <div className="content-wrapper">
+                  {this.showComponent()} 
+               </div>
+                
             </div>
         )
     }

@@ -94,7 +94,7 @@ class SurveyProfile extends Component {
 
     render() {
         return (
-            <div className="content-wrapper">
+            <div>
                 {this.state.already ?
                     this.showComponent()
                     : <div>
