@@ -27,7 +27,8 @@ class Login extends Component {
             if (localStorage.surveyId) {
                 this.props.history.push("/invite-to-group/" + localStorage.surveyId);
             } else {
-                this.props.history.push("/requests"); // push user to request when they login
+                //this.props.history.push("/requests"); // push user to request when they login
+                window.location = "/requests";
             }
         }
         if (nextProps.errors) {

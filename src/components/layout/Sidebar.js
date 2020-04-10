@@ -37,7 +37,7 @@ class Sidebar extends Component {
                                 yes={() => (
                                     <li className="treeview">
                                         <a href="/projects">
-                                            <i className="fa fa-folder" /> <span>โปรเจคล่าสุด</span>
+                                            <i className="fa fa-folder" /> <span>โปรเจคที่สร้างครั้งล่าสุด</span>
                                             <span className="pull-right-container">
                                                 <i className="fa fa-angle-left pull-right" />
                                             </span>
@@ -55,7 +55,7 @@ class Sidebar extends Component {
                                 perform="sidebar:recent-other-survey"
                                 yes={() => (
                                     <li className="treeview">
-                                        <a href="/">
+                                        <a href="/surveys">
                                             <i className="fa fa-file-text" />
                                             <span>แบบสอบถามที่ทำครั้งล่าสุด</span>
                                             <span className="pull-right-container">
@@ -72,6 +72,35 @@ class Sidebar extends Component {
                                 )}
                                 no={() => ""}
                             />
+
+                            <Can
+                                role={this.props.auth.user.role}
+                                perform="sidebar:all-member"
+                                yes={() => (
+                                    <li>
+                                        <a href="/manage-members">
+                                            <i className="fa fa-users" />
+                                            <span>จัดการสมาชิกทั้งหมด</span>
+                                        </a>
+                                    </li>
+                                )}
+                                no={() => ""}
+                            />
+
+                            <Can
+                                role={this.props.auth.user.role}
+                                perform="sidebar:all-project"
+                                yes={() => (
+                                    <li>
+                                        <a href="/manage-project">
+                                            <i className="fa fa-folder-open" />
+                                            <span>จัดการโปรเจคทั้งหมด</span>
+                                        </a>
+                                    </li>
+                                )}
+                                no={() => ""}
+                            />
+
 
                         </ul>
                     </section>

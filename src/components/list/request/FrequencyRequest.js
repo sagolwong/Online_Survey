@@ -107,7 +107,7 @@ class FrequencyRequest extends Component {
                                     <div className="box box-widget collapsed-box">
                                         <div className="box-header with-border">
                                             <div className="user-block">
-                                                <img className="img-circle" src="../dist/img/user1-128x128.jpg" alt="User" />
+                                                <img className="img-circle" src="/../dist/img/user1-128x128.jpg" alt="User" />
                                                 <span className="username"><a href="fake"> dummy </a></span>
                                                 <span className="description">วันนี้คุณมีนัดทำแบบสอบถาม : {this.state.survey.nameSurvey}</span>
                                             </div>

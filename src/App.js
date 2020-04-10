@@ -8,6 +8,8 @@ import setAuthToken from "./utils/setAuthToken";
 import { setCurrentUser, logoutUser } from "./actions/authActions";
 import store from "./store";
 import PrivateRoute from "./components/private-route/PrivateRoute";
+import PrivateResearcherRoute from './components/private-route/PrivateResearcherRoute';
+import PrivateAdminRoute from "./components/private-route/PrivateAdminRoute";
 
 import Navbar from './components/layout/Navbar'
 import Sidebar from './components/layout/Sidebar'
@@ -18,7 +20,6 @@ import Login from './components/auth/Login';
 import Requests from './views/Requests';
 import UserProfile from './views/UserProfile';
 import ErrorPage from './components/error/ErrorPage';
-import PrivateResearcherRoute from './components/private-route/PrivateResearcherRoute';
 import CreateProject from './views/CreateProject';
 import Projects from './views/Projects';
 import ProjectManagement from './views/ProjectManagement';
@@ -28,6 +29,8 @@ import InviteToGroup from './views/InviteToGroup';
 import baseOnlineSurvey from './components/base/baseOnlineSurvey';
 import baseManageSurvey from './components/base/baseManageSurvey';
 import Surveys from './views/Surveys';
+import ManageMembers from './views/admin/ManageMembers';
+import ManageProject from './views/admin/ManageProject';
 
 // Check for token to keep user logged in
 if (localStorage.jwtOSToken) {
@@ -61,10 +64,15 @@ class App extends Component {
         <Route exact path="/" component={Landing} />
         <Route exact path="/register" component={Register} />
         <Route exact path="/login" component={Login} />
+        <Route exact path="/invite-to-group/:surveyId" component={InviteToGroup} />
+        <Route exact path="/online-survey/:surveyId" component={baseOnlineSurvey} />
+
         <PrivateRoute exact path="/requests" component={Requests} />
         <PrivateRoute exact path="/user-profile" component={UserProfile} />
         <PrivateRoute exact path="/error-page" component={ErrorPage} />
         <PrivateRoute exact path="/surveys" component={Surveys} />
+        <PrivateRoute exact path="/survey-management/:surveyId" component={baseManageSurvey} />
+
         <PrivateResearcherRoute exact path="/create-project" component={CreateProject} />
         <PrivateResearcherRoute exact path="/projects" component={Projects} />
         <PrivateResearcherRoute exact path="/project-management/:projectId" component={ProjectManagement} />
@@ -72,9 +80,9 @@ class App extends Component {
         <PrivateResearcherRoute exact path="/create-survey/:projectId/:sampleGroupId" component={baseCreateSurvey} />
         <PrivateResearcherRoute exact path="/edit-survey/:type/:id" component={baseEditSurvey} />
         <PrivateResearcherRoute exact path="/edit-survey/:type/:id/:projectId/:sampleGroupId" component={baseEditSurvey} />
-        <Route exact path="/invite-to-group/:surveyId" component={InviteToGroup} />
-        <Route exact path="/online-survey/:surveyId" component={baseOnlineSurvey} />
-        <PrivateRoute exact path="/survey-management/:surveyId" component={baseManageSurvey} />
+        
+        <PrivateAdminRoute exact path="/manage-members" component={ManageMembers} />
+        <PrivateAdminRoute exact path="/manage-project" component={ManageProject} />
       </Switch>
     )
   }

@@ -49,7 +49,10 @@ const rules = {
             "navbar:user",
             "sidebar:recent-project",
             "sidebar:recent-other-survey",
+            "sidebar:all-member",
+            "sidebar:all-project",
             "survey-management:survey-profile",
+            "list-project:delete-project",
         ]
     }
 };
