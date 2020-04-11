@@ -385,7 +385,8 @@ class ManageSurvey extends Component {
             <div>
                 {this.state.already ?
                     this.showComponent()
-                    : <div>
+                    : <div style={{fontSize:"25px"}}>
+                        <br/><br/><br/><br/><br/><br/>
                         <div className="row text-center">
                             <i className="fa fa-refresh fa-spin" />
                         </div>

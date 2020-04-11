@@ -207,11 +207,13 @@ class FollowResult extends Component {
                 {this.state.already ?
                     this.state.frequency[0] !== undefined ?
                         this.showTable()
-                        : <div className="row text-center">
+                        : <div className="row text-center" style={{fontSize:"25px"}}>
+                            <br/><br/><br/><br/><br/><br/><br/>
                             <i className="fa fa-ban" /> ไม่ได้ตั้งค่าให้สามารถใช้งานฟังก์ชันนี้ได้
                         </div>
 
-                    : <div>
+                    : <div style={{fontSize:"25px"}}>
+                        <br/><br/><br/><br/><br/><br/>
                         <div className="row text-center">
                             <i className="fa fa-refresh fa-spin" />
                         </div>

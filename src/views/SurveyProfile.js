@@ -10,9 +10,15 @@ class SurveyProfile extends Component {
         this.state = {
             survey: {},
             project: [],
-            already: false
+            already: false,
+            dateToDo: []
         };
         this.showComponent = this.showComponent.bind(this);
+        this.shareTo = this.shareTo.bind(this);
+        this.wantName = this.wantName.bind(this);
+        this.haveGroup = this.haveGroup.bind(this);
+        this.frequency = this.frequency.bind(this);
+        this.dateToDo = this.dateToDo.bind(this);
     }
 
     async componentDidMount() {
@@ -30,6 +36,20 @@ class SurveyProfile extends Component {
                 console.log(error);
             })
 
+        if (await this.state.survey.frequency.amount !== 0) {
+            axios.get(`/frequency/find/` + surveyId)
+                .then(response => {
+                    this.setState({
+                        dateToDo: response.data[0].listTimeToDo,
+                    })
+                    console.log(this.state.dateToDo);
+
+                })
+                .catch((error) => {
+                    console.log(error);
+                })
+        }
+
         await axios.get(`/projects/find/` + this.state.survey.userId)
             .then(response => {
                 this.setState({
@@ -41,6 +61,64 @@ class SurveyProfile extends Component {
             .catch((error) => {
                 console.log(error);
             })
+    }
+
+    shareTo() {
+        if (this.state.survey.shareTo === "OPEN") {
+            return <div>
+                กลุ่มเปิด <i data-toggle="tooltip" title="สมาชิกเว็บนี้เท่านั้นที่มีสิทธิ์ทำแบบสอบถาม" className="glyphicon glyphicon-question-sign" />
+            </div>
+        }
+        else if (this.state.survey.shareTo === "CLOSE") {
+            return <div>
+                กลุ่มปิด <i data-toggle="tooltip" title="สมาชิกเว็บนี้เท่านั้นที่มีสิทธิ์ทำแบบสอบถาม" className="glyphicon glyphicon-question-sign" />
+            </div>
+        }
+        else if (this.state.survey.shareTo === "PUBLIC") {
+            return <div>
+                กลุ่มสาธารณะ <i data-toggle="tooltip" title="ผู้ที่ไม่ได้เป็นสมาชิกก็มีสิทธิ์ทำแบบสอบถามนี้ได้" className="glyphicon glyphicon-question-sign" />
+            </div>
+        }
+    }
+
+    wantName() {
+        if (this.state.survey.wantName) return "ใช่";
+        else return "ไม่ใช่";
+    }
+
+    haveGroup() {
+        if (this.state.survey.haveGroup) return "ใช่";
+        else return "ไม่ใช่";
+    }
+
+    frequency() {
+        if (this.state.survey.frequency.amount !== 0) {
+            var unitsOfTime = ""
+            if (this.state.survey.frequency.unitsOfTime === "day") unitsOfTime = "วัน";
+            else if (this.state.survey.frequency.unitsOfTime === "week") unitsOfTime = "สัปดาห์";
+            else if (this.state.survey.frequency.unitsOfTime === "month") unitsOfTime = "เดือน";
+            else if (this.state.survey.frequency.unitsOfTime === "year") unitsOfTime = "ปี";
+            return "ทุก ๆ " + this.state.survey.frequency.amount + " " + unitsOfTime;
+        }
+        if (this.state.survey.doOnce) return "ครั้งเดียว";
+        else return "หลายครั้ง";
+    }
+
+    dateToDo() {
+        return (
+            this.state.dateToDo.map((date, index) => {
+                return (
+                    <div className="row">
+                        <div className="col-md-6">
+                            <p>ครั้งที่ {index + 1} : </p>
+                        </div>
+                        <div className="col-md-6">
+                            {date.day + "/" + date.month + "/" + date.year}
+                        </div>
+                    </div>
+                )
+            })
+        )
     }
 
     goToProject() {
@@ -70,7 +148,7 @@ class SurveyProfile extends Component {
                         <div className="box-body">
                             <div className="row">
                                 <div className="col-md-6">
-                                    <p>แบบสอบถาม :</p>
+                                    <label>แบบสอบถาม :</label>
                                 </div>
                                 <div className="col-md-6">
                                     <p> {this.state.survey.nameSurvey}</p>
@@ -79,10 +157,77 @@ class SurveyProfile extends Component {
 
                             <div className="row">
                                 <div className="col-md-6">
-                                    <p>คำอธิบายแบบสอบถาม : </p>
+                                    <label>คำอธิบายแบบสอบถาม : </label>
                                 </div>
                                 <div className="col-md-6">
-                                    {this.state.survey.description}
+                                    <p>{this.state.survey.description}</p>
+                                </div>
+                            </div>
+
+                            <div className="row">
+                                <div className="col-md-6">
+                                    <label>ประเภทของแบบสอบถาม : </label>
+                                </div>
+                                <div className="col-md-6">
+                                    {this.shareTo()}
+                                </div>
+                            </div>
+
+                            <div className="row">
+                                <div className="col-md-6">
+                                    <label>ต้องการทราบชื่อผู้ทำแบบสอบถาม : </label>
+                                </div>
+                                <div className="col-md-6">
+                                    {this.wantName()}
+                                </div>
+                            </div>
+
+                            <div className="row">
+                                <div className="col-md-6">
+                                    <label>ต้องการให้มีกลุ่มสำหรับทำแบบสอบถาม : </label>
+                                </div>
+                                <div className="col-md-6">
+                                    {this.haveGroup()}
+                                </div>
+                            </div>
+
+                            <div className="row">
+                                <div className="col-md-6">
+                                    <label>แบบสอบถามสามารถทำได้ : </label>
+                                </div>
+                                <div className="col-md-6">
+                                    {this.frequency()}
+                                </div>
+                            </div>
+
+                            {this.state.survey.frequency.amount !== 0 ?
+                                <div>
+                                    <div className="row">
+                                        <div className="col-md-6">
+                                            <label>ความถี่ในการทำแบบสอบถาม : </label>
+                                        </div>
+                                    </div>
+                                    {this.dateToDo()}
+                                    <br/>
+                                </div>
+                                : ""
+                            }
+
+                            <div className="row">
+                                <div className="col-md-6">
+                                    <label>วันที่เริ่มต้น :</label>
+                                </div>
+                                <div className="col-md-6">
+                                    {this.state.survey.openAndCloseTimes.start.day + "/" + this.state.survey.openAndCloseTimes.start.month + "/" + this.state.survey.openAndCloseTimes.start.year}
+                                </div>
+                            </div>
+
+                            <div className="row">
+                                <div className="col-md-6">
+                                    <label>วันที่สิ้นสุด :</label>
+                                </div>
+                                <div className="col-md-6">
+                                    {this.state.survey.openAndCloseTimes.end.day + "/" + this.state.survey.openAndCloseTimes.end.month + "/" + this.state.survey.openAndCloseTimes.end.year}
                                 </div>
                             </div>
                         </div>
@@ -97,7 +242,8 @@ class SurveyProfile extends Component {
             <div>
                 {this.state.already ?
                     this.showComponent()
-                    : <div>
+                    : <div style={{ fontSize: "25px" }}>
+                        <br /><br /><br /><br /><br /><br />
                         <div className="row text-center">
                             <i className="fa fa-refresh fa-spin" />
                         </div>
