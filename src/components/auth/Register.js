@@ -57,7 +57,7 @@ class Register extends Component {
                     <div className="register-box-body">
                         <div className="col s12" style={{ paddingLeft: "11.250px" }}>
                             <h4>
-                                <b>ลงทะเบียน</b> สมาชิกใหม่
+                                <b>ลงทะเบียน</b>
                             </h4>
                             <p className="grey-text text-darken-1">
                                 คุณเป็นสมาชิกอยู่แล้วหรือไม่ ? <Link to="/login">เข้าสู่ระบบ</Link>
@@ -141,7 +141,7 @@ class Register extends Component {
                             </div>
                             <div className="row">
                                 <div className="text-center">
-                                    <button type="submit" className="btn btn-primary btn-block ">ลงทะเบียน</button>
+                                    <button type="submit" className="btn btn-success btn-block ">ลงทะเบียน</button>
                                 </div>
                             </div>
                         </form>

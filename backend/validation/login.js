@@ -10,16 +10,16 @@ module.exports = function validateLoginInput(data) {
 
   // Email checks
   if (Validator.isEmpty(data.email)) {
-    errors.email = "Email field is required";
+    errors.email = "กรุณากรอกอีเมลของคุณ";
   } else if (data.email !== "admin") {
     if (!Validator.isEmail(data.email)) {
-      errors.email = "Email is invalid";
+      errors.email = "อีเมลของคุณไม่อยู่ในระบบ";
     }
   }
 
   // Password checks
   if (Validator.isEmpty(data.password)) {
-    errors.password = "Password field is required";
+    errors.password = "กรุณากรอกรหัสผ่านของคุณ";
   }
 
   return {

@@ -14,20 +14,34 @@ class Landing extends Component {
 
     render() {
         return (
-            <div style={{ height: "85vh" }}>
-                <div style={{ marginLeft: "200px" }}>
+            <div className="container">
+                <div align="center">
+                    <br /><br /><br /><br /><br /><br /><br /><br />
                     <div className="row">
                         <div className="col s12 center-align">
                             <h4>
-                                <b>Build</b> a login/auth app with the{" "}
-                                <span style={{ fontFamily: "monospace" }}>MERN</span> stack from scratch
-                        </h4>
+                                <b>OnlineSurvey</b> for Reasearch
+                            </h4>
                             <p className="flow-text grey-text text-darken-1">
-                                Create a (minimal) full-stack app with user authentication via
-                                passport and JWTs
-                        </p>
+                                เว็บแอปพลิเคชันนี้ เป็นเว็บแอปที่ช่วยสนับสนุนการทำงานวิจัย
+                                ในขั้นตอนการรวบรวมข้อมูลเป็นอย่างมาก
+                            </p>
                             <br />
-                            <div className="col s6">
+                            <div>
+                                <Link
+                                    to="/login"
+                                    style={{
+                                        width: "140px",
+                                        borderRadius: "3px",
+                                        letterSpacing: "1.5px"
+                                    }}
+                                    className="btn btn-success"
+                                >
+                                    เข้าสู่ระบบ
+                                </Link>
+                            </div>
+                      
+                            <div>
                                 <Link
                                     to="/register"
                                     style={{
@@ -38,20 +52,7 @@ class Landing extends Component {
                                     className="btn btn-large waves-effect waves-light hoverable blue accent-3"
                                 >
                                     ลงทะเบียน
-                            </Link>
-                            </div>
-                            <div className="col s6">
-                                <Link
-                                    to="/login"
-                                    style={{
-                                        width: "140px",
-                                        borderRadius: "3px",
-                                        letterSpacing: "1.5px"
-                                    }}
-                                    className="btn btn-large btn-flat waves-effect white black-text"
-                                >
-                                    เข้าสู่ระบบ
-                            </Link>
+                                </Link>
                             </div>
                         </div>
                     </div>

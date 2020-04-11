@@ -56,8 +56,8 @@ class Login extends Component {
         const { errors } = this.state;
         return (
             <div className="container">
-                <div className="register-box">
-                    <div className="register-box-body">
+                <div className="login-box">
+                    <div className="login-box-body">
                         <div className="col s12" style={{ paddingLeft: "11.250px" }}>
                             <h4>
                                 <b>เข้าสู่ระบบ</b>
@@ -105,7 +105,7 @@ class Login extends Component {
                             </div>
                             <div className="row">
                                 <div className="text-center">
-                                    <button type="submit" className="btn btn-primary btn-block ">เข้าสู่ระบบ</button>
+                                    <button type="submit" className="btn btn-success btn-block ">เข้าสู่ระบบ</button>
                                 </div>
                             </div>
                         </form>
