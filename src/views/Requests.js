@@ -20,7 +20,7 @@ class Requests extends Component {
         };
     }
 
-    componentDidMount(){
+    componentDidMount() {
         const userId = this.props.auth.user.id;
 
         this.props.showComponent()
@@ -37,7 +37,7 @@ class Requests extends Component {
             })
     }
 
-    showRequests(){
+    showRequests() {
         if (this.state.requests[0] !== undefined) {
             return (
                 this.state.requests.map(res => {
@@ -45,12 +45,19 @@ class Requests extends Component {
                     else if (res.typeRequest === "member") return <MemberRequest memberRequest={res} />
                     else if (res.typeRequest === "doOnly") return <DoOnlyRequest doOnlyRequest={res} />
                     else if (res.typeRequest === "frequency") return <FrequencyRequest frequencyRequest={res} />
-                    else if(res.typeRequest === "decryption") return <DecryptionRequest decryptionRequest={res} />
-                })  
+                    else if (res.typeRequest === "decryption") return <DecryptionRequest decryptionRequest={res} />
+                })
             )
         } else {
-            return <h2>ไม่มีรายการคำขอร้อง</h2>
-        }  
+            return (
+                <div style={{ fontSize: "25px" }}>
+                    <br /><br /><br /><br /><br />
+                    <div className="row text-center">
+                        <i className="fa fa-envelope-o" /> ไม่มีรายการคำขอร้องขอ
+                    </div>
+                </div>
+            )
+        }
     }
 
     render() {
@@ -61,7 +68,7 @@ class Requests extends Component {
                         คำร้องขอ
                     </h1>
                     <ol className="breadcrumb">
-                        <li className="active"><i className="fa fa-bell-o"></i> คำร้องขอ</li>
+                        <li className="active"><i className="fa fa-envelope-o"></i> คำร้องขอ</li>
                     </ol>
                 </section>
                 <br />

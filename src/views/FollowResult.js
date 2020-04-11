@@ -167,7 +167,7 @@ class FollowResult extends Component {
                         <i className="fa fa-file-text-o" /> {this.state.survey.nameSurvey}
                     </h1>
                     <ol className="breadcrumb">
-                        <li ><a href="/requests"><i className="fa fa-bell-o" /> คำร้องขอ</a></li>
+                        <li ><a href="/requests"><i className="fa fa-envelope-o" /> คำร้องขอ</a></li>
                         <li ><a onClick={this.goToProject.bind(this)}><i className="fa fa-folder-o" /> {this.state.project[0].nameProject}</a></li>
                         <li className="active"><i className="fa fa-file-text-o" /> {this.state.survey.nameSurvey}</li>
                     </ol>

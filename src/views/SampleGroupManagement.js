@@ -140,7 +140,7 @@ class SampleGroupManagement extends Component {
                         <i className="fa fa-folder-o" /> {this.state.project.nameProject}
                     </h1>
                     <ol className="breadcrumb">
-                        <li ><a href="/requests"><i className="fa fa-bell-o"></i> คำร้องขอ</a></li>
+                        <li ><a href="/requests"><i className="fa fa-envelope-o"></i> คำร้องขอ</a></li>
                         <li ><a href="/projects"><i className="fa fa-folder-open-o"></i> โปรเจค</a></li>
                         <li><a onClick={this.comeback}><i className="fa fa-folder-o"></i> {this.state.project.nameProject}</a></li>
                         <li className="active"><i className="fa fa-users"></i> {this.state.sampleGroup.nameSampleGroup}</li>

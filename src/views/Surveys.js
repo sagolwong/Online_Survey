@@ -24,15 +24,6 @@ class Surveys extends Component {
 
         this.props.showComponent();
 
-        await axios.get('/users/5dc9a42c824eb44fe43c8f94')
-            .then(response => {
-                this.setState({
-                    profile: response.data
-                })
-            })
-            .catch((error) => {
-                console.log(error);
-            })
         await axios.get('/listSurvey/find/' + userId)
             .then(response => {
                 this.setState({
@@ -62,8 +53,8 @@ class Surveys extends Component {
     showListSurvey() {
         return (
             this.state.surveys.map(res => {
-                return <ListSurveyReadOnly survey={res}/>
-        })
+                return <ListSurveyReadOnly survey={res} />
+            })
         )
 
     }
@@ -76,7 +67,7 @@ class Surveys extends Component {
                         แบบสอบถาม
                     </h1>
                     <ol className="breadcrumb">
-                        <li ><a href="/requests"><i className="fa fa-bell-o"></i> คำร้องขอ</a></li>
+                        <li ><a href="/requests"><i className="fa fa-envelope-o"></i> คำร้องขอ</a></li>
                         <li className="active">แบบสอบถาม</li>
                     </ol>
                 </section>
@@ -88,8 +79,17 @@ class Surveys extends Component {
                             <h3 className="box-title">รายการแบบสอบถาม</h3>
                         </div>
                     </div>
-                    
-                    {this.showListSurvey()}
+
+                    {this.state.listSurvey[0] !== undefined ?
+                        this.showListSurvey()
+                        :
+                        <div style={{ fontSize: "30px",color: "gray" }}>
+                            <br /><br /><br /><br />
+                            <div className="row text-center">
+                                <i className="fa fa-file-text-o" /> คุณยังไม่เคยทำแบบสอบถาม
+                            </div>
+                        </div>
+                    }
                 </section>
             </div>
         )

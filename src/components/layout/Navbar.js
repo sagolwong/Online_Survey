@@ -72,11 +72,36 @@ class Navbar extends Component {
                             <ul className="nav navbar-nav">
                                 <Can
                                     role={this.props.auth.user.role}
+                                    perform="navbar:create-project"
+                                    yes={() => (
+                                        <li className="dropdown notifications-menu">
+                                            <button
+                                                style={{ marginTop: "11%", marginRight: "10px" }}
+                                                className="btn btn-info btn-sm"
+                                                onClick={() => window.location = "/create-project"}>
+                                                สร้างโปรเจค
+                                            </button>
+                                        </li>
+                                    )}
+                                    no={() => (
+                                        <li className="dropdown notifications-menu">
+                                            <button
+                                                style={{ marginTop: "11%", marginRight: "10px" }}
+                                                className="btn btn-info btn-sm"
+                                                onClick={() => window.location = "/user-profile"}>
+                                                อัพเกรด
+                                            </button>
+                                        </li>
+                                    )}
+                                />
+
+                                <Can
+                                    role={this.props.auth.user.role}
                                     perform="navbar:request"
                                     yes={() => (
                                         <li className="dropdown notifications-menu">
                                             <a href="/requests" >
-                                                <i className="fa fa-bell-o" />
+                                                <i className="fa fa-envelope-o" />
                                                 <span className="label label-warning">{this.state.countRequests !== 0 ? this.state.countRequests : ""}</span>
                                             </a>
                                         </li>
@@ -125,7 +150,7 @@ class Navbar extends Component {
                                                         <small>{this.props.auth.user.role}</small>
                                                     </p>
                                                 </li>
-         
+
                                                 <li className="user-footer">
                                                     <div className="pull-left">
                                                         <a href="/user-profile" className="btn btn-default btn-flat">โปรไฟล์</a>

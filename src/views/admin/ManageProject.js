@@ -17,7 +17,7 @@ class ManageProject extends Component {
 
     componentDidMount() {
         this.props.showComponent();
-       
+
         axios.get(`/projects/`)
             .then(response => {
                 this.setState({
@@ -47,6 +47,7 @@ class ManageProject extends Component {
                         จัดการโปรเจคทั้งหมด
                     </h1>
                     <ol className="breadcrumb">
+                        <li ><a href="/requests"><i className="fa fa-envelope-o" /> คำร้องขอ</a></li>
                         <li className="active"><i className="fa fa-folder-open"></i> จัดการโปรเจคทั้งหมด</li>
                     </ol>
                 </section>
@@ -58,7 +59,7 @@ class ManageProject extends Component {
                             <h3 className="box-title">รายการโปรเจค</h3>
                         </div>
                     </div>
-                    
+
                     {this.showGroupProject()}
                 </section>
             </div>

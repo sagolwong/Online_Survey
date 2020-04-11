@@ -76,7 +76,7 @@ class UserProfile extends Component {
                         โปรไฟล์ส่วนตัว
                     </h1>
                     <ol className="breadcrumb">
-                        <li><a href="/requests"><i className="fa fa-bell-o"></i> คำร้องขอ</a></li>
+                        <li><a href="/requests"><i className="fa fa-envelope-o"></i> คำร้องขอ</a></li>
                         <li className="active">โปรไฟล์ส่วนตัว</li>
                     </ol>
                 </section>

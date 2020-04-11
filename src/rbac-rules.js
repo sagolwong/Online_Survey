@@ -24,6 +24,7 @@ const rules = {
     RESEARCHER: {
         static: [
             "navbar:banner",
+            "navbar:create-project",
             "navbar:toggle-button",
             "navbar:request",
             "navbar:survey",
@@ -45,6 +46,7 @@ const rules = {
     ADMIN: {
         static: [
             "navbar:banner",
+            "navbar:create-project",
             "navbar:toggle-button",
             "navbar:request",
             "navbar:survey",

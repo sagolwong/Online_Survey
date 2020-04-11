@@ -52,7 +52,7 @@ class Projects extends Component {
                         โปรเจค
                     </h1>
                     <ol className="breadcrumb">
-                        <li ><a href="/requests"><i className="fa fa-bell-o"></i> คำร้องขอ</a></li>
+                        <li ><a href="/requests"><i className="fa fa-envelope-o"></i> คำร้องขอ</a></li>
                         <li className="active">โปรเจค</li>
                     </ol>
                 </section>

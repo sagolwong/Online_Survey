@@ -82,6 +82,7 @@ class ManageMembers extends Component {
                         จัดการสมาชิกทั้งหมด
                     </h1>
                     <ol className="breadcrumb">
+                        <li ><a href="/requests"><i className="fa fa-envelope-o" /> คำร้องขอ</a></li>
                         <li className="active"><i className="fa fa-group"></i> จัดการสมาชิกทั้งหมด</li>
                     </ol>
                 </section>
