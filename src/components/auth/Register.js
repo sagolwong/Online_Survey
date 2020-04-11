@@ -21,9 +21,9 @@ class Register extends Component {
     componentDidMount() {
         // If logged in and user navigates to Register page, should redirect them to dashboard
         if (this.props.auth.isAuthenticated) {
-          this.props.history.push("/requests");
+            this.props.history.push("/requests");
         }
-      }
+    }
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.errors) {
@@ -53,103 +53,96 @@ class Register extends Component {
         const { errors } = this.state;
         return (
             <div className="container">
-                <div className="row">
-                    <div className="col s8 offset-s2">
-                        <Link to="/" className="btn-flat waves-effect">
-                            <i className="material-icons left">keyboard_backspace</i> Back to home
-                        </Link>
+                <div className="register-box">
+                    <div className="register-box-body">
                         <div className="col s12" style={{ paddingLeft: "11.250px" }}>
                             <h4>
-                                <b>Register</b> below
+                                <b>ลงทะเบียน</b> สมาชิกใหม่
                             </h4>
                             <p className="grey-text text-darken-1">
-                                Already have an account? <Link to="/login">Log in</Link>
+                                คุณเป็นสมาชิกอยู่แล้วหรือไม่ ? <Link to="/login">เข้าสู่ระบบ</Link>
                             </p>
                         </div>
                         <form noValidate onSubmit={this.onSubmit}>
-                            <div className="input-field col s12">
+                            <div className="form-group has-feedback">
                                 <input
                                     onChange={this.onChange}
                                     value={this.state.firstname}
                                     error={errors.firstname}
+                                    placeholder="ชื่อ"
                                     id="firstname"
                                     type="text"
-                                    className={classnames("", {
+                                    className={classnames("form-control", {
                                         invalid: errors.firstname
                                     })}
                                 />
-                                <label htmlFor="firstname">Firstname</label>
-                                <span className="red-text">{errors.firstname}</span>
+                                <span className="glyphicon glyphicon-user form-control-feedback" />
+                                <span className="text-red">{errors.firstname}</span>
                             </div>
-                            <div className="input-field col s12">
+                            <div className="form-group has-feedback">
                                 <input
                                     onChange={this.onChange}
                                     value={this.state.lastname}
                                     error={errors.lastname}
+                                    placeholder="นามสกุล"
                                     id="lastname"
                                     type="text"
-                                    className={classnames("", {
+                                    className={classnames("form-control", {
                                         invalid: errors.lastname
                                     })}
                                 />
-                                <label htmlFor="lastname">Lastname</label>
-                                <span className="red-text">{errors.lastname}</span>
+                                <span className="glyphicon glyphicon-user form-control-feedback" />
+                                <span className="text-red">{errors.lastname}</span>
                             </div>
-                            <div className="input-field col s12">
+                            <div className="form-group has-feedback">
                                 <input
                                     onChange={this.onChange}
                                     value={this.state.email}
                                     error={errors.email}
+                                    placeholder="อีเมล"
                                     id="email"
                                     type="email"
-                                    className={classnames("", {
+                                    className={classnames("form-control", {
                                         invalid: errors.email
                                     })}
                                 />
-                                <label htmlFor="email">Email</label>
-                                <span className="red-text">{errors.email}</span>
+                                <span className="glyphicon glyphicon-envelope form-control-feedback" />
+                                <span className="text-red">{errors.email}</span>
                             </div>
-                            <div className="input-field col s12">
+                            <div className="form-group has-feedback">
                                 <input
                                     onChange={this.onChange}
                                     value={this.state.password}
                                     error={errors.password}
+                                    placeholder="รหัสผ่าน"
                                     id="password"
                                     type="password"
-                                    className={classnames("", {
+                                    className={classnames("form-control", {
                                         invalid: errors.password
                                     })}
                                 />
-                                <label htmlFor="password">Password</label>
-                                <span className="red-text">{errors.password}</span>
+                                <span className="glyphicon glyphicon-lock form-control-feedback" />
+                                <span className="text-red">{errors.password}</span>
                             </div>
-                            <div className="input-field col s12">
+                            <div className="form-group has-feedback">
                                 <input
                                     onChange={this.onChange}
                                     value={this.state.password2}
                                     error={errors.password2}
+                                    placeholder="ยืนยันรหัสผ่าน"
                                     id="password2"
                                     type="password"
-                                    className={classnames("", {
+                                    className={classnames("form-control", {
                                         invalid: errors.password2
                                     })}
                                 />
-                                <label htmlFor="password2">Confirm Password</label>
-                                <span className="red-text">{errors.password2}</span>
+                                <span className="glyphicon glyphicon-log-in form-control-feedback" />
+                                <span className="text-red">{errors.password2}</span>
                             </div>
-                            <div className="col s12" style={{ paddingLeft: "11.250px" }}>
-                                <button
-                                    style={{
-                                        width: "150px",
-                                        borderRadius: "3px",
-                                        letterSpacing: "1.5px",
-                                        marginTop: "1rem"
-                                    }}
-                                    type="submit"
-                                    className="btn btn-large waves-effect waves-light hoverable blue accent-3"
-                                >
-                                    Sign up
-                                </button>
+                            <div className="row">
+                                <div className="text-center">
+                                    <button type="submit" className="btn btn-primary btn-block ">ลงทะเบียน</button>
+                                </div>
                             </div>
                         </form>
                     </div>

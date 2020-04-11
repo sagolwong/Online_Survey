@@ -16,7 +16,7 @@ class Navbar extends Component {
         };
     }
 
-    componentDidMount(){
+    componentDidMount() {
         const userId = this.props.auth.user.id;
 
         axios.get('/requests/count/' + userId)
@@ -41,16 +41,23 @@ class Navbar extends Component {
         return (
             <div>
                 <header className="main-header">
-                    {/* Logo */}
-                    <a href="/requests" className="logo">
-                        {/* mini logo for sidebar mini 50x50 pixels */}
-                        <span className="logo-mini"><b>OS</b>FR</span>
-                        {/* logo for regular state and mobile devices */}
-                        <span className="logo-lg"><b>OnlineSurvey</b>_for_Research</span>
-                    </a>
-                    {/* Header Navbar: style can be found in header.less */}
+                    <Can
+                        role={this.props.auth.user.role}
+                        perform="navbar:banner"
+                        yes={() => (
+                            <a href="/requests" className="logo">
+                                <span className="logo-mini"><b>OS</b>FR</span>
+                                <span className="logo-lg"><b>OnlineSurvey</b>_for_Research</span>
+                            </a>
+                        )}
+                        no={() => (
+                            <a href="/" className="logo">
+                                <span className="logo-mini"><b>OS</b>FR</span>
+                                <span className="logo-lg"><b>OnlineSurvey</b>_for_Research</span>
+                            </a>
+                        )}
+                    />
                     <nav className="navbar navbar-static-top">
-                        {/* Sidebar toggle button*/}
                         <Can
                             role={this.props.auth.user.role}
                             perform="navbar:toggle-button"
@@ -61,10 +68,8 @@ class Navbar extends Component {
                             )}
                             no={() => ""}
                         />
-                        {/* Navbar Right Menu */}
                         <div className="navbar-custom-menu">
                             <ul className="nav navbar-nav">
-                                {/* Notifications: style can be found in dropdown.less */}
                                 <Can
                                     role={this.props.auth.user.role}
                                     perform="navbar:request"
@@ -72,14 +77,13 @@ class Navbar extends Component {
                                         <li className="dropdown notifications-menu">
                                             <a href="/requests" >
                                                 <i className="fa fa-bell-o" />
-                                                <span className="label label-warning">{this.state.countRequests !== 0 ? this.state.countRequests:""}</span>
+                                                <span className="label label-warning">{this.state.countRequests !== 0 ? this.state.countRequests : ""}</span>
                                             </a>
                                         </li>
                                     )}
                                     no={() => ""}
                                 />
 
-                                {/* แบบสอบถาม */}
                                 <Can
                                     role={this.props.auth.user.role}
                                     perform="navbar:survey"
@@ -90,7 +94,7 @@ class Navbar extends Component {
                                     )}
                                     no={() => ""}
                                 />
-                                {/* โปรเจค */}
+
                                 <Can
                                     role={this.props.auth.user.role}
                                     perform="navbar:project"
@@ -101,7 +105,7 @@ class Navbar extends Component {
                                     )}
                                     no={() => ""}
                                 />
-                                {/* User Account: style can be found in dropdown.less */}
+
                                 <Can
                                     role={this.props.auth.user.role}
                                     perform="navbar:user"
@@ -114,15 +118,14 @@ class Navbar extends Component {
                                                 </span>
                                             </a>
                                             <ul className="dropdown-menu">
-                                                {/* User image */}
                                                 <li className="user-header">
                                                     <img src="/dist/img/user2-160x160.jpg" className="img-circle" alt="User" />
                                                     <p>
-                                                        {this.props.auth.user.firstname + " " + this.props.auth.user.lastname} 
+                                                        {this.props.auth.user.firstname + " " + this.props.auth.user.lastname}
                                                         <small>{this.props.auth.user.role}</small>
                                                     </p>
                                                 </li>
-                                                {/* Menu Footer*/}
+         
                                                 <li className="user-footer">
                                                     <div className="pull-left">
                                                         <a href="/user-profile" className="btn btn-default btn-flat">โปรไฟล์</a>

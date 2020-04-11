@@ -4,6 +4,7 @@ const rules = {
     },
     RESPONDER: {
         static: [
+            "navbar:banner",
             "navbar:toggle-button",
             "navbar:request",
             "navbar:survey",
@@ -22,6 +23,7 @@ const rules = {
     },
     RESEARCHER: {
         static: [
+            "navbar:banner",
             "navbar:toggle-button",
             "navbar:request",
             "navbar:survey",
@@ -42,6 +44,7 @@ const rules = {
     },
     ADMIN: {
         static: [
+            "navbar:banner",
             "navbar:toggle-button",
             "navbar:request",
             "navbar:survey",

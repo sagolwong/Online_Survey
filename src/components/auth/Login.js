@@ -49,74 +49,64 @@ class Login extends Component {
             password: this.state.password
         };
         console.log(userData);
-        this.props.loginUser(userData); // since we handle the redirect within our component, we don't need to pass in this.props.history as a parameter
+        this.props.loginUser(userData); 
     };
 
     render() {
         const { errors } = this.state;
         return (
             <div className="container">
-                <div style={{ marginTop: "4rem" }} className="row">
-                    <div className="col s8 offset-s2">
-                        <Link to="/" className="btn-flat waves-effect">
-                            <i className="material-icons left">keyboard_backspace</i> Back to home
-                        </Link>
+                <div className="register-box">
+                    <div className="register-box-body">
                         <div className="col s12" style={{ paddingLeft: "11.250px" }}>
                             <h4>
-                                <b>Login</b> below
+                                <b>เข้าสู่ระบบ</b>
                             </h4>
                             <p className="grey-text text-darken-1">
-                                Don't have an account? <Link to="/register">Register</Link>
+                                คุณยังไม่ได้เป็นสมาชิกใช่ไหม ? <Link to="/register">ลงทะเบียน</Link>
                             </p>
                         </div>
                         <form noValidate onSubmit={this.onSubmit}>
-                            <div className="input-field col s12">
+                            <div className="form-group has-feedback">
                                 <input
                                     onChange={this.onChange}
                                     value={this.state.email}
                                     error={errors.email}
+                                    placeholder="อีเมล"
                                     id="email"
                                     type="email"
-                                    className={classnames("", {
+                                    className={classnames("form-control", {
                                         invalid: errors.email || errors.emailnotfound
                                     })}
                                 />
-                                <label htmlFor="email">Email</label>
-                                <span className="red-text">
+                                <span className="glyphicon glyphicon-envelope form-control-feedback" />
+                                <span className="text-red">
                                     {errors.email}
                                     {errors.emailnotfound}
                                 </span>
                             </div>
-                            <div className="input-field col s12">
+                            <div className="form-group has-feedback">
                                 <input
                                     onChange={this.onChange}
                                     value={this.state.password}
                                     error={errors.password}
+                                    placeholder="รหัสผ่าน"
                                     id="password"
                                     type="password"
-                                    className={classnames("", {
+                                    className={classnames("form-control", {
                                         invalid: errors.password || errors.passwordincorrect
                                     })}
                                 />
-                                <label htmlFor="password">Password</label>
-                                <span className="red-text">
+                                <span className="glyphicon glyphicon-lock form-control-feedback" />
+                                <span className="text-red">
                                     {errors.password}
                                     {errors.passwordincorrect}
                                 </span>
                             </div>
-                            <div className="col s12" style={{ paddingLeft: "11.250px" }}>
-                                <button
-                                    style={{
-                                        width: "150px",
-                                        borderRadius: "3px",
-                                        letterSpacing: "1.5px",
-                                        marginTop: "1rem"
-                                    }}
-                                    type="submit"
-                                    className="btn btn-large waves-effect waves-light hoverable blue accent-3"
-                                >
-                                    Login
-                                </button>
+                            <div className="row">
+                                <div className="text-center">
+                                    <button type="submit" className="btn btn-primary btn-block ">เข้าสู่ระบบ</button>
+                                </div>
                             </div>
                         </form>
                     </div>

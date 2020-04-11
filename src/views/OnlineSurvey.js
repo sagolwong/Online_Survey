@@ -589,94 +589,98 @@ class OnlineSurvey extends Component {
             axios.post('/answers/create', createAnswer)
                 .then(res => console.log(res.data));
         }
-        //เช็กว่ามีการสร้าง listSurvey สำหรับ userId แล้วหรือยัง
-        if (await this.state.listSurvey[0] !== undefined) {
-            var check1 = false;
-            //วน loop หาว่ามีการเพิ่ม surveyId ลง listSurvey ของ userId นี้แล้วหรือไม่
-            this.state.listSurvey[0].listSurvey.map(res => {
-                if (res !== surveyId) {
-                    check1 = true;
-                } else {
-                    check1 = false;
+
+        if (this.state.survey.shareTo === "OPEN" || this.state.survey.shareTo === "CLOSE") {
+            //เช็กว่ามีการสร้าง listSurvey สำหรับ userId แล้วหรือยัง
+            if (await this.state.listSurvey[0] !== undefined) {
+                var check1 = false;
+                //วน loop หาว่ามีการเพิ่ม surveyId ลง listSurvey ของ userId นี้แล้วหรือไม่
+                this.state.listSurvey[0].listSurvey.map(res => {
+                    if (res !== surveyId) {
+                        check1 = true;
+                    } else {
+                        check1 = false;
+                    }
+                })
+                //ถ้ายังไม่มี (check1=true) ให้เพิ่ม surveyId ลง listSurvey ด้วยการ update ค่า 
+                if (check1) {
+                    const editListSurvey = {
+                        listSurvey: this.state.listSurvey[0].listSurvey.concat(surveyId)
+                    }
+                    console.log(editListSurvey);
+                    axios.post(`/listSurvey/edit/${this.state.listSurvey[0]._id}`, editListSurvey)
+                        .then(res => console.log(res.data));
                 }
-            })
-            //ถ้ายังไม่มี (check1=true) ให้เพิ่ม surveyId ลง listSurvey ด้วยการ update ค่า 
-            if (check1) {
-                const editListSurvey = {
-                    listSurvey: this.state.listSurvey[0].listSurvey.concat(surveyId)
+                //ถ้ายังไม่มีก็ให้สร้าง listSurvey สำหรับ userId นั้นๆขึ้นมา
+            } else {
+                const createListSurvey = {
+                    userId: userId,
+                    listSurvey: [surveyId]
                 }
-                console.log(editListSurvey);
-                axios.post(`/listSurvey/edit/${this.state.listSurvey[0]._id}`, editListSurvey)
+                console.log(createListSurvey);
+                axios.post('/listSurvey/create', createListSurvey)
                     .then(res => console.log(res.data));
             }
-            //ถ้ายังไม่มีก็ให้สร้าง listSurvey สำหรับ userId นั้นๆขึ้นมา
-        } else {
-            const createListSurvey = {
-                userId: userId,
-                listSurvey: [surveyId]
-            }
-            console.log(createListSurvey);
-            axios.post('/listSurvey/create', createListSurvey)
-                .then(res => console.log(res.data));
-        }
-        //เช็กว่ามีการเพิ่มค่าเข้าไปใน recentOthersurvey หรือยัง
-        if (await this.state.profile.recentOtherSurveys[0] !== undefined) {
-            var check2 = false;
-            //วน loop เพื่อเช็กว่าเคยเพิ่ม surveyId นี้เข้าไปหรือยัง
-            this.state.profile.recentOtherSurveys.map(res => {
-                if (res !== surveyId) check2 = true;
-                else check2 = false;
-            })
-            //ถ้ายังไม่มี (check2=true) 
-            if (check2) {
-                //แก้ไปใช้ spilice(0,0,{surveyId})
-                //ให้เช็กว่า recentOtherSurvey มี array มากกว่า 11 ไหม ถ้าไม่ ให้ update ค่าเพิ่มไปได้เลย
-                if (await this.state.profile.recentOtherSurveys.length < 10) {
-                    await this.state.profile.recentOtherSurveys.unshift(surveyId)
+            //เช็กว่ามีการเพิ่มค่าเข้าไปใน recentOthersurvey หรือยัง
+            if (await this.state.profile.recentOtherSurveys[0] !== undefined) {
+                var check2 = false;
+                //วน loop เพื่อเช็กว่าเคยเพิ่ม surveyId นี้เข้าไปหรือยัง
+                this.state.profile.recentOtherSurveys.map(res => {
+                    if (res !== surveyId) check2 = true;
+                    else check2 = false;
+                })
+                //ถ้ายังไม่มี (check2=true) 
+                if (check2) {
+                    //แก้ไปใช้ spilice(0,0,{surveyId})
+                    //ให้เช็กว่า recentOtherSurvey มี array มากกว่า 11 ไหม ถ้าไม่ ให้ update ค่าเพิ่มไปได้เลย
+                    if (await this.state.profile.recentOtherSurveys.length < 10) {
+                        await this.state.profile.recentOtherSurveys.unshift(surveyId)
 
-                    const editRecentProject = await {
-                        recentOtherSurveys: this.state.profile.recentOtherSurveys,
-                        recentProjects: this.state.profile.recentProjects
-                    }
-                    await axios.post(`/users/edit/${userId}`, editRecentProject)
-                        .then(res => console.log(res.data));
-                    //แก้ไปใช้ pop() เพื่อเอาตัวสุดท้ายออก แล้วใช้ spilice(0,0,surveyId) เพื่อเพิ่มอันใหม่มาที่ตัวแรก 
-                    //แต่ถ้ามีเท่ากับ 11 หรือ มากกว่า(เป็นไปไม่ได้นอกจาก bug) ให้นำค่าใหม่มาเพิ่มและให้ค่าเก่าสุดเอาออกไปแล้วค่อย update
-                } else {
-                    await this.state.profile.recentOtherSurveys.splice(9, 1);
-                    await this.state.profile.recentOtherSurveys.unshift(surveyId)
+                        const editRecentProject = await {
+                            recentOtherSurveys: this.state.profile.recentOtherSurveys,
+                            recentProjects: this.state.profile.recentProjects
+                        }
+                        await axios.post(`/users/edit/${userId}`, editRecentProject)
+                            .then(res => console.log(res.data));
+                        //แก้ไปใช้ pop() เพื่อเอาตัวสุดท้ายออก แล้วใช้ spilice(0,0,surveyId) เพื่อเพิ่มอันใหม่มาที่ตัวแรก 
+                        //แต่ถ้ามีเท่ากับ 11 หรือ มากกว่า(เป็นไปไม่ได้นอกจาก bug) ให้นำค่าใหม่มาเพิ่มและให้ค่าเก่าสุดเอาออกไปแล้วค่อย update
+                    } else {
+                        await this.state.profile.recentOtherSurveys.splice(9, 1);
+                        await this.state.profile.recentOtherSurveys.unshift(surveyId)
 
-                    const editRecentProject = await {
-                        recentOtherSurveys: this.state.profile.recentOtherSurveys,
-                        recentProjects: this.state.profile.recentProjects
+                        const editRecentProject = await {
+                            recentOtherSurveys: this.state.profile.recentOtherSurveys,
+                            recentProjects: this.state.profile.recentProjects
+                        }
+                        await axios.post(`/users/edit/${userId}`, editRecentProject)
+                            .then(res => console.log(res.data));
                     }
-                    await axios.post(`/users/edit/${userId}`, editRecentProject)
-                        .then(res => console.log(res.data));
                 }
-            }
-            //ถ้ายังไม่มีก็ให้ เพิ่มค่าลำดับแรกเข้าไปได้เลยโดยการ update
-        } else {
-            await this.state.profile.recentOtherSurveys.unshift(surveyId)
+                //ถ้ายังไม่มีก็ให้ เพิ่มค่าลำดับแรกเข้าไปได้เลยโดยการ update
+            } else {
+                await this.state.profile.recentOtherSurveys.unshift(surveyId)
 
-            const editRecentProject = await {
-                recentOtherSurveys: this.state.profile.recentOtherSurveys,
-                recentProjects: this.state.profile.recentProjects
+                const editRecentProject = await {
+                    recentOtherSurveys: this.state.profile.recentOtherSurveys,
+                    recentProjects: this.state.profile.recentProjects
+                }
+                await axios.post(`/users/edit/${userId}`, editRecentProject)
+                    .then(res => console.log(res.data));
             }
-            await axios.post(`/users/edit/${userId}`, editRecentProject)
-                .then(res => console.log(res.data));
-        }
-        if (await this.state.followResult[0] !== undefined) {
-            var follow = [];
-            var date = this.state.cdate + "-" + this.state.cmonth + "-" + this.state.cyear;
-            console.log(date);
-            follow = this.state.followResult[0].follow.concat(date);
-            const followResult = {
-                follow: follow
-            }
+            if (await this.state.followResult[0] !== undefined) {
+                var follow = [];
+                var date = this.state.cdate + "-" + this.state.cmonth + "-" + this.state.cyear;
+                console.log(date);
+                follow = this.state.followResult[0].follow.concat(date);
+                const followResult = {
+                    follow: follow
+                }
 
-            axios.post(`/followResults/edit/${this.state.followResult[0]._id}`, followResult)
-                .then(res => console.log(res.data));
+                axios.post(`/followResults/edit/${this.state.followResult[0]._id}`, followResult)
+                    .then(res => console.log(res.data));
+            }
         }
+
 
         await this.props.checked({
             step: 3,

@@ -13,36 +13,36 @@ module.exports = function validateRegisterInput(data) {
 
     // Firstname checks
     if (Validator.isEmpty(data.firstname)) {
-        errors.firstname = "Firstname field is required";
+        errors.firstname = "กรุณากรอกชื่อของคุณ";
     }
 
     // Lastname checks
     if (Validator.isEmpty(data.lastname)) {
-        errors.lastname = "Lastname field is required";
+        errors.lastname = "กรุณากรอกนามสกุลของคุณ";
     }
 
     // Email checks
     if (Validator.isEmpty(data.email)) {
-        errors.email = "Email field is required";
+        errors.email = "กรุณากรอกอีเมลของคุณ";
     } else if (!Validator.isEmail(data.email)) {
-        errors.email = "Email is invalid";
+        errors.email = "อีเมลของคุณไม่อยู่ในระบบ";
     }
 
     // Password checks
     if (Validator.isEmpty(data.password)) {
-        errors.password = "Password field is required";
+        errors.password = "กรุณากรอกรหัสผ่านของคุณ";
     }
 
     if (Validator.isEmpty(data.password2)) {
-        errors.password2 = "Confirm password field is required";
+        errors.password2 = "กรุณากรอกรหัสผ่านของคุณอีกครั้ง";
     }
 
     if (!Validator.isLength(data.password, { min: 6, max: 30 })) {
-        errors.password = "Password must be at least 6 characters";
+        errors.password = "รหัสผ่านต้องมีจำนวนไม่น้อยกว่า 6 ตัว และไม่เกิน 30 ตัว";
     }
 
     if (!Validator.equals(data.password, data.password2)) {
-        errors.password2 = "Passwords must match";
+        errors.password2 = "รหัสผ่านไม่ตรงกัน";
     }
 
     return {
