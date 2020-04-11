@@ -387,10 +387,10 @@ class OnlineSurvey extends Component {
                 if (this.state.survey.builtIns[0] !== undefined) {
                     /*form.pages[1] = form.pages[0];
                     form.pages[0] = widget;*/
+                    //form.pages[0] = widget;
                     form.pages.unshift(widget);
                     console.log(form)
                 }
-
                 console.log(form.pages);
                 Survey.Survey.cssType = "default";
                 var model = new Survey.Model(form);
@@ -453,7 +453,7 @@ class OnlineSurvey extends Component {
                             : <div className="surveyjs">
                                 <h1>SurveyJS library in action:</h1>
                                 <Survey.Survey
-                                    model={model}
+                                    json={form}
                                     onComplete={this.onComplete}
                                     onValueChanged={this.onValueChanged} />
                             </div>
@@ -480,7 +480,7 @@ class OnlineSurvey extends Component {
     async onComplete(result) {
         console.log("Complete! " + JSON.stringify(result.data));
         console.log(result.data);
-       /* const surveyId = this.props.surveyId;
+        const surveyId = this.props.surveyId;
         const userId = this.props.auth.user.id;
         const name = this.props.name;
         var resultAsString = result.data;
@@ -560,12 +560,14 @@ class OnlineSurvey extends Component {
                     checkEncrypt: true
                 })
             }
-        }*/
+        }
     }
 
     async sendData() {
         const surveyId = this.props.surveyId;
         const userId = this.props.auth.user.id;
+
+        console.log("sendData")
 
         //เช็กว่าถ้ามีการสร้าง answer ไว้อยู่แล้วให้ update ค่าเข้าไป
         if (await this.state.answer[0] !== undefined) {

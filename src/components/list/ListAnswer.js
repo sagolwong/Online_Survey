@@ -71,7 +71,7 @@ export default class ListAnswer extends Component {
     }
 
     decryptAnswer() {
-        if (this.props.answer.head !== "" && this.props.answer.decryptKey !== "") {
+        if ((this.props.answer.head !== ""&&this.props.answer.head !== undefined) && (this.props.answer.decryptKey !== ""&&this.props.answer.decryptKey !== undefined)) {
             var secretKey = "SJyevrus";
             var simpleCryptoSystem = new SimpleCrypto(secretKey);
             var decryptKey = simpleCryptoSystem.decrypt(this.props.answer.decryptKey);

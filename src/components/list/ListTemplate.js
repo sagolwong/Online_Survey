@@ -3,14 +3,14 @@ import React, { Component } from 'react'
 export default class ListTemplate extends Component {
 
     goToEditSurvey() {
-        const prototypeId = this.props.template._id;
+        const templateId = this.props.template._id;
         const projectId = this.props.projectId;
         var sampleGroupId = "no";
         if (this.props.sampleGroupId !== undefined) {
             sampleGroupId = this.props.sampleGroupId;
         }
         const type = "template"
-        window.location = `/edit-survey/${type}/${prototypeId}/${projectId}/${sampleGroupId}`;
+        window.location = `/edit-survey/${type}/${templateId}/${projectId}/${sampleGroupId}`;
     }
 
     render() {

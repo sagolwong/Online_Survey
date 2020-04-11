@@ -107,7 +107,7 @@ class SampleGroupManagement extends Component {
         return (
             this.state.listTemplate.map((res, index) => {
                 if (index < 3) {
-                    return <ListTemplate template={res} projectId={this.props.match.params.projectId} />
+                    return <ListTemplate template={res} projectId={this.props.match.params.projectId} sampleGroupId={this.props.match.params.sampleGroupId}/>
                 }
             })
         )
@@ -117,7 +117,7 @@ class SampleGroupManagement extends Component {
         return (
             this.state.listTemplate.map((res, index) => {
                 if (((index + 1) / 3) < indexC && ((index + 1) / 3) > (indexC - 1)) {
-                    return <ListTemplate template={res} projectId={this.props.match.params.projectId} />
+                    return <ListTemplate template={res} projectId={this.props.match.params.projectId} sampleGroupId={this.props.match.params.sampleGroupId}/>
                 }
             })
         )
