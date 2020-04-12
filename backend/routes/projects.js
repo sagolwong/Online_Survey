@@ -29,6 +29,12 @@ router.route('/find/:id').get((req, res) => {
     .catch(err => res.status(400).json('Error: ' + err));
 });
 
+router.route('/count/:id').get((req, res) => {
+  Project.find({ userId: req.params.id }).count()
+    .then(projects => res.json(projects))
+    .catch(err => res.status(400).json('Error: ' + err));
+});
+
 router.route('/:id/:nameProject').get((req, res) => {
   Project.findOne({ userId: req.params.id, nameProject: req.params.nameProject })
     .then(projects => res.json(projects))

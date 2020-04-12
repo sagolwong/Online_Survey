@@ -40,9 +40,18 @@ class ResultSurvey extends Component {
 
     render() {
         return (
-            <div>
-                ขอบคุณ คุณ{this.state.name} เป็นอย่างมาก
-                <button className="btn btn-primary" onClick={this.goToMainPage}>กลับสู่หน้าหลัก</button>
+            <div style={{fontSize:"30px"}}>
+                <br/><br/><br/><br/>
+                <div className="row text-center">
+                    ขอบคุณ{this.state.name !== "NONAME" ? " คุณ"+this.state.name+" ":""}เป็นอย่างมาก
+                </div>
+                <div className="row text-center">
+                    ที่ให้ความร่วมมือในการเก็บข้อมูลเพื่อทำงานวิจัย
+                </div>
+                <br/>
+                <div className="row text-center">
+                    <button className="btn btn-success" onClick={this.goToMainPage}>กลับสู่หน้าหลัก</button>
+                </div>
             </div>
         )
     }

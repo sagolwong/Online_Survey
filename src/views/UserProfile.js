@@ -18,7 +18,10 @@ class UserProfile extends Component {
             data: [],
             gender: "",
             job: "นักเรียน",
-            description: ""
+            description: "",
+            countProject: 0,
+            countSurvey: 0,
+            countListSurvey: 0
 
         };
     }
@@ -34,6 +37,39 @@ class UserProfile extends Component {
                     user: response.data
                 })
                 console.log(this.state.user)
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+
+        axios.get('/projects/count/' + userId)
+            .then(response => {
+                this.setState({
+                    countProject: response.data
+                })
+                console.log(this.state.countProject)
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+
+        axios.get('/surveys/count/' + userId)
+            .then(response => {
+                this.setState({
+                    countSurvey: response.data
+                })
+                console.log(this.state.countSurvey)
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+
+        axios.get('/listSurvey/find/' + userId)
+            .then(response => {
+                this.setState({
+                    countListSurvey: response.data[0].listSurvey.length
+                })
+                console.log(this.state.countListSurvey)
             })
             .catch((error) => {
                 console.log(error);
@@ -85,35 +121,34 @@ class UserProfile extends Component {
                     <div className="row">
                         <div className="col-md-6">
                             <div className="box box-primary">
-                                <div className="box-header with-border">
-                                    <h3 className="box-title">โปรไฟล์</h3>
-                                </div>
-                                <div className="box-body text-center">
-                                    <img src="dist/img/user2-160x160.jpg" alt="User" />
-                                    <h4>{this.props.auth.user.firstname + " " + this.props.auth.user.lastname}</h4>
-                                    <small>{this.props.auth.user.role}</small>
-                                    <br />
+                                <div className="box-body box-profile">
+                                    <img className="profile-user-img img-responsive img-circle" src="dist/img/user2-160x160.jpg" alt="User" />
+                                    <h4 className="profile-username text-center">{this.props.auth.user.firstname + " " + this.props.auth.user.lastname}</h4>
+                                    <p className="text-muted text-center">{this.props.auth.user.role}</p>
                                     <Can
                                         role={this.props.auth.user.role}
                                         perform="user-profile:show-more-profile"
                                         yes={() => (
                                             <div>
-                                                <div className="row">
-                                                    <div className="col-md-3">
-                                                        <label>เพศ :</label>
-                                                    </div>
-                                                    <div className="col-md-3">
-                                                        <p>{this.state.user.gender}</p>
-                                                    </div>
-                                                </div>
-                                                <div className="row">
-                                                    <div className="col-md-3">
-                                                        <label>อาชีพ :</label>
-                                                    </div>
-                                                    <div className="col-md-3">
-                                                        <p>{this.state.user.job}</p>
-                                                    </div>
-                                                </div>
+                                                <br />
+                                                <ul className="list-group list-group-unbordered">
+                                                    <li className="list-group-item">
+                                                        <b>เพศ</b> <p className="pull-right">{this.state.user.gender}</p>
+                                                    </li>
+                                                    <li className="list-group-item">
+                                                        <b>อาชีพ</b> <p className="pull-right">{this.state.user.job}</p>
+                                                    </li>
+                                                    <li className="list-group-item">
+                                                        <b>โปรเจค</b> <a className="pull-right badge bg-blue">{this.state.countProject}</a>
+                                                    </li>
+                                                    <li className="list-group-item">
+                                                        <b>แบบสอบถามที่สร้าง</b> <a className="pull-right badge bg-blue">{this.state.countSurvey}</a>
+                                                    </li>
+                                                    <li className="list-group-item">
+                                                        <b>แบบสอบถามที่เคยทำ</b> <a className="pull-right badge bg-blue">{this.state.countListSurvey}</a>
+                                                    </li>
+                                                </ul>
+
                                             </div>
                                         )}
                                         no={() => ""}

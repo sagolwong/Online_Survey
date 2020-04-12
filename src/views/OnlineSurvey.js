@@ -396,7 +396,7 @@ class OnlineSurvey extends Component {
                 var model = new Survey.Model(form);
                 console.log(model);
                 return (
-                    <div className="App">
+                    <div className="">
                         {this.state.askEncrypt ?
                             <section className="content">
                                 <div className="box box-info">
@@ -451,7 +451,7 @@ class OnlineSurvey extends Component {
                                 </div>
                             </section>
                             : <div className="surveyjs">
-                                <h1>SurveyJS library in action:</h1>
+                                <h1 style={{ marginLeft: "1%" }}>แบบสอบถามที่ถูกสร้างจากการสนับสนุนของ SurveyJS :</h1>
                                 <Survey.Survey
                                     json={form}
                                     onComplete={this.onComplete}
@@ -465,8 +465,14 @@ class OnlineSurvey extends Component {
             }
         } else {
             return (
-                <div>
-                    กำลังโหลด....
+                <div style={{ fontSize: "25px" }}>
+                    <br /><br /><br /><br /><br /><br />
+                    <div className="row text-center">
+                        <i className="fa fa-refresh fa-spin" />
+                    </div>
+                    <div className="row text-center">
+                        กำลังโหลดข้อมูล...
+                        </div>
                 </div>
             )
         }

@@ -263,7 +263,7 @@ class Agreement extends Component {
                         return (
                             <div>
                                 <section className="content">
-                                    <div className="box box-warning">
+                                    <div className="box box-warning box box-solid">
                                         <div className="box-header with-border text-center">
                                             <h3 className="box-title">ข้อตกลงที่ควรทราบก่อนการทำแบบสอบถาม</h3>
                                         </div>
@@ -314,7 +314,7 @@ class Agreement extends Component {
                         return (
                             <div>
                                 <section className="content">
-                                    <div className="box box-warning">
+                                    <div className="box box-warning box box-solid">
                                         <div className="box-header with-border text-center">
                                             <h3 className="box-title">ข้อตกลงที่ควรทราบก่อนการทำแบบสอบถาม</h3>
                                         </div>
@@ -357,7 +357,7 @@ class Agreement extends Component {
                             return (
                                 <div>
                                     <section className="content">
-                                        <div className="box box-warning">
+                                        <div className="box box-warning box box-solid">
                                             <div className="box-header with-border text-center">
                                                 <h3 className="box-title">ข้อตกลงที่ควรทราบก่อนการทำแบบสอบถาม</h3>
                                             </div>
@@ -411,7 +411,7 @@ class Agreement extends Component {
                             return (
                                 <div>
                                     <section className="content">
-                                        <div className="box box-warning">
+                                        <div className="box box-warning box box-solid">
                                             <div className="box-header with-border text-center">
                                                 <h3 className="box-title">ข้อตกลงที่ควรทราบก่อนการทำแบบสอบถาม</h3>
                                             </div>
@@ -436,9 +436,9 @@ class Agreement extends Component {
                                             <div className="box-footer text-center">
                                                 {this.state.survey.status === "ONLINE" ?
                                                     this.state.checkAgree ?
-                                                        <button className="btn btn-info" onClick={this.goToOnlineSurveyPublic.bind(this)}>เข้าทำแบบสอบถาม</button>
-                                                        : <button className="btn btn-info" disabled>เข้าทำแบบสอบถาม</button>
-                                                    : <button className="btn btn-info" disabled>เข้าทำแบบสอบถาม</button>
+                                                        <button className="btn btn-success" onClick={this.goToOnlineSurveyPublic.bind(this)}>เข้าทำแบบสอบถาม</button>
+                                                        : <button className="btn btn-success" disabled>เข้าทำแบบสอบถาม</button>
+                                                    : <button className="btn btn-success" disabled>เข้าทำแบบสอบถาม</button>
                                                 }
                                             </div>
                                         </div>
@@ -484,7 +484,8 @@ class Agreement extends Component {
 
     render() {
         return (
-            <div className="bg-blank-page">
+            <div>
+                <br/><br/>
                 {this.state.checkGroup ? this.checkGroup() : this.showAgreement()}
             </div>
         )

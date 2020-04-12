@@ -65,6 +65,12 @@ router.route('/find/:id').get((req, res) => {
         .catch(err => res.status(400).json('Error: ' + err));
 });
 
+router.route('/count/:id').get((req, res) => {
+    Survey.find({ userId: req.params.id }).count()
+        .then(surveys => res.json(surveys))
+        .catch(err => res.status(400).json('Error: ' + err));
+});
+
 router.route('/group/:id').get((req, res) => {
     Survey.find({ sampleGroupId: req.params.id })
         .then(surveys => res.json(surveys))
