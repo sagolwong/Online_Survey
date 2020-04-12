@@ -86,7 +86,7 @@ class ManageSurvey extends Component {
     }
 
     componentDidUpdate(prevProps, prevState) {
-        if (prevState.update !== this.state.update){
+        if (prevState.update !== this.state.update) {
             axios.get(`/surveys/find/` + this.props.surveyId)
                 .then(response => {
                     this.setState({
@@ -164,12 +164,16 @@ class ManageSurvey extends Component {
     }
 
     sendRequest() {
+        var data = [];
+        data = data.concat(this.props.surveyId);
+        data = data.concat(this.props.auth.user.id);
+
         if (this.state.survey.haveGroup) {
             this.state.listUser.map(userId => {
                 var request = {
                     userId: userId,
                     typeRequest: "member",
-                    data: this.props.surveyId
+                    data: data
                 }
                 console.log(request);
                 axios.post('/requests/create', request)
@@ -184,7 +188,7 @@ class ManageSurvey extends Component {
                 var request = {
                     userId: userId,
                     typeRequest: "doOnly",
-                    data: this.props.surveyId
+                    data: data
                 }
                 console.log(request);
                 axios.post('/requests/create', request)
@@ -295,7 +299,7 @@ class ManageSurvey extends Component {
                                     {this.state.survey.haveGroup ?
                                         <div>
                                             <li><a data-toggle="modal" data-target="#modal1"> สำหรับเชิญทำแบบสอบถาม </a></li>
-                                            <li><a data-toggle="modal" data-target="#modal2"> สำหรับเชิญเข้าร่วมกลุ่มทำแบบสอบถาม </a></li>                  
+                                            <li><a data-toggle="modal" data-target="#modal2"> สำหรับเชิญเข้าร่วมกลุ่มทำแบบสอบถาม </a></li>
                                         </div>
                                         :
                                         <li><a data-toggle="modal" data-target="#modal1"> สำหรับเชิญทำแบบสอบถาม </a></li>
@@ -312,7 +316,7 @@ class ManageSurvey extends Component {
                                         <h4 className="modal-title">ลิงค์สำหรับเชิญทำแบบสอบถาม</h4>
                                     </div>
                                     <div className="modal-body">
-                                        <input type="text" className="form-control" value={"http://localhost:3000/online-survey/" + this.props.surveyId} readOnly/>
+                                        <input type="text" className="form-control" value={"http://localhost:3000/online-survey/" + this.props.surveyId} readOnly />
                                     </div>
                                     <div className="modal-footer">
                                         <button type="button" className="btn btn-default pull-right" data-dismiss="modal">ปิด</button>
@@ -385,8 +389,8 @@ class ManageSurvey extends Component {
             <div>
                 {this.state.already ?
                     this.showComponent()
-                    : <div style={{fontSize:"25px"}}>
-                        <br/><br/><br/><br/><br/><br/>
+                    : <div style={{ fontSize: "25px" }}>
+                        <br /><br /><br /><br /><br /><br />
                         <div className="row text-center">
                             <i className="fa fa-refresh fa-spin" />
                         </div>

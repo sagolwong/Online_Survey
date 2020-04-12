@@ -14,6 +14,7 @@ class FrequencyRequest extends Component {
 
         this.state = {
             survey: {},
+            user: {},
             frequency: [],
             followResult: [],
             checkDoneDate: false,
@@ -30,6 +31,7 @@ class FrequencyRequest extends Component {
         const userId = this.props.auth.user.id;
         const surveyId = this.props.frequencyRequest.data[0];
         const frequencyId = this.props.frequencyRequest.data[1];
+        const userId2 = this.props.frequencyRequest.data[2];
         const date = this.state.nowDate + "-" + this.state.nowMonth + "-" + this.state.nowYear
 
         await axios.get('/surveys/find/' + surveyId)
@@ -38,6 +40,17 @@ class FrequencyRequest extends Component {
                     survey: response.data
                 })
                 console.log(this.state.survey);
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+
+        await axios.get('/users/' + userId2)
+            .then(response => {
+                this.setState({
+                    user: response.data
+                })
+                console.log(this.state.user);
             })
             .catch((error) => {
                 console.log(error);
@@ -107,7 +120,7 @@ class FrequencyRequest extends Component {
                                     <div className="box-header with-border">
                                         <div className="user-block">
                                             <img className="img-circle" src="/../dist/img/user1-128x128.jpg" alt="User" />
-                                            <span className="username"><a href="fake"> dummy </a></span>
+                                            <span className="username"><a onClick={() => window.location = "/user-profile/" + this.state.user._id}> {this.state.user.firstname + " " + this.state.user.lastname} </a></span>
                                             <span className="description">วันนี้คุณมีนัดทำแบบสอบถาม : {this.state.survey.nameSurvey}</span>
                                         </div>
                                         <div className="box-tools">

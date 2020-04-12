@@ -10,6 +10,7 @@ class DecryptionRequest extends Component {
 
         this.state = {
             survey: {},
+            user: {},
             check: "",
             modal: false,
             secretKey: "",
@@ -23,6 +24,7 @@ class DecryptionRequest extends Component {
 
     componentDidMount() {
         const surveyId = this.props.decryptionRequest.data[0];
+        const userId = this.props.decryptionRequest.data[1];
 
         axios.get('/surveys/find/' + surveyId)
             .then(response => {
@@ -30,6 +32,17 @@ class DecryptionRequest extends Component {
                     survey: response.data
                 })
                 console.log(this.state.survey);
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+
+        axios.get('/users/' + userId)
+            .then(response => {
+                this.setState({
+                    user: response.data
+                })
+                console.log(this.state.user);
             })
             .catch((error) => {
                 console.log(error);
@@ -104,7 +117,7 @@ class DecryptionRequest extends Component {
                 <div className="box-header with-border">
                     <div className="user-block">
                         <img className="img-circle" src="/../dist/img/user1-128x128.jpg" alt="User" />
-                        <span className="username"><a href="fake"> dummy </a></span>
+                        <span className="username"><a onClick={() => window.location = "/user-profile/" + this.state.user._id}> {this.state.user.firstname + " " + this.state.user.lastname} </a></span>
                         <span className="description">ต้องการให้คุณเปิดเผยคำตอบที่ได้ทำไปในแบบสอบถาม : {this.state.survey.nameSurvey}</span>
                     </div>
                     <div className="box-tools">

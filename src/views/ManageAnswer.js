@@ -107,6 +107,10 @@ class ManageAnswer extends Component {
 
         this.state.listAnswer.map(answer => {
             var userId = simpleCryptoSystem.decrypt(answer.userId);
+            var data = [];
+            data = data.concat(this.props.surveyId);
+            data = data.concat(this.props.auth.user.id);
+
             userIds.map(sameUserId => {
                 if (userId === sameUserId) check = false;
             })
@@ -114,7 +118,7 @@ class ManageAnswer extends Component {
                 var request = {
                     userId: userId,
                     typeRequest: "decryption",
-                    data: this.props.surveyId
+                    data: data
                 }
                 console.log(request);
                 axios.post('/requests/create', request)

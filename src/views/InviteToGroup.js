@@ -155,6 +155,7 @@ class InviteToGroup extends Component {
             var data = []
             data = data.concat(surveyId);
             data = data.concat(this.state.frequency[0]._id);
+            data = data.concat(this.state.user._id);
             const request = {
                 userId: userId,
                 typeRequest: "frequency",

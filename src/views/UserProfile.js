@@ -160,77 +160,81 @@ class UserProfile extends Component {
                         </div>
 
                         <Can
-                            role={this.props.auth.user.role}
+                            role={this.state.user.role}
                             perform="user-profile:upgrade"
                             yes={() => (
                                 <div className="col-md-6">
-                                    <div className="box box-info">
-                                        <div className="box-header with-border">
-                                            <h3 className="box-title">กรอกข้อมูลเพื่ออัพเกรดเป็นนักวิจัย</h3>
-                                        </div>
+                                    {this.props.match.params.userId === undefined ?
+                                        <div className="box box-info">
+                                            <div className="box-header with-border">
+                                                <h3 className="box-title">กรอกข้อมูลเพื่ออัพเกรดเป็นนักวิจัย</h3>
+                                            </div>
 
-                                        <form onSubmit={this.onSubmit}>
-                                            <div className="box-body">
-                                                <div className="form-group">
-                                                    <label>เพศ:</label>
-                                                    <div className="row">
-                                                        <div className="col-md-6">
-                                                            <div className="radio">
-                                                                <label>
-                                                                    <input type="radio" id="gender" name="optionsGender" defaultValue="ชาย" onChange={this.onChange} />
+                                            <form onSubmit={this.onSubmit}>
+                                                <div className="box-body">
+                                                    <div className="form-group">
+                                                        <label>เพศ:</label>
+                                                        <div className="row">
+                                                            <div className="col-md-6">
+                                                                <div className="radio">
+                                                                    <label>
+                                                                        <input type="radio" id="gender" name="optionsGender" defaultValue="ชาย" onChange={this.onChange} />
                                                             ชาย
                                                         </label>
+                                                                </div>
                                                             </div>
-                                                        </div>
-                                                        <div className="col-md-6">
-                                                            <div className="radio">
-                                                                <label>
-                                                                    <input type="radio" id="gender" name="optionsGender" defaultValue="หญิง" onChange={this.onChange} />
+                                                            <div className="col-md-6">
+                                                                <div className="radio">
+                                                                    <label>
+                                                                        <input type="radio" id="gender" name="optionsGender" defaultValue="หญิง" onChange={this.onChange} />
                                                             หญิง
                                                         </label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div className="row-md-6">
+                                                            <div className="form-group">
+                                                                <label>อาชีพ:</label>
+                                                                <select
+                                                                    required
+                                                                    id="job"
+                                                                    className="form-control"
+                                                                    value={this.state.job}
+                                                                    onChange={this.onChange}>
+                                                                    <option value="นักเรียน">นักเรียน</option>
+                                                                    <option value="นิสิต/นักศึกษา">นิสิต/นักศึกษา</option>
+                                                                    <option value="ข้าราชการ/รัฐวิสาหกิจ">ข้าราชการ/รัฐวิสาหกิจ</option>
+                                                                    <option value="พนักงานบริษัทเอกชน">พนักงานบริษัทเอกชน</option>
+                                                                    <option value="ธุรกิจส่วนตัว">ธุรกิจส่วนตัว</option>
+                                                                    <option value="รับจ้าง">รับจ้าง</option>
+                                                                    <option value="แม่บ้าน/พ่อบ้าน">แม่บ้าน/พ่อบ้าน</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div className="row-md-6">
+                                                            <div className="form-group">
+                                                                <label>ทำไมถึงอยากยกระดับเป็นผู้วิจัยจงอธิบาย: </label>
+                                                                <textarea
+                                                                    required
+                                                                    id="description"
+                                                                    className="form-control"
+                                                                    value={this.state.description}
+                                                                    onChange={this.onChange}
+                                                                />
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div className="row-md-6">
-                                                        <div className="form-group">
-                                                            <label>อาชีพ:</label>
-                                                            <select
-                                                                required
-                                                                id="job"
-                                                                className="form-control"
-                                                                value={this.state.job}
-                                                                onChange={this.onChange}>
-                                                                <option value="นักเรียน">นักเรียน</option>
-                                                                <option value="นิสิต/นักศึกษา">นิสิต/นักศึกษา</option>
-                                                                <option value="ข้าราชการ/รัฐวิสาหกิจ">ข้าราชการ/รัฐวิสาหกิจ</option>
-                                                                <option value="พนักงานบริษัทเอกชน">พนักงานบริษัทเอกชน</option>
-                                                                <option value="ธุรกิจส่วนตัว">ธุรกิจส่วนตัว</option>
-                                                                <option value="รับจ้าง">รับจ้าง</option>
-                                                                <option value="แม่บ้าน/พ่อบ้าน">แม่บ้าน/พ่อบ้าน</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                    <div className="row-md-6">
-                                                        <div className="form-group">
-                                                            <label>ทำไมถึงอยากยกระดับเป็นผู้วิจัยจงอธิบาย: </label>
-                                                            <textarea
-                                                                required
-                                                                id="description"
-                                                                className="form-control"
-                                                                value={this.state.description}
-                                                                onChange={this.onChange}
-                                                            />
-                                                        </div>
+                                                </div>
+                                                <div className="box-footer text-center">
+                                                    <div className="form-group">
+                                                        <input type="submit" value="อัพเกรด" className="btn btn-info" />
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div className="box-footer text-center">
-                                                <div className="form-group">
-                                                    <input type="submit" value="อัพเกรด" className="btn btn-info" />
-                                                </div>
-                                            </div>
-                                        </form>
-                                    </div>
+                                            </form>
+                                        </div>
+                                        : ""
+                                    }
+
                                 </div>
                             )}
                             no={() => ""}
