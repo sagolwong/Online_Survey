@@ -59,55 +59,53 @@ export default class UpgradeRequest extends Component {
 
     render() {
         return (
-            <div style={{width: "500px"}}>
-                <div className="box box-widget collapsed-box">
-                    <div className="box-header with-border">
-                        <div className="user-block">
-                            <img className="img-circle" src="/../dist/img/user1-128x128.jpg" alt="User" />
-                            <span className="username"><a href="fake">{this.state.profile.firstname} {this.state.profile.lastname} </a></span>
-                            <span className="description">ต้องการอัพเกรดเป็นนักวิจัย</span>
+            <div className="box box-widget collapsed-box">
+                <div className="box-header with-border">
+                    <div className="user-block">
+                        <img className="img-circle" src="/../dist/img/user1-128x128.jpg" alt="User" />
+                        <span className="username"><a onClick={()=> window.location = "/user-profile/"+this.state.profile._id}>{this.state.profile.firstname} {this.state.profile.lastname} </a></span>
+                        <span className="description">ต้องการอัพเกรดเป็นนักวิจัย</span>
+                    </div>
+                    <div className="box-tools">
+                        <button type="button" className="btn btn-box-tool" data-widget="collapse"><i className="fa fa-plus" />
+                        </button>
+                    </div>
+                </div>
+
+                <div className="box-body">
+                    <div className="row-md-6">
+                        <div className="col-md-6">
+                            <p>เพศ :</p>
                         </div>
-                        <div className="box-tools">
-                            <button type="button" className="btn btn-box-tool" data-widget="collapse"><i className="fa fa-plus" />
-                            </button>
+                        <div className="col-md-6">
+                            <p>{this.props.upgradeRequest.data[1]}</p>
                         </div>
                     </div>
-
-                    <div className="box-body">
-                        <div className="row-md-6">
-                            <div className="col-md-6">
-                                <p>เพศ :</p>
-                            </div>
-                            <div className="col-md-6">
-                                <p>{this.props.upgradeRequest.data[1]}</p>
-                            </div>
+                    <div className="row-md-6">
+                        <div className="col-md-6">
+                            <p>อาชีพ :</p>
                         </div>
-                        <div className="row-md-6">
-                            <div className="col-md-6">
-                                <p>อาชีพ :</p>
-                            </div>
-                            <div className="col-md-6">
-                                <p>{this.props.upgradeRequest.data[2]}</p>
-                            </div>
-                        </div>
-                        <div className="row-md-6">
-                            <div className="col-md-6">
-                                <p>ทำไมถึงอยากยกระดับเป็นผู้วิจัย :</p>
-                            </div>
-                            <div className="col-md-6">
-                                <p>{this.props.upgradeRequest.data[3]}</p>
-                            </div>
+                        <div className="col-md-6">
+                            <p>{this.props.upgradeRequest.data[2]}</p>
                         </div>
                     </div>
+                    <div className="row-md-6">
+                        <div className="col-md-6">
+                            <p>ทำไมถึงอยากยกระดับเป็นผู้วิจัย :</p>
+                        </div>
+                        <div className="col-md-6">
+                            <p>{this.props.upgradeRequest.data[3]}</p>
+                        </div>
+                    </div>
+                </div>
 
-                    <div className="box-footer">
-                        <div className="row-md-6">
-                            <div className="col-md-6">
-                                <button style={{width:"200px"}} className="btn btn-primary" onClick={this.agree}>อนุญาต</button>
-                            </div>
-                            <div className="col-md-6">
-                                <button style={{width:"200px"}} className="btn btn-danger" onClick={this.disagree}>ปฏิเสธ</button>
-                            </div>
+                <div className="box-footer">
+                    <div className="row-md-6">
+                        <div className="col-md-6">
+                            <button style={{ width: "200px" }} className="btn btn-primary" onClick={this.agree}>อนุญาต</button>
+                        </div>
+                        <div className="col-md-6">
+                            <button style={{ width: "200px" }} className="btn btn-danger" onClick={this.disagree}>ปฏิเสธ</button>
                         </div>
                     </div>
                 </div>

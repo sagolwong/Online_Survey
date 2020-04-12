@@ -27,7 +27,9 @@ class UserProfile extends Component {
     }
 
     componentDidMount() {
-        const userId = this.props.auth.user.id;
+        var userId = this.props.auth.user.id;
+
+        if (this.props.match.params.userId) userId = this.props.match.params.userId;
 
         this.props.showComponent()
 
@@ -122,11 +124,11 @@ class UserProfile extends Component {
                         <div className="col-md-6">
                             <div className="box box-primary">
                                 <div className="box-body box-profile">
-                                    <img className="profile-user-img img-responsive img-circle" src="dist/img/user2-160x160.jpg" alt="User" />
-                                    <h4 className="profile-username text-center">{this.props.auth.user.firstname + " " + this.props.auth.user.lastname}</h4>
-                                    <p className="text-muted text-center">{this.props.auth.user.role}</p>
+                                    <img className="profile-user-img img-responsive img-circle" src="/dist/img/user2-160x160.jpg" alt="User" />
+                                    <h4 className="profile-username text-center">{this.state.user.firstname + " " + this.state.user.lastname}</h4>
+                                    <p className="text-muted text-center">{this.state.user.role}</p>
                                     <Can
-                                        role={this.props.auth.user.role}
+                                        role={this.state.user.role}
                                         perform="user-profile:show-more-profile"
                                         yes={() => (
                                             <div>

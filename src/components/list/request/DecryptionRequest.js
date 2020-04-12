@@ -100,72 +100,70 @@ class DecryptionRequest extends Component {
 
     render() {
         return (
-            <div style={{ width: "500px" }}>
-                <div className="box box-widget collapsed-box">
-                    <div className="box-header with-border">
-                        <div className="user-block">
-                            <img className="img-circle" src="/../dist/img/user1-128x128.jpg" alt="User" />
-                            <span className="username"><a href="fake"> dummy </a></span>
-                            <span className="description">ต้องการให้คุณเปิดเผยคำตอบที่ได้ทำไปในแบบสอบถาม : {this.state.survey.nameSurvey}</span>
+            <div className="box box-info collapsed-box">
+                <div className="box-header with-border">
+                    <div className="user-block">
+                        <img className="img-circle" src="/../dist/img/user1-128x128.jpg" alt="User" />
+                        <span className="username"><a href="fake"> dummy </a></span>
+                        <span className="description">ต้องการให้คุณเปิดเผยคำตอบที่ได้ทำไปในแบบสอบถาม : {this.state.survey.nameSurvey}</span>
+                    </div>
+                    <div className="box-tools">
+                        <button type="button" className="btn btn-box-tool" data-widget="collapse"><i className="fa fa-plus" />
+                        </button>
+                    </div>
+                </div>
+
+                <div className="box-body">
+                    <div className="row">
+                        <div className="col-md-6">
+                            <p>แบบสอบถาม : </p>
                         </div>
-                        <div className="box-tools">
-                            <button type="button" className="btn btn-box-tool" data-widget="collapse"><i className="fa fa-plus" />
-                            </button>
+                        <div className="col-md-6">
+                            <a onClick={this.goToSurveyManagement.bind(this)}>{this.state.survey.nameSurvey}</a>
                         </div>
                     </div>
-
-                    <div className="box-body">
-                        <div className="row">
-                            <div className="col-md-6">
-                                <p>แบบสอบถาม : </p>
-                            </div>
-                            <div className="col-md-6">
-                                <a onClick={this.goToSurveyManagement.bind(this)}>{this.state.survey.nameSurvey}</a>
-                            </div>
+                    <div className="row">
+                        <div className="col-md-6">
+                            <p>คำอธิบาย : </p>
                         </div>
-                        <div className="row">
-                            <div className="col-md-6">
-                                <p>คำอธิบาย : </p>
-                            </div>
-                            <div className="col-md-6">
-                                {this.state.survey.description}
-                            </div>
+                        <div className="col-md-6">
+                            {this.state.survey.description}
                         </div>
                     </div>
+                </div>
 
-                    <div className="box-footer">
-                        <div className="row-md-6">
-                            <div className="col-md-6">
-                                <button style={{ width: "200px" }} className="btn btn-primary" data-toggle="modal" data-target="#modalD">ตกลง</button>
-                            </div>
-                            <div className="col-md-6">
-                                <button style={{ width: "200px" }} className="btn btn-danger" onClick={this.disagree}>ไม่ตกลง</button>
-                            </div>
+                <div className="box-footer">
+                    <div className="row-md-6">
+                        <div className="col-md-6">
+                            <button style={{ width: "200px" }} className="btn btn-primary" data-toggle="modal" data-target="#modalD">ตกลง</button>
+                        </div>
+                        <div className="col-md-6">
+                            <button style={{ width: "200px" }} className="btn btn-danger" onClick={this.disagree}>ไม่ตกลง</button>
                         </div>
                     </div>
-                    <div className="modal fade" id="modalD">
-                        <div className="modal-dialog">
-                            <div className="modal-content">
-                                <div className="modal-header">
-                                    <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">×</span></button>
-                                    <h4 className="modal-title">กรุณากรอกรหัสที่คุณใช้เพื่อปกปิดคำตอบของคุณ</h4>
-                                </div>
-                                <div className="modal-body">
-                                    <input required
-                                        type="password"
-                                        id="secretKey"
-                                        className="form-control"
-                                        value={this.state.secretKey}
-                                        onChange={this.onChange}
-                                    />
-                                    {this.state.mistake ? <p color="red">รหัสผ่านผิด</p> : ""}
-                                </div>
+                </div>
+                <div className="modal fade" id="modalD">
+                    <div className="modal-dialog">
+                        <div className="modal-content">
+                            <div className="modal-header">
+                                <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">×</span></button>
+                                <h4 className="modal-title">กรุณากรอกรหัสที่คุณใช้เพื่อปกปิดคำตอบของคุณ</h4>
+                            </div>
+                            <div className="modal-body">
+                                <input required
+                                    type="password"
+                                    id="secretKey"
+                                    className="form-control"
+                                    value={this.state.secretKey}
+                                    onChange={this.onChange}
+                                />
+                                {this.state.mistake ? <p color="red">รหัสผ่านผิด</p> : ""}
+                            </div>
 
-                                <div className="modal-footer">
-                                    <button type="button" className="btn btn-default pull-left" data-dismiss="modal">ยกเลิก</button>
-                                    <button type="submit" className="btn btn-primary" onClick={this.agree}>ยืนยัน</button>
-                                </div>
+                            <div className="modal-footer">
+                                <button type="button" className="btn btn-default pull-left" data-dismiss="modal">ยกเลิก</button>
+                                <button type="submit" className="btn btn-primary" onClick={this.agree}>ยืนยัน</button>
                             </div>
                         </div>
                     </div>

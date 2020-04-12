@@ -70,6 +70,7 @@ class App extends Component {
 
         <PrivateRoute exact path="/requests" component={Requests} />
         <PrivateRoute exact path="/user-profile" component={UserProfile} />
+        <PrivateRoute exact path="/user-profile/:userId" component={UserProfile} />
         <PrivateRoute exact path="/error-page" component={ErrorPage} />
         <PrivateRoute exact path="/surveys" component={Surveys} />
         <PrivateRoute exact path="/survey-management/:surveyId" component={baseManageSurvey} />

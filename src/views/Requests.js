@@ -41,7 +41,7 @@ class Requests extends Component {
         if (this.state.requests[0] !== undefined) {
             return (
                 this.state.requests.map(res => {
-                    if (res.typeRequest === "upgrade") return <UpgradeRequest upgradeRequest={res} />
+                    if (res.typeRequest === "upgrade") return <div className="col-md-6"><UpgradeRequest upgradeRequest={res} /></div>
                     else if (res.typeRequest === "member") return <MemberRequest memberRequest={res} />
                     else if (res.typeRequest === "doOnly") return <DoOnlyRequest doOnlyRequest={res} />
                     else if (res.typeRequest === "frequency") return <FrequencyRequest frequencyRequest={res} />
@@ -51,7 +51,7 @@ class Requests extends Component {
         } else {
             return (
                 <div style={{ fontSize: "25px" }}>
-                    <br /><br /><br /><br /><br />
+                    <br /><br /><br /><br />
                     <div className="row text-center">
                         <i className="fa fa-envelope-o" /> ไม่มีรายการคำขอร้องขอ
                     </div>
@@ -73,6 +73,11 @@ class Requests extends Component {
                 </section>
                 <br />
                 <section className="content">
+                    <div className="box box-warning box-solid">
+                        <div className="box-header with-border">
+                            <h3 className="box-title">รายการคำร้องขอ</h3>
+                        </div>
+                    </div>
                     {this.showRequests()}
                 </section>
             </div>

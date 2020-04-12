@@ -51,47 +51,45 @@ export default class DoOnlyRequest extends Component {
 
     render() {
         return (
-            <div style={{ width: "500px" }}>
-                <div className="box box-widget collapsed-box">
-                    <div className="box-header with-border">
-                        <div className="user-block">
-                            <img className="img-circle" src="/../dist/img/user1-128x128.jpg" alt="User" />
-                            <span className="username"><a href="fake"> dummy </a></span>
-                            <span className="description">ต้องการเชิญคุณทำแบบสอบถาม</span>
+            <div className="box box-success collapsed-box">
+                <div className="box-header with-border">
+                    <div className="user-block">
+                        <img className="img-circle" src="/../dist/img/user1-128x128.jpg" alt="User" />
+                        <span className="username"><a href="fake"> dummy </a></span>
+                        <span className="description">ต้องการเชิญคุณทำแบบสอบถาม</span>
+                    </div>
+                    <div className="box-tools">
+                        <button type="button" className="btn btn-box-tool" data-widget="collapse"><i className="fa fa-plus" />
+                        </button>
+                    </div>
+                </div>
+
+                <div className="box-body">
+                    <div className="row">
+                        <div className="col-md-6">
+                            <p>แบบสอบถาม : </p>
                         </div>
-                        <div className="box-tools">
-                            <button type="button" className="btn btn-box-tool" data-widget="collapse"><i className="fa fa-plus" />
-                            </button>
+                        <div className="col-md-6">
+                            <a onClick={this.goToSurveyManagement.bind(this)}>{this.state.survey.nameSurvey}</a>
                         </div>
                     </div>
-
-                    <div className="box-body">
-                        <div className="row">
-                            <div className="col-md-6">
-                                <p>แบบสอบถาม : </p>
-                            </div>
-                            <div className="col-md-6">
-                                <a onClick={this.goToSurveyManagement.bind(this)}>{this.state.survey.nameSurvey}</a>
-                            </div>
+                    <div className="row">
+                        <div className="col-md-6">
+                            <p>คำอธิบาย : </p>
                         </div>
-                        <div className="row">
-                            <div className="col-md-6">
-                                <p>คำอธิบาย : </p>
-                            </div>
-                            <div className="col-md-6">
-                                {this.state.survey.description}
-                            </div>
+                        <div className="col-md-6">
+                            {this.state.survey.description}
                         </div>
                     </div>
+                </div>
 
-                    <div className="box-footer">
-                        <div className="row-md-6">
-                            <div className="col-md-6">
-                                <button style={{ width: "200px" }} className="btn btn-primary" onClick={this.agree}>ทำ</button>
-                            </div>
-                            <div className="col-md-6">
-                                <button style={{ width: "200px" }} className="btn btn-danger" onClick={this.disagree}>ไม่ทำ</button>
-                            </div>
+                <div className="box-footer">
+                    <div className="row-md-6">
+                        <div className="col-md-6">
+                            <button style={{ width: "200px" }} className="btn btn-primary" onClick={this.agree}>ทำ</button>
+                        </div>
+                        <div className="col-md-6">
+                            <button style={{ width: "200px" }} className="btn btn-danger" onClick={this.disagree}>ไม่ทำ</button>
                         </div>
                     </div>
                 </div>
