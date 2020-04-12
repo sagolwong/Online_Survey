@@ -471,7 +471,12 @@ class CreateSurvey3 extends Component {
             <div>
                 {console.log(this.state)}
                 <section className="content-header">
-
+                    <div className="progress active">
+                        <div className="progress-bar progress-bar-info progress-bar-striped" role="progressbar" aria-valuenow={75} aria-valuemin={0} aria-valuemax={100} style={{ width: '75%' }}>
+                            <span className="sr-only">STEP 3</span>
+                        </div>
+                    </div>
+                    <h3>ส่วนที่ 3 : ความถี่/ระยะเวลา</h3>
                 </section>
 
                 <section className="content">
@@ -577,7 +582,7 @@ class CreateSurvey3 extends Component {
                                 <h3 className="box-title">กำหนดเวลาเปิด/ปิดอัตโนมัติ</h3>
 
                                 <div className="box-tools pull-right">
-                                    <button type="button" className="btn btn-box-tool" data-widget="collapse" onClick={()=>this.setState({ schedule: false })}><i className="fa fa-minus" /></button>
+                                    <button type="button" className="btn btn-box-tool" data-widget="collapse" onClick={() => this.setState({ schedule: false })}><i className="fa fa-minus" /></button>
                                 </div>
                             </div>
 
@@ -689,7 +694,7 @@ class CreateSurvey3 extends Component {
                                 <h3 className="box-title">กำหนดเวลาเปิด/ปิดอัตโนมัติ</h3>
 
                                 <div className="box-tools pull-right">
-                                    <button type="button" className="btn btn-box-tool" data-widget="collapse" onClick={()=>this.setState({ schedule: true })}><i className="fa fa-plus" /></button>
+                                    <button type="button" className="btn btn-box-tool" data-widget="collapse" onClick={() => this.setState({ schedule: true })}><i className="fa fa-plus" /></button>
                                 </div>
                             </div>
 

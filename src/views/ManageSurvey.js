@@ -25,12 +25,13 @@ class ManageSurvey extends Component {
             listUser: [],
             listName: [],
             search: "",
-            update: false,
+            update: false
         };
     }
 
     async componentDidMount() {
         const surveyId = this.props.surveyId;
+
         await axios.get(`/users/`)
             .then(response => {
                 this.setState({
@@ -297,10 +298,10 @@ class ManageSurvey extends Component {
                                 <button type="button" className="btn btn-info dropdown-toggle" data-toggle="dropdown">สร้างลิงค์ +  <span className="fa fa-caret-down" /></button>
                                 <ul className="dropdown-menu">
                                     {this.state.survey.haveGroup ?
-                                        <div>
-                                            <li><a data-toggle="modal" data-target="#modal1"> สำหรับเชิญทำแบบสอบถาม </a></li>
-                                            <li><a data-toggle="modal" data-target="#modal2"> สำหรับเชิญเข้าร่วมกลุ่มทำแบบสอบถาม </a></li>
-                                        </div>
+                                        <li>
+                                            <a data-toggle="modal" data-target="#modal1"> สำหรับเชิญทำแบบสอบถาม </a>
+                                            <a data-toggle="modal" data-target="#modal2"> สำหรับเชิญเข้าร่วมกลุ่มทำแบบสอบถาม </a>
+                                        </li>
                                         :
                                         <li><a data-toggle="modal" data-target="#modal1"> สำหรับเชิญทำแบบสอบถาม </a></li>
                                     }
@@ -316,7 +317,12 @@ class ManageSurvey extends Component {
                                         <h4 className="modal-title">ลิงค์สำหรับเชิญทำแบบสอบถาม</h4>
                                     </div>
                                     <div className="modal-body">
-                                        <input type="text" className="form-control" value={"http://localhost:3000/online-survey/" + this.props.surveyId} readOnly />
+                                        <div class="input-group">
+                                            <input type="text" className="form-control" value={"http://localhost:3000/online-survey/" + this.props.surveyId} readOnly />
+                                            <span class="input-group-btn">
+                                                <button type="button" class="btn btn-success btn-flat" onClick={() => { navigator.clipboard.writeText("http://localhost:3000/online-survey/" + this.props.surveyId) }}><i className="fa fa-clipboard" /></button>
+                                            </span>
+                                        </div>
                                     </div>
                                     <div className="modal-footer">
                                         <button type="button" className="btn btn-default pull-right" data-dismiss="modal">ปิด</button>
@@ -333,7 +339,12 @@ class ManageSurvey extends Component {
                                         <h4 className="modal-title">ลิงค์สำหรับเชิญเข้าร่วมกลุ่มทำแบบสอบถาม</h4>
                                     </div>
                                     <div className="modal-body">
-                                        <input type="text" className="form-control" defaultValue={"http://localhost:3000/invite-to-group/" + this.props.surveyId} />
+                                        <div class="input-group">
+                                            <input type="text" className="form-control" value={"http://localhost:3000/invite-to-group/" + this.props.surveyId} readOnly />
+                                            <span class="input-group-btn">
+                                                <button type="button" class="btn btn-success btn-flat" onClick={() => { navigator.clipboard.writeText("http://localhost:3000/invite-to-group/" + this.props.surveyId) }}><i className="fa fa-clipboard" /></button>
+                                            </span>
+                                        </div>
                                     </div>
                                     <div className="modal-footer">
                                         <button type="button" className="btn btn-default pull-right" data-dismiss="modal">ปิด</button>

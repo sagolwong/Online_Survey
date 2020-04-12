@@ -75,9 +75,14 @@ class CreateSurvey1 extends Component {
 
     render() {
         return (
-            <div>
+            <div style={{ height: "570px" }}>
                 <section className="content-header">
-
+                    <div className="progress active">
+                        <div className="progress-bar progress-bar-info progress-bar-striped" role="progressbar" aria-valuenow={25} aria-valuemin={0} aria-valuemax={100} style={{ width: '25%' }}>
+                            <span className="sr-only">STEP 1</span>
+                        </div>
+                    </div>
+                    <h3>ส่วนที่ 1 : ข้อมูลทั่วไป</h3>
                 </section>
 
                 <section className="content">
@@ -147,8 +152,17 @@ class CreateSurvey1 extends Component {
                                 : ""}
                         </div>
                     </div>
-                    <button className="btn btn-warning" onClick={this.saveDraft.bind(this)}>บันทึกแบบร่าง</button>&nbsp;
-                    <button className="btn btn-info" onClick={this.onSubmit}>ต่อไป</button>
+                    {this.state.surveyName !== "" ?
+                        <div>
+                            <button className="btn btn-warning" onClick={this.saveDraft.bind(this)}>บันทึกแบบร่าง</button> &nbsp;
+                            <button className="btn btn-info" onClick={this.onSubmit}>ต่อไป</button>
+                        </div>
+                        :
+                        <div>
+                            <button className="btn btn-warning" disabled>บันทึกแบบร่าง</button> &nbsp;
+                            <button className="btn btn-info" disabled>ต่อไป</button>
+                        </div>
+                    }
                 </section>
             </div>
         );

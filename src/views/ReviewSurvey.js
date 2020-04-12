@@ -232,13 +232,16 @@ class ReviewSurvey extends Component {
         return (
             <div>
                 <section className="content-header">
-
+                    <div className="progress active">
+                        <div className="progress-bar progress-bar-info progress-bar-striped" role="progressbar" aria-valuenow={100} aria-valuemin={0} aria-valuemax={100} style={{ width: '100%' }}>
+                            <span className="sr-only">REVIEW SURVEY</span>
+                        </div>
+                    </div>
+                    <h3>ยืนยันรายละเอียดแบบสอบถาม</h3>
                 </section>
 
                 <section className="content">
-                    <h1>กรุณายืนยันรายละเอียดแบบสอบถาม</h1>
-                    <br></br>
-                    <div className="box box-info">
+                    <div className="box box-primary">
                         <div className="box-header with-border">
                             <h3 className="box-title">ส่วนที่ 1 : ข้อมูลทั่วไป</h3>
                         </div>
@@ -315,7 +318,7 @@ class ReviewSurvey extends Component {
                         </div>
                     </div>
                     <br />
-                    <div className="box box-info">
+                    <div className="box box-primary">
                         <div className="box-header with-border">
                             <h3 className="box-title">ส่วนที่ 2 : แบบสอบถาม</h3>
                         </div>
@@ -338,7 +341,7 @@ class ReviewSurvey extends Component {
                     {this.showSurvey()}
 
                     <br />
-                    <div className="box box-info">
+                    <div className="box box-primary">
                         <div className="box-header with-border">
                             <h3 className="box-title">ส่วนที่ 3 : ความถี่/ระยะเวลา</h3>
                         </div>

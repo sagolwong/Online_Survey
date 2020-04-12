@@ -74,7 +74,12 @@ class CreateSurvey2 extends Component {
         return (
             <div>
                 <section className="content-header">
-
+                    <div className="progress active">
+                        <div className="progress-bar progress-bar-info progress-bar-striped" role="progressbar" aria-valuenow={50} aria-valuemin={0} aria-valuemax={100} style={{ width: '50%' }}>
+                            <span className="sr-only">STEP 2</span>
+                        </div>
+                    </div>
+                    <h3>ส่วนที่ 2 : แบบสอบถาม</h3>
                 </section>
 
                 <section className="content">
