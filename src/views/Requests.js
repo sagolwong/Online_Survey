@@ -42,10 +42,10 @@ class Requests extends Component {
             return (
                 this.state.requests.map(res => {
                     if (res.typeRequest === "upgrade") return <div className="col-md-6"><UpgradeRequest upgradeRequest={res} /></div>
-                    else if (res.typeRequest === "member") return <MemberRequest memberRequest={res} />
-                    else if (res.typeRequest === "doOnly") return <DoOnlyRequest doOnlyRequest={res} />
-                    else if (res.typeRequest === "frequency") return <FrequencyRequest frequencyRequest={res} />
-                    else if (res.typeRequest === "decryption") return <DecryptionRequest decryptionRequest={res} />
+                    else if (res.typeRequest === "member") return <div className="col-md-6"><MemberRequest memberRequest={res} /></div>
+                    else if (res.typeRequest === "doOnly") return <div className="col-md-6"><DoOnlyRequest doOnlyRequest={res} /></div>
+                    else if (res.typeRequest === "frequency") return <div className="col-md-6"><FrequencyRequest frequencyRequest={res} /></div>
+                    else if (res.typeRequest === "decryption") return <div className="col-md-6"><DecryptionRequest decryptionRequest={res} /></div>
                 })
             )
         } else {

@@ -320,7 +320,7 @@ class ManageSurvey extends Component {
                                         <div class="input-group">
                                             <input type="text" className="form-control" value={"http://localhost:3000/online-survey/" + this.props.surveyId} readOnly />
                                             <span class="input-group-btn">
-                                                <button type="button" class="btn btn-success btn-flat" onClick={() => { navigator.clipboard.writeText("http://localhost:3000/online-survey/" + this.props.surveyId) }}><i className="fa fa-clipboard" /></button>
+                                                <button type="button" className="btn btn-success btn-flat" onClick={() => { navigator.clipboard.writeText("http://localhost:3000/online-survey/" + this.props.surveyId) }}><i className="fa fa-clipboard" /></button>
                                             </span>
                                         </div>
                                     </div>
