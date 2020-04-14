@@ -89,13 +89,13 @@ class ManageSurvey extends Component {
             })
         }
 
-        await axios.get(`/projects/find/` + this.state.survey.userId)
+        await axios.get(`/projects/` + this.state.survey.projectId)
             .then(response => {
                 this.setState({
                     project: response.data,
                     already: true
                 })
-                console.log(this.state.project[0]);
+                console.log(this.state.project);
             })
             .catch((error) => {
                 console.log(error);
@@ -244,25 +244,27 @@ class ManageSurvey extends Component {
     showMemberGroup() {
         return (
             this.state.members.map((member, index) => {
-                return (
-                    <ul>
-                        <div className="row">
-                            <div className="col-md-6">
-                                {member.firstname}  {member.lastname}
+                if (member !== null) {
+                    return (
+                        <ul>
+                            <div className="row">
+                                <div className="col-md-6">
+                                    {member.firstname}  {member.lastname}
+                                </div>
+                                <div className="col-md-6">
+                                    <button className="btn btn-danger pull-right" onClick={() => {
+                                        this.setState(({ members }) => {
+                                            const mlistMember = [...members]
+                                            mlistMember.splice(index, 1)
+                                            return { members: mlistMember }
+                                        })
+                                        this.deleteMember(index)
+                                    }}>ลบรายชื่อออกจากกลุ่ม</button>
+                                </div>
                             </div>
-                            <div className="col-md-6">
-                                <button className="btn btn-danger pull-right" onClick={() => {
-                                    this.setState(({ members }) => {
-                                        const mlistMember = [...members]
-                                        mlistMember.splice(index, 1)
-                                        return { members: mlistMember }
-                                    })
-                                    this.deleteMember(index)
-                                }}>ลบรายชื่อออกจากกลุ่ม</button>
-                            </div>
-                        </div>
-                    </ul>
-                )
+                        </ul>
+                    )
+                }
             })
         )
     }
@@ -378,7 +380,7 @@ class ManageSurvey extends Component {
                     {this.state.ownSurvey ?
                         <ol className="breadcrumb">
                             <li ><a href="/requests"><i className="fa fa-envelope-o" /> คำร้องขอ</a></li>
-                            <li ><a onClick={this.goToProject.bind(this)}><i className="fa fa-folder-o" /> {this.state.project[0].nameProject}</a></li>
+                            <li ><a onClick={this.goToProject.bind(this)}><i className="fa fa-folder-o" /> {this.state.project.nameProject}</a></li>
                             <li className="active"><i className="fa fa-file-text-o" /> {this.state.survey.nameSurvey}</li>
                         </ol>
                         : ""

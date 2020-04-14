@@ -122,7 +122,7 @@ class ProjectManagement extends Component {
             this.state.surveys.map(res => {
                 if (res.sampleGroupId === "") {
                     if (res.status === "ONLINE") {
-                        return <ListSurvey survey={res} />
+                        return <ListSurvey survey={res} projectId={this.props.match.params.projectId}/>
                     }
                 }
             })
@@ -134,7 +134,7 @@ class ProjectManagement extends Component {
             this.state.surveys.map(res => {
                 if (res.sampleGroupId === "") {
                     if (res.status === "DRAFT") {
-                        return <ListSurvey survey={res} />
+                        return <ListSurvey survey={res} projectId={this.props.match.params.projectId}/>
                     }
                 }
             })

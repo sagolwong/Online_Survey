@@ -35,7 +35,9 @@ class Projects extends Component {
     showGroupProject() {
         return (
             this.state.projects.map(res => {
-                return <ListProject project={res} />
+                if(res !== null){
+                   return <ListProject project={res} /> 
+                } 
             })
         )
     }

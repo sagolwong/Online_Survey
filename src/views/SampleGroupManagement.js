@@ -87,7 +87,7 @@ class SampleGroupManagement extends Component {
         return (
             this.state.surveys.map(res => {
                 if (res.status === "ONLINE") {
-                    return <ListSurvey survey={res} />
+                    return <ListSurvey survey={res} projectId={this.props.match.params.projectId} sampleGroupId={this.props.match.params.sampleGroupId}/>
                 }
             })
         )
@@ -97,7 +97,7 @@ class SampleGroupManagement extends Component {
         return (
             this.state.surveys.map(res => {
                 if (res.status === "DRAFT") {
-                    return <ListSurvey survey={res} />
+                    return <ListSurvey survey={res} projectId={this.props.match.params.projectId} sampleGroupId={this.props.match.params.sampleGroupId}/>
                 }
             })
         )

@@ -26,7 +26,7 @@ class ListProject extends Component {
                         user: response.data
                     })
 
-                    console.log(this.state.listUser);
+                    console.log(this.state.user);
                 })
                 .catch((error) => {
                     console.log(error);
@@ -40,8 +40,79 @@ class ListProject extends Component {
         window.location = `/project-management/${projectId}`;
     }
 
-    deleteProject() {
+    async deleteProject() {
+        const projectId = this.props.project._id;
 
+        await axios.get(`/surveys/` + projectId)
+            .then(response => {
+                response.data.map(survey => {
+                    const surveyId = survey._id;
+
+                    axios.get(`/answers/find/` + surveyId)
+                        .then(response => {
+                            axios.delete(`/answers/` + response.data[0]._id)
+                                .then(res => console.log(res.data));
+                        })
+                        .catch((error) => {
+                            console.log(error);
+                        })
+
+                    if (survey.frequency.amount !== 0) {
+                        axios.get(`/frequency/find/` + surveyId)
+                            .then(response => {
+                                axios.delete(`/frequency/` + response.data[0]._id)
+                                    .then(res => console.log(res.data));
+                            })
+                            .catch((error) => {
+                                console.log(error);
+                            })
+
+                        axios.get(`/followResults/findS/` + surveyId)
+                            .then(response => {
+                                axios.delete(`/followResults/` + response.data[0]._id)
+                                    .then(res => console.log(res.data));
+                            })
+                            .catch((error) => {
+                                console.log(error);
+                            })
+                    }
+
+                    axios.get(`/requests/`)
+                        .then(response => {
+                            response.data.map(request => {
+                                if (request.data[0] === surveyId) {
+                                    axios.delete(`/requests/` + request._id)
+                                        .then(res => console.log(res.data));
+                                }
+                            })
+                        })
+                        .catch((error) => {
+                            console.log(error);
+                        })
+
+                    axios.delete(`/surveys/` + surveyId)
+                        .then(res => console.log(res.data));
+                })
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+
+        await axios.get(`/sampleGroups/` + projectId)
+            .then(response => {
+                response.data.map(sampleGroup => {
+                    axios.delete(`/sampleGroups/` + sampleGroup._id)
+                        .then(res => console.log(res.data));
+                })
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+
+        await axios.delete(`/projects/` + projectId)
+            .then(res => console.log(res.data));
+
+        window.location = await "/projects";
     }
 
     render() {
@@ -54,9 +125,15 @@ class ListProject extends Component {
                         <div className="row">
                             <div className="col-md-6" onClick={this.goToManageProject}>
                                 <div className="box-body">
-                                    <div className="row-md-6">
-                                        <i className="fa fa-folder-o" /> {this.props.project.nameProject}
-                                    </div>
+                                    {this.props.auth.user.role === "ADMIN" ?
+                                        <div className="row-md-6">
+                                            <i className="fa fa-folder-o" /> {this.props.project.nameProject}
+                                        </div>
+                                        :
+                                        <div className="row-md-6" style={{ fontSize: "20px" }}>
+                                            <i className="fa fa-folder-o" /> {this.props.project.nameProject}
+                                        </div>
+                                    }
 
                                     {this.props.auth.user.role === "ADMIN" ?
                                         <div className="row-md-6 pull-left">
@@ -70,6 +147,10 @@ class ListProject extends Component {
                             <Can
                                 role={this.props.auth.user.role}
                                 perform="list-project:delete-project"
+                                data={{
+                                    userId: this.props.auth.user.id,
+                                    surveyOwnerId: this.props.project.userId
+                                }}
                                 yes={() => (
                                     <div className="col-md-6">
                                         <div className="box-body">

@@ -53,10 +53,11 @@ class Surveys extends Component {
     showListSurvey() {
         return (
             this.state.surveys.map(res => {
-                return <ListSurveyReadOnly survey={res} />
+                if(res !== null){
+                   return <ListSurveyReadOnly survey={res} /> 
+                }
             })
         )
-
     }
 
     render() {

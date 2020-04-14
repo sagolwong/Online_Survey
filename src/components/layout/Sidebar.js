@@ -75,15 +75,27 @@ class Sidebar extends Component {
         console.log(this.state.otherSurveys);
         if (this.state.projects !== undefined) {
             return (this.state.projects.map(res => {
-                return <ListProject project={res} sidebar={true} />
+                if(res !== null){
+                   return <ListProject project={res} sidebar={true} /> 
+                }
             }))
         }
     }
 
     listSurveys() {
+       /* const data ={
+            recentProjects:["5e8d8e88e40e484768b06466"],
+            recentOtherSurveys:["5e90963eff1df116702ac431",
+            "5e8d8f6ee40e484768b06469"]
+        }
+        axios.post(`/users/edit/5e8d8c35e40e484768b06464`,data)
+            .then(res => console.log(res.data));*/
         if (this.state.profile.recentOtherSurveys !== undefined) {
             return (this.state.otherSurveys.map(res => {
-                return <ListSurveyReadOnly survey={res} sidebar={true} />
+                if(res !== null){
+                  return <ListSurveyReadOnly survey={res} sidebar={true} />  
+                }
+                
             }))
         }
     }

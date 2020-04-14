@@ -100,13 +100,13 @@ class FollowResult extends Component {
                 })
         }
 
-        await axios.get(`/projects/find/` + this.state.survey.userId)
+        await axios.get(`/projects/` + this.state.survey.projectId)
             .then(response => {
                 this.setState({
                     project: response.data,
                     already: true
                 })
-                console.log(this.state.project[0]);
+                console.log(this.state.project);
             })
             .catch((error) => {
                 console.log(error);
@@ -182,7 +182,7 @@ class FollowResult extends Component {
                     {this.state.ownSurvey ?
                         <ol className="breadcrumb">
                             <li ><a href="/requests"><i className="fa fa-envelope-o" /> คำร้องขอ</a></li>
-                            <li ><a onClick={this.goToProject.bind(this)}><i className="fa fa-folder-o" /> {this.state.project[0].nameProject}</a></li>
+                            <li ><a onClick={this.goToProject.bind(this)}><i className="fa fa-folder-o" /> {this.state.project.nameProject}</a></li>
                             <li className="active"><i className="fa fa-file-text-o" /> {this.state.survey.nameSurvey}</li>
                         </ol>
                         : ""
