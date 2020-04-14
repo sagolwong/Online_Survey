@@ -138,7 +138,7 @@ class Agreement extends Component {
                                     <p>แบบสอบถาม :</p>
                                 </div>
                                 <div className="col-md-6">
-                                    <a href="/"> {this.state.survey.nameSurvey}</a>
+                                    <a onClick={() => window.location = "/survey-management/" + this.state.survey._id}> {this.state.survey.nameSurvey}</a>
                                 </div>
                             </div>
 
@@ -269,6 +269,7 @@ class Agreement extends Component {
                                         </div>
 
                                         <div className="box-body">
+                                            <h4>แบบสอบถาม : <a onClick={() => window.location = "/survey-management/" + this.state.survey._id}>{this.state.survey.nameSurvey}</a> <small>{this.showStatus()}</small></h4>
                                             <ul>
                                                 {this.state.survey.shareTo === "CLOSE" ?
                                                     <li>แบบสอบถามนี้เป็นแบบสอบถามประเภทปิด ผู้ที่ไม่ใช่สมาชิกไม่สามารถเข้าทำได้</li> :
@@ -320,6 +321,7 @@ class Agreement extends Component {
                                         </div>
 
                                         <div className="box-body">
+                                        <h4>แบบสอบถาม : <a onClick={() => window.location = "/survey-management/" + this.state.survey._id}>{this.state.survey.nameSurvey}</a> <small>{this.showStatus()}</small></h4>
                                             <ul>
                                                 {this.state.survey.shareTo === "CLOSE" ?
                                                     <li>แบบสอบถามนี้เป็นแบบสอบถามประเภทปิด ผู้ที่ไม่ใช่สมาชิกไม่สามารถเข้าทำได้</li> :
@@ -363,6 +365,7 @@ class Agreement extends Component {
                                             </div>
 
                                             <div className="box-body">
+                                            <h4>แบบสอบถาม : <a onClick={() => window.location = "/survey-management/" + this.state.survey._id}>{this.state.survey.nameSurvey}</a> <small>{this.showStatus()}</small></h4>
                                                 <ul>
                                                     <li>แบบสอบถามนี้เป็นแบบสอบถามประเภทสาธารณะสามารถเข้าทำได้ทุกคนแม้ไม่ใช่สมาชิก</li>
                                                     <li>แบบสอบถามนี้ต้องการทราบชื่อผู้ทำก่อนเข้าทำแบบสอบถาม</li>
@@ -417,6 +420,7 @@ class Agreement extends Component {
                                             </div>
 
                                             <div className="box-body">
+                                            <h4>แบบสอบถาม : <a onClick={() => window.location = "/survey-management/" + this.state.survey._id}>{this.state.survey.nameSurvey}</a> <small>{this.showStatus()}</small></h4>
                                                 <ul>
                                                     <li>แบบสอบถามนี้เป็นแบบสอบถามประเภทสาธารณะสามารถเข้าทำได้ทุกคนแม้ไม่ใช่สมาชิก</li>
                                                     <li>แบบสอบถามนี้ไม่ต้องการทราบชื่อผู้ทำก่อนเข้าทำแบบสอบถาม</li>
@@ -452,6 +456,12 @@ class Agreement extends Component {
         }
     }
 
+    showStatus() {
+        if (this.state.survey.status === "ONLINE") return <small><i class="fa fa-circle text-success" /> ออนไลน์</small>
+        else if (this.state.survey.status === "PAUSE") return <small><i class="fa fa-circle text-warning" /> หยุดรับข้อมูลชั่วคราว</small>
+        else if (this.state.survey.status === "FINISH") return <small><i class="fa fa-circle text-danger" /> ปิดรับข้อมูล</small>
+    }
+
     goToOnlineSurveyPublic() {
         if (this.state.survey.wantName) {
             if ((this.state.name !== "" || this.props.auth.isAuthenticated) && this.state.checkAgree) {
@@ -485,7 +495,7 @@ class Agreement extends Component {
     render() {
         return (
             <div>
-                <br/><br/>
+                <br /><br />
                 {this.state.checkGroup ? this.checkGroup() : this.showAgreement()}
             </div>
         )

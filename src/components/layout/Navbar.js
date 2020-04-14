@@ -83,7 +83,13 @@ class Navbar extends Component {
                                             </button>
                                         </li>
                                     )}
-                                    no={() => (
+                                    no={() => ""}
+                                />
+
+                                <Can
+                                    role={this.props.auth.user.role}
+                                    perform="navbar:upgrade"
+                                    yes={() => (
                                         <li className="dropdown notifications-menu">
                                             <button
                                                 style={{ marginTop: "11%", marginRight: "10px" }}
@@ -93,6 +99,7 @@ class Navbar extends Component {
                                             </button>
                                         </li>
                                     )}
+                                    no={() => ""}
                                 />
 
                                 <Can

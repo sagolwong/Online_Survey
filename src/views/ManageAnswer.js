@@ -10,8 +10,8 @@ class ManageAnswer extends Component {
     constructor(props) {
         super(props);
 
-         this.sendRequestDecrypt = this.sendRequestDecrypt.bind(this);
-         this.deleteAnswer = this.deleteAnswer.bind(this);
+        this.sendRequestDecrypt = this.sendRequestDecrypt.bind(this);
+        this.deleteAnswer = this.deleteAnswer.bind(this);
 
         this.state = {
             survey: {},
@@ -23,7 +23,8 @@ class ManageAnswer extends Component {
             listAnswer: [],
             deleteAnswer: false,
             checkType: false,
-            checkEncrypt: false
+            checkEncrypt: false,
+            ownSurvey: true
         };
     }
 
@@ -40,6 +41,12 @@ class ManageAnswer extends Component {
             .catch((error) => {
                 console.log(error);
             })
+
+        if (await this.state.survey.userId !== this.props.auth.user.id) {
+            this.setState({
+                ownSurvey: false
+            })
+        }
 
         await axios.get(`/answers/find/` + surveyId)
             .then(response => {
@@ -135,8 +142,8 @@ class ManageAnswer extends Component {
         return (
             this.state.listAnswer.map((res, index) => {
                 console.log(res)
-                console.log("index="+index)
-                return <ListAnswer answer={res} surveyType={this.state.survey.shareTo} surveyWantName={this.state.survey.wantName} index={index} delete={this.deleteAnswer} user={res.userId}/>
+                console.log("index=" + index)
+                return <ListAnswer answer={res} surveyType={this.state.survey.shareTo} surveyWantName={this.state.survey.wantName} index={index} delete={this.deleteAnswer} user={res.userId} />
             })
         )
     }
@@ -174,6 +181,12 @@ class ManageAnswer extends Component {
         })
     }
 
+    showStatus() {
+        if (this.state.survey.status === "ONLINE") return <small><i className="fa fa-circle text-success" /> ออนไลน์</small>
+        else if (this.state.survey.status === "PAUSE") return <small><i className="fa fa-circle text-warning" /> หยุดรับข้อมูลชั่วคราว</small>
+        else if (this.state.survey.status === "FINISH") return <small><i className="fa fa-circle text-danger" /> ปิดรับข้อมูล</small>
+    }
+
     goToProject() {
         window.location = "/project-management/" + this.state.survey.projectId
     }
@@ -183,13 +196,16 @@ class ManageAnswer extends Component {
             <div>
                 <section className="content-header">
                     <h1>
-                        <i className="fa fa-file-text-o" /> {this.state.survey.nameSurvey}
+                        <i className="fa fa-file-text-o" /> {this.state.survey.nameSurvey} {this.showStatus()}
                     </h1>
-                    <ol className="breadcrumb">
-                        <li ><a href="/requests"><i className="fa fa-envelope-o" /> คำร้องขอ</a></li>
-                        <li ><a onClick={this.goToProject.bind(this)}><i className="fa fa-folder-o" /> {this.state.project[0].nameProject}</a></li>
-                        <li className="active"><i className="fa fa-file-text-o" /> {this.state.survey.nameSurvey}</li>
-                    </ol>
+                    {this.state.ownSurvey ?
+                        <ol className="breadcrumb">
+                            <li ><a href="/requests"><i className="fa fa-envelope-o" /> คำร้องขอ</a></li>
+                            <li ><a onClick={this.goToProject.bind(this)}><i className="fa fa-folder-o" /> {this.state.project[0].nameProject}</a></li>
+                            <li className="active"><i className="fa fa-file-text-o" /> {this.state.survey.nameSurvey}</li>
+                        </ol>
+                        : ""
+                    }
                 </section>
                 <br />
                 <section className="content">
@@ -209,7 +225,7 @@ class ManageAnswer extends Component {
                     </div>
                     <br /><br />
                     <div className="row">
-                    {this.showAnswers()}
+                        {this.showAnswers()}
                         {/*this.state.listAnswer[0] !== undefined ? this.showAnswers():  <div align="center">ยังไม่มีคำตอบ</div>*/}
                     </div>
                 </section>
@@ -222,8 +238,8 @@ class ManageAnswer extends Component {
             <div>
                 {this.state.already ?
                     this.showComponent()
-                    : <div style={{fontSize:"25px"}}>
-                        <br/><br/><br/><br/><br/><br/>
+                    : <div style={{ fontSize: "25px" }}>
+                        <br /><br /><br /><br /><br /><br />
                         <div className="row text-center">
                             <i className="fa fa-refresh fa-spin" />
                         </div>

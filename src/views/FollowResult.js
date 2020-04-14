@@ -17,6 +17,7 @@ class FollowResult extends Component {
             listTimeToDo: [],
             checkListTime: false,
             follower: [],
+            ownSurvey: true
         };
         this.showTh = this.showTh.bind(this)
         this.showRow = this.showRow.bind(this)
@@ -39,6 +40,12 @@ class FollowResult extends Component {
             .catch((error) => {
                 console.log(error);
             })
+
+        if (await this.state.survey.userId !== this.props.auth.user.id) {
+            this.setState({
+                ownSurvey: false
+            })
+        }
 
         if (await this.state.survey.names[0] !== undefined) {
             this.state.survey.names.map(userId => {
@@ -155,6 +162,12 @@ class FollowResult extends Component {
         )
     }
 
+    showStatus() {
+        if (this.state.survey.status === "ONLINE") return <small><i className="fa fa-circle text-success" /> ออนไลน์</small>
+        else if (this.state.survey.status === "PAUSE") return <small><i className="fa fa-circle text-warning" /> หยุดรับข้อมูลชั่วคราว</small>
+        else if (this.state.survey.status === "FINISH") return <small><i className="fa fa-circle text-danger" /> ปิดรับข้อมูล</small>
+    }
+
     goToProject() {
         window.location = "/project-management/" + this.state.survey.projectId
     }
@@ -164,13 +177,16 @@ class FollowResult extends Component {
             <div>
                 <section className="content-header">
                     <h1>
-                        <i className="fa fa-file-text-o" /> {this.state.survey.nameSurvey}
+                        <i className="fa fa-file-text-o" /> {this.state.survey.nameSurvey} {this.showStatus()}
                     </h1>
-                    <ol className="breadcrumb">
-                        <li ><a href="/requests"><i className="fa fa-envelope-o" /> คำร้องขอ</a></li>
-                        <li ><a onClick={this.goToProject.bind(this)}><i className="fa fa-folder-o" /> {this.state.project[0].nameProject}</a></li>
-                        <li className="active"><i className="fa fa-file-text-o" /> {this.state.survey.nameSurvey}</li>
-                    </ol>
+                    {this.state.ownSurvey ?
+                        <ol className="breadcrumb">
+                            <li ><a href="/requests"><i className="fa fa-envelope-o" /> คำร้องขอ</a></li>
+                            <li ><a onClick={this.goToProject.bind(this)}><i className="fa fa-folder-o" /> {this.state.project[0].nameProject}</a></li>
+                            <li className="active"><i className="fa fa-file-text-o" /> {this.state.survey.nameSurvey}</li>
+                        </ol>
+                        : ""
+                    }
                 </section>
                 <br />
                 <section className="content">
@@ -207,13 +223,13 @@ class FollowResult extends Component {
                 {this.state.already ?
                     this.state.frequency[0] !== undefined ?
                         this.showTable()
-                        : <div className="row text-center" style={{fontSize:"25px"}}>
-                            <br/><br/><br/><br/><br/><br/><br/>
+                        : <div className="row text-center" style={{ fontSize: "25px" }}>
+                            <br /><br /><br /><br /><br /><br /><br />
                             <i className="fa fa-ban" /> ไม่ได้ตั้งค่าให้สามารถใช้งานฟังก์ชันนี้ได้
                         </div>
 
-                    : <div style={{fontSize:"25px"}}>
-                        <br/><br/><br/><br/><br/><br/>
+                    : <div style={{ fontSize: "25px" }}>
+                        <br /><br /><br /><br /><br /><br />
                         <div className="row text-center">
                             <i className="fa fa-refresh fa-spin" />
                         </div>

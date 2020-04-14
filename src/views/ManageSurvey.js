@@ -11,8 +11,14 @@ class ManageSurvey extends Component {
         this.showListName = this.showListName.bind(this);
         this.showMemberGroup = this.showMemberGroup.bind(this);
         this.sendRequest = this.sendRequest.bind(this);
+        this.changeStatusSurvey = this.changeStatusSurvey.bind(this);
+        this.closeSurvey = this.closeSurvey.bind(this);
         this.cancel = this.cancel.bind(this);
 
+        let newDate = new Date()
+        let date = newDate.getDate();
+        let month = newDate.getMonth() + 1;
+        let year = newDate.getFullYear() + 543;
 
         this.state = {
             survey: {},
@@ -25,7 +31,18 @@ class ManageSurvey extends Component {
             listUser: [],
             listName: [],
             search: "",
-            update: false
+            update: false,
+            ownSurvey: true,
+            showLinkInvite: false,
+            nowDate: date,
+            nowMonth: month,
+            nowYear: year,
+            sdate: 0,
+            smonth: 0,
+            syear: 0,
+            edate: 0,
+            emonth: 0,
+            eyear: 0,
         };
     }
 
@@ -49,13 +66,28 @@ class ManageSurvey extends Component {
                 this.setState({
                     survey: response.data,
                     amountMember: response.data.names.length,
-                    names: response.data.names
+                    names: response.data.names,
+                    sdate: response.data.openAndCloseTimes.start.day,
+                    smonth: response.data.openAndCloseTimes.start.month,
+                    syear: response.data.openAndCloseTimes.start.year,
+                    edate: response.data.openAndCloseTimes.end.day,
+                    emonth: response.data.openAndCloseTimes.end.month,
+                    eyear: response.data.openAndCloseTimes.end.year,
                 })
                 console.log(this.state.survey);
+                if ((this.state.nowYear <= this.state.syear && (this.state.nowMonth < this.state.smonth || (this.state.nowDate < this.state.sdate && this.state.nowDate >= this.state.sdate))) || (this.state.nowMonth === this.state.smonth && this.state.nowDate < this.state.sdate)) {
+                    this.setState({ showLinkInvite: true })
+                }
             })
             .catch((error) => {
                 console.log(error);
             })
+
+        if (await this.state.survey.userId !== this.props.auth.user.id) {
+            this.setState({
+                ownSurvey: false
+            })
+        }
 
         await axios.get(`/projects/find/` + this.state.survey.userId)
             .then(response => {
@@ -255,8 +287,81 @@ class ManageSurvey extends Component {
         this.setState({
             update: !this.state.update
         })
+    }
 
+    showStatus() {
+        if (this.state.survey.status === "ONLINE") return <small><i className="fa fa-circle text-success" /> ออนไลน์</small>
+        else if (this.state.survey.status === "PAUSE") return <small><i className="fa fa-circle text-warning" /> หยุดรับข้อมูลชั่วคราว</small>
+        else if (this.state.survey.status === "FINISH") return <small><i className="fa fa-circle text-danger" /> ปิดรับข้อมูล</small>
+    }
 
+    changeStatusSurvey() {
+        if (this.state.survey.status === "ONLINE") {
+            var status = {
+                status: "PAUSE"
+            }
+            console.log(status);
+            axios.post(`/surveys/status/${this.state.survey._id}`, status)
+                .then(res => {
+                    console.log(res.data)
+                    window.location = "/survey-management/" + this.state.survey._id
+                });
+
+        } else if (this.state.survey.status === "PAUSE") {
+            var status = {
+                status: "ONLINE"
+            }
+            console.log(status);
+            axios.post(`/surveys/status/${this.state.survey._id}`, status)
+                .then(res => {
+                    console.log(res.data)
+                    window.location = "/survey-management/" + this.state.survey._id
+                });
+        }
+    }
+
+    closeSurvey() {
+        var status = {
+            status: "FINISH"
+        }
+        console.log(status);
+        axios.post(`/surveys/status/${this.state.survey._id}`, status)
+            .then(res => {
+                console.log(res.data)
+                window.location = "/survey-management/" + this.state.survey._id
+            });
+    }
+
+    showButtonAction() {
+        if (this.state.survey.status === "ONLINE") {
+            return (
+                <div className="btn-group">
+                    <button type="button" className="btn btn-warning" onClick={this.changeStatusSurvey}>หยุดรับข้อมูลชั่วคราว</button>
+                    <button type="button" className="btn btn-warning dropdown-toggle" data-toggle="dropdown">
+                        <span className="caret" />
+                        <span className="sr-only">Toggle Dropdown</span>
+                    </button>
+                    <ul className="dropdown-menu" role="menu">
+                        <li><a onClick={this.closeSurvey}>ปิดรับข้อมูล</a></li>
+                    </ul>
+                </div>
+            )
+        }
+        else if (this.state.survey.status === "PAUSE") {
+            return (
+                <div className="btn-group">
+                    <button type="button" className="btn btn-success" onClick={this.changeStatusSurvey}>รับข้อมูลต่อ</button>
+                    <button type="button" className="btn btn-success dropdown-toggle" data-toggle="dropdown">
+                        <span className="caret" />
+                        <span className="sr-only">Toggle Dropdown</span>
+                    </button>
+                    <ul className="dropdown-menu" role="menu">
+                        <li><a onClick={this.closeSurvey}>ปิดรับข้อมูล</a></li>
+                    </ul>
+                </div>
+            )
+        }
+        else if (this.state.survey.status === "FINISH") return "";
     }
 
     goToProject() {
@@ -268,13 +373,16 @@ class ManageSurvey extends Component {
             <div>
                 <section className="content-header">
                     <h1>
-                        <i className="fa fa-file-text-o" /> {this.state.survey.nameSurvey}
+                        <i className="fa fa-file-text-o" /> {this.state.survey.nameSurvey} {this.showStatus()}
                     </h1>
-                    <ol className="breadcrumb">
-                        <li ><a href="/requests"><i className="fa fa-envelope-o" /> คำร้องขอ</a></li>
-                        <li ><a onClick={this.goToProject.bind(this)}><i className="fa fa-folder-o" /> {this.state.project[0].nameProject}</a></li>
-                        <li className="active"><i className="fa fa-file-text-o" /> {this.state.survey.nameSurvey}</li>
-                    </ol>
+                    {this.state.ownSurvey ?
+                        <ol className="breadcrumb">
+                            <li ><a href="/requests"><i className="fa fa-envelope-o" /> คำร้องขอ</a></li>
+                            <li ><a onClick={this.goToProject.bind(this)}><i className="fa fa-folder-o" /> {this.state.project[0].nameProject}</a></li>
+                            <li className="active"><i className="fa fa-file-text-o" /> {this.state.survey.nameSurvey}</li>
+                        </ol>
+                        : ""
+                    }
                 </section>
                 <br />
                 <section className="content">
@@ -294,18 +402,28 @@ class ManageSurvey extends Component {
                             {this.showListUser()}
                         </div>
                         <div className="col-md-6">
-                            <div className="input-group-btn">
-                                <button type="button" className="btn btn-info dropdown-toggle" data-toggle="dropdown">สร้างลิงค์ +  <span className="fa fa-caret-down" /></button>
-                                <ul className="dropdown-menu">
-                                    {this.state.survey.haveGroup ?
-                                        <li>
-                                            <a data-toggle="modal" data-target="#modal1"> สำหรับเชิญทำแบบสอบถาม </a>
-                                            <a data-toggle="modal" data-target="#modal2"> สำหรับเชิญเข้าร่วมกลุ่มทำแบบสอบถาม </a>
-                                        </li>
-                                        :
-                                        <li><a data-toggle="modal" data-target="#modal1"> สำหรับเชิญทำแบบสอบถาม </a></li>
-                                    }
-                                </ul>
+                            <div className="row">
+                                <div className="col-md-6">
+                                    <div className="input-group-btn">
+                                        <button type="button" className="btn btn-info dropdown-toggle" data-toggle="dropdown">สร้างลิงค์ +  <span className="fa fa-caret-down" /></button>
+                                        <ul className="dropdown-menu">
+                                            {this.state.survey.haveGroup ?
+                                                <li>
+                                                    <a data-toggle="modal" data-target="#modal1"> สำหรับเชิญทำแบบสอบถาม </a>
+                                                    {this.state.showLinkInvite ?
+                                                        <a data-toggle="modal" data-target="#modal2"> สำหรับเชิญเข้าร่วมกลุ่มทำแบบสอบถาม </a>
+                                                        : ""
+                                                    }
+                                                </li>
+                                                :
+                                                <li><a data-toggle="modal" data-target="#modal1"> สำหรับเชิญทำแบบสอบถาม </a></li>
+                                            }
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div className="col-md-6">
+                                    {this.showButtonAction()}
+                                </div>
                             </div>
                         </div>
                         <div className="modal fade" id="modal1">

@@ -11,7 +11,8 @@ class SurveyProfile extends Component {
             survey: {},
             project: [],
             already: false,
-            dateToDo: []
+            dateToDo: [],
+            ownSurvey: true
         };
         this.showComponent = this.showComponent.bind(this);
         this.shareTo = this.shareTo.bind(this);
@@ -48,6 +49,12 @@ class SurveyProfile extends Component {
                 .catch((error) => {
                     console.log(error);
                 })
+        }
+
+        if (await this.state.survey.userId !== this.props.auth.user.id) {
+            this.setState({
+                ownSurvey: false
+            })
         }
 
         await axios.get(`/projects/find/` + this.state.survey.userId)
@@ -121,6 +128,12 @@ class SurveyProfile extends Component {
         )
     }
 
+    showStatus(){
+        if(this.state.survey.status === "ONLINE") return <small><i className="fa fa-circle text-success"/> ออนไลน์</small>
+        else if(this.state.survey.status === "PAUSE") return <small><i className="fa fa-circle text-warning"/> หยุดรับข้อมูลชั่วคราว</small>
+        else if(this.state.survey.status === "FINISH") return <small><i className="fa fa-circle text-danger"/> ปิดรับข้อมูล</small>
+    }
+
     goToProject() {
         window.location = "/project-management/" + this.state.survey.projectId
     }
@@ -130,13 +143,17 @@ class SurveyProfile extends Component {
             <div>
                 <section className="content-header">
                     <h1>
-                        <i className="fa fa-file-text-o" /> {this.state.survey.nameSurvey}
+                        <i className="fa fa-file-text-o" /> {this.state.survey.nameSurvey} {this.showStatus()}
                     </h1>
-                    <ol className="breadcrumb">
-                        <li ><a href="/requests"><i className="fa fa-envelope-o" /> คำร้องขอ</a></li>
-                        <li ><a onClick={this.goToProject.bind(this)}><i className="fa fa-folder-o" /> {this.state.project[0].nameProject}</a></li>
-                        <li className="active"><i className="fa fa-file-text-o" /> {this.state.survey.nameSurvey}</li>
-                    </ol>
+                    {this.state.ownSurvey ?
+                        <ol className="breadcrumb">
+                            <li ><a href="/requests"><i className="fa fa-envelope-o" /> คำร้องขอ</a></li>
+                            <li ><a onClick={this.goToProject.bind(this)}><i className="fa fa-folder-o" /> {this.state.project[0].nameProject}</a></li>
+                            <li className="active"><i className="fa fa-file-text-o" /> {this.state.survey.nameSurvey}</li>
+                        </ol>
+                        : ""
+                    }
+
                 </section>
                 <br />
                 <section className="content">
@@ -208,7 +225,7 @@ class SurveyProfile extends Component {
                                         </div>
                                     </div>
                                     {this.dateToDo()}
-                                    <br/>
+                                    <br />
                                 </div>
                                 : ""
                             }

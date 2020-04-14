@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import PropTypes from "prop-types";
+import PropTypes, { string } from "prop-types";
 import { connect } from "react-redux";
 import axios from 'axios';
 
@@ -75,7 +75,7 @@ class Sidebar extends Component {
         console.log(this.state.otherSurveys);
         if (this.state.projects !== undefined) {
             return (this.state.projects.map(res => {
-                return <ListProject project={res} sidebar={true}/>
+                return <ListProject project={res} sidebar={true} />
             }))
         }
     }
@@ -83,7 +83,7 @@ class Sidebar extends Component {
     listSurveys() {
         if (this.state.profile.recentOtherSurveys !== undefined) {
             return (this.state.otherSurveys.map(res => {
-                return <ListSurveyReadOnly survey={res} sidebar={true}/>
+                return <ListSurveyReadOnly survey={res} sidebar={true} />
             }))
         }
     }

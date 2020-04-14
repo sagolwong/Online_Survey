@@ -15,13 +15,14 @@ export default class ListTemplate extends Component {
 
     render() {
         return (
-            <div className="col-md-3 col-sm-6 col-xs-12" style={{width:"24%"}}>
+            <div className="col-md-3 col-sm-6 col-xs-12" style={{ width: "24%" }}>
                 <div class="input-group">
                     <div className="listSampleGroup">
                         <div className="info-box" onClick={this.goToEditSurvey.bind(this)}>
                             <span className="info-box-icon bg-blue"><i className="fa fa-file-o" /></span>
                             <div className="info-box-content">
-                                <h4>{this.props.template.nameSurvey}</h4>
+                                <h4>แม่แบบ</h4>
+                                <p>{this.props.template.nameSurvey}</p>
                             </div>
                         </div>
                     </div>

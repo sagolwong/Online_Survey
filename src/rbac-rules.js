@@ -4,6 +4,7 @@ const rules = {
     },
     RESPONDER: {
         static: [
+            "navbar:upgrade",
             "navbar:banner",
             "navbar:toggle-button",
             "navbar:request",
