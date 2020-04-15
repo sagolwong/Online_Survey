@@ -23,6 +23,19 @@ export default class ListMember extends Component {
                     console.log(error);
                 })
 
+            await axios.get(`/requests/`)
+                .then(response => {
+                    response.data.map(request => {
+                        if (request.userId === userId || request.data[0] === userId) {
+                            axios.delete(`/requests/` + request._id)
+                                .then(res => console.log(res.data));
+                        }
+                    })
+                })
+                .catch((error) => {
+                    console.log(error);
+                })
+
             await axios.delete(`/users/` + userId)
                 .then(res => console.log(res.data));
 
