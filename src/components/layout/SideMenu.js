@@ -51,7 +51,12 @@ class SideMenu extends Component {
                         <br />
                         <div className="user-panel">
                             <div className="pull-left image">
-                                <img src="/dist/img/user2-160x160.jpg" className="img-circle" alt="User" />
+                                <img src={this.props.auth.user.role === "ADMIN" ?
+                                    "/dist/img/admin.png"
+                                    : this.props.auth.user.role === "RESEARCHER" ?
+                                        "/dist/img/researcher.png"
+                                        : "/dist/img/responder.png"
+                                } className="img-circle" alt="User" />
                             </div>
                             <div className="pull-left info">
                                 <p>{this.props.auth.user.role === "ADMIN" ? this.props.auth.user.firstname : this.props.auth.user.firstname + " " + this.props.auth.user.lastname}</p>

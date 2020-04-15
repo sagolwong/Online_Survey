@@ -144,14 +144,24 @@ class Navbar extends Component {
                                     yes={() => (
                                         <li className="dropdown user user-menu">
                                             <a href="/" className="dropdown-toggle" data-toggle="dropdown">
-                                                <img src="/dist/img/user2-160x160.jpg" className="user-image" alt="User" />
+                                                <img src={this.props.auth.user.role === "ADMIN" ?
+                                                    "/dist/img/admin.png"
+                                                    : this.props.auth.user.role === "RESEARCHER" ?
+                                                        "/dist/img/researcher.png"
+                                                        : "/dist/img/responder.png"
+                                                } className="user-image" alt="User" />
                                                 <span className="hidden-xs">
                                                     {this.props.auth.user.role === "ADMIN" ? this.props.auth.user.firstname : this.props.auth.user.firstname + " " + this.props.auth.user.lastname}
                                                 </span>
                                             </a>
                                             <ul className="dropdown-menu">
                                                 <li className="user-header">
-                                                    <img src="/dist/img/user2-160x160.jpg" className="img-circle" alt="User" />
+                                                    <img src={this.props.auth.user.role === "ADMIN" ?
+                                                        "/dist/img/admin.png"
+                                                        : this.props.auth.user.role === "RESEARCHER" ?
+                                                            "/dist/img/researcher.png"
+                                                            : "/dist/img/responder.png"
+                                                    } className="img-circle" alt="User" />
                                                     <p>
                                                         {this.props.auth.user.firstname + " " + this.props.auth.user.lastname}
                                                         <small>{this.props.auth.user.role}</small>

@@ -119,7 +119,12 @@ class FrequencyRequest extends Component {
                                 <div className="box box-success collapsed-box">
                                     <div className="box-header with-border">
                                         <div className="user-block">
-                                            <img className="img-circle" src="/../dist/img/user1-128x128.jpg" alt="User" />
+                                            <img className="img-circle" src={this.state.user.role === "ADMIN" ?
+                                                "/dist/img/admin.png"
+                                                : this.state.user.role === "RESEARCHER" ?
+                                                    "/dist/img/researcher.png"
+                                                    : "/dist/img/responder.png"
+                                            } alt="User" />
                                             <span className="username"><a onClick={() => window.location = "/user-profile/" + this.state.user._id}> {this.state.user.firstname + " " + this.state.user.lastname} </a></span>
                                             <span className="description">วันนี้คุณมีนัดทำแบบสอบถาม : {this.state.survey.nameSurvey}</span>
                                         </div>

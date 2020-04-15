@@ -75,27 +75,27 @@ class Sidebar extends Component {
         console.log(this.state.otherSurveys);
         if (this.state.projects !== undefined) {
             return (this.state.projects.map(res => {
-                if(res !== null){
-                   return <ListProject project={res} sidebar={true} /> 
+                if (res !== null) {
+                    return <ListProject project={res} sidebar={true} />
                 }
             }))
         }
     }
 
     listSurveys() {
-       /* const data ={
-            recentProjects:["5e8d8e88e40e484768b06466"],
-            recentOtherSurveys:["5e90963eff1df116702ac431",
-            "5e8d8f6ee40e484768b06469"]
-        }
-        axios.post(`/users/edit/5e8d8c35e40e484768b06464`,data)
-            .then(res => console.log(res.data));*/
+        /* const data ={
+             recentProjects:["5e8d8e88e40e484768b06466"],
+             recentOtherSurveys:["5e90963eff1df116702ac431",
+             "5e8d8f6ee40e484768b06469"]
+         }
+         axios.post(`/users/edit/5e8d8c35e40e484768b06464`,data)
+             .then(res => console.log(res.data));*/
         if (this.state.profile.recentOtherSurveys !== undefined) {
             return (this.state.otherSurveys.map(res => {
-                if(res !== null){
-                  return <ListSurveyReadOnly survey={res} sidebar={true} />  
+                if (res !== null) {
+                    return <ListSurveyReadOnly survey={res} sidebar={true} />
                 }
-                
+
             }))
         }
     }
@@ -110,7 +110,13 @@ class Sidebar extends Component {
                         {/* Sidebar user panel */}
                         <div className="user-panel">
                             <div className="pull-left image">
-                                <img src="/dist/img/user2-160x160.jpg" className="img-circle" alt="User" />
+                                <img src={this.props.auth.user.role === "ADMIN" ?
+                                    "/dist/img/admin.png"
+                                    : this.props.auth.user.role === "RESEARCHER" ?
+                                        "/dist/img/researcher.png"
+                                        : "/dist/img/responder.png"
+                                }
+                                    className="img-circle" alt="User" />
                             </div>
                             <div className="pull-left info">
                                 <p>{this.props.auth.user.role === "ADMIN" ? this.props.auth.user.firstname : this.props.auth.user.firstname + " " + this.props.auth.user.lastname}</p>
