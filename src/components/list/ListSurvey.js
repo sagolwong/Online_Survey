@@ -118,8 +118,8 @@ class ListSurvey extends Component {
                     yes={() => (
                         <div class="input-group">
                             <div className="listSampleGroup">
-                                <div className="info-box" onClick={this.props.survey.status === "ONLINE" ? this.goToManageSurvey : this.goToEditSurvey}>
-                                    {this.props.survey.status === "ONLINE" ?
+                                <div className="info-box" onClick={this.props.survey.status !== "DRAFT" ? this.goToManageSurvey : this.goToEditSurvey}>
+                                    {this.props.survey.status !== "DRAFT" ?
                                         <span className="info-box-icon bg-green"><i className="fa fa-file-text-o" /></span>
                                         : <span className="info-box-icon bg-aqua"><i className="fa fa-edit" /></span>
                                     }
@@ -133,7 +133,7 @@ class ListSurvey extends Component {
                                     <button style={{ height: "90px" }} type="button" className="btn btn-link dropdown-toggle" data-toggle="dropdown"><i className="fa fa-ellipsis-v" /></button>
                                     <ul className="dropdown-menu" role="menu">
                                         <li>
-                                            {this.props.survey.status === "ONLINE" ?
+                                            {this.props.survey.status !== "DRAFT" ?
                                                 <a onClick={this.deleteSurvey.bind(this)}>ลบแบบสอบถาม</a>
                                                 : <a onClick={this.deleteDraft.bind(this)}>ลบแบบร่าง</a>
                                             }
@@ -145,8 +145,8 @@ class ListSurvey extends Component {
                     )}
                     no={() => (
                         <div className="listSampleGroup">
-                            <div className="info-box" onClick={this.props.survey.status === "ONLINE" ? this.goToManageSurvey : this.goToEditSurvey}>
-                                {this.props.survey.status === "ONLINE" ?
+                            <div className="info-box" onClick={this.props.survey.status !== "DRAFT" ? this.goToManageSurvey : this.goToEditSurvey}>
+                                {this.props.survey.status !== "DRAFT" ?
                                     <span className="info-box-icon bg-green"><i className="fa fa-file-text-o" /></span>
                                     : <span className="info-box-icon bg-aqua"><i className="fa fa-edit" /></span>
                                 }

@@ -128,14 +128,20 @@ class SurveyProfile extends Component {
         )
     }
 
-    showStatus(){
-        if(this.state.survey.status === "ONLINE") return <small><i className="fa fa-circle text-success"/> ออนไลน์</small>
-        else if(this.state.survey.status === "PAUSE") return <small><i className="fa fa-circle text-warning"/> หยุดรับข้อมูลชั่วคราว</small>
-        else if(this.state.survey.status === "FINISH") return <small><i className="fa fa-circle text-danger"/> ปิดรับข้อมูล</small>
+    showStatus() {
+        if (this.state.survey.status === "ONLINE") return <small><i className="fa fa-circle text-success" /> ออนไลน์</small>
+        else if (this.state.survey.status === "PAUSE") return <small><i className="fa fa-circle text-warning" /> หยุดรับข้อมูลชั่วคราว</small>
+        else if (this.state.survey.status === "FINISH") return <small><i className="fa fa-circle text-danger" /> ปิดรับข้อมูล</small>
     }
 
     goToProject() {
         window.location = "/project-management/" + this.state.survey.projectId
+    }
+
+    showButtonDoSurvey() {
+        if (this.state.survey.status === "ONLINE") return <button className="btn btn-success btn-sm" onClick={() => window.location = "/online-survey/" + this.state.survey._id}>ทำแบบสอบถาม</button>
+        else if (this.state.survey.status === "PAUSE") return <button className="btn btn-success btn-sm" disabled>ทำแบบสอบถาม</button>
+        else if (this.state.survey.status === "FINISH") return ""
     }
 
     showComponent() {
@@ -144,7 +150,13 @@ class SurveyProfile extends Component {
                 <section className="content-header">
                     <h1>
                         <i className="fa fa-file-text-o" /> {this.state.survey.nameSurvey} {this.showStatus()}
+                        &nbsp;&nbsp;
+                        {this.state.ownSurvey ?
+                            "" : this.showButtonDoSurvey()
+                        }
+
                     </h1>
+
                     {this.state.ownSurvey ?
                         <ol className="breadcrumb">
                             <li ><a href="/requests"><i className="fa fa-envelope-o" /> คำร้องขอ</a></li>

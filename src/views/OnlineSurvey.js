@@ -675,7 +675,7 @@ class OnlineSurvey extends Component {
             }
             if (await this.state.followResult[0] !== undefined) {
                 var follow = [];
-                var date = this.state.cdate + "-" + this.state.cmonth + "-" + this.state.cyear;
+                var date = this.state.cdate + "/" + this.state.cmonth + "/" + this.state.cyear;
                 console.log(date);
                 follow = this.state.followResult[0].follow.concat(date);
                 const followResult = {

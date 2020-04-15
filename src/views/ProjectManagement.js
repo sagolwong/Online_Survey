@@ -121,7 +121,7 @@ class ProjectManagement extends Component {
         return (
             this.state.surveys.map(res => {
                 if (res.sampleGroupId === "") {
-                    if (res.status === "ONLINE") {
+                    if (res.status !== "DRAFT") {
                         return <ListSurvey survey={res} projectId={this.props.match.params.projectId}/>
                     }
                 }

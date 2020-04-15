@@ -86,7 +86,7 @@ class SampleGroupManagement extends Component {
     showGroupSurvey() {
         return (
             this.state.surveys.map(res => {
-                if (res.status === "ONLINE") {
+                if (res.status !== "DRAFT") {
                     return <ListSurvey survey={res} projectId={this.props.match.params.projectId} sampleGroupId={this.props.match.params.sampleGroupId}/>
                 }
             })
