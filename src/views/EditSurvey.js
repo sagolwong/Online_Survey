@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
 import PropTypes from "prop-types";
 import { connect } from 'react-redux';
+import DatePicker from "react-datepicker";
+
+import "react-datepicker/dist/react-datepicker.css";
 
 import { editDraftStep1, editStep1 } from "../actions/surveyActions";
 
@@ -58,8 +61,6 @@ class EditSurvey extends Component {
         this.onChangeSetFreq = this.onChangeSetFreq.bind(this);
         this.onChangeDoOnce = this.onChangeDoOnce.bind(this);
         this.onChangeDoMany = this.onChangeDoMany.bind(this);
-        this.onChangeStartMonth = this.onChangeStartMonth.bind(this);
-        this.onChangeEndMonth = this.onChangeEndMonth.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
         this.sendData = this.sendData.bind(this);
 
@@ -91,12 +92,8 @@ class EditSurvey extends Component {
             doOnce: false,
             doMany: false,
             schedule: false,
-            startDate: date,
-            startMonth: month,
-            startYear: year,
-            endDate: date,
-            endMonth: month,
-            endYear: year + 1,
+            startDate: new Date(),
+            endDate: new Date(),
             sDate: date,
             sMonth: month,
             sYear: year,
@@ -111,19 +108,18 @@ class EditSurvey extends Component {
     componentDidMount() {
         this.setState({ schedule: true })
 
+
         if (this.props.survey.nameSurvey !== "") this.setState({ nameSurvey: this.props.survey.nameSurvey })
         if (this.props.survey.description !== "") this.setState({ description: this.props.survey.description })
         if (this.props.survey.shareTo !== "") this.setState({ shareTo: this.props.survey.shareTo })
         if (this.props.survey.wantName !== "") this.setState({ wantName: this.props.survey.wantName })
         if (this.props.survey.haveGroup !== "") this.setState({ haveGroup: this.props.survey.haveGroup })
         if (this.props.survey.openAndCloseTimes !== undefined) {
+            const startD = (this.props.survey.openAndCloseTimes.start.year - 543) + "/" + this.props.survey.openAndCloseTimes.start.month + "/" + this.props.survey.openAndCloseTimes.start.day
+            const endD = (this.props.survey.openAndCloseTimes.end.year - 543) + "/" + this.props.survey.openAndCloseTimes.end.month + "/" + this.props.survey.openAndCloseTimes.end.day
             this.setState({
-                startDate: this.props.survey.openAndCloseTimes.start.day,
-                startMonth: this.props.survey.openAndCloseTimes.start.month,
-                startYear: this.props.survey.openAndCloseTimes.start.year,
-                endDate: this.props.survey.openAndCloseTimes.end.day,
-                endMonth: this.props.survey.openAndCloseTimes.end.month,
-                endYear: this.props.survey.openAndCloseTimes.end.year,
+                startDate: new Date(startD),
+                endDate: new Date(endD)
             })
         }
 
@@ -332,28 +328,16 @@ class EditSurvey extends Component {
         }
     }
 
-    onChangeStartMonth(e) {
-        this.setState({
-            startMonth: e.target.value
-        })
-    }
-
-    onChangeEndMonth(e) {
-        this.setState({
-            endMonth: e.target.value
-        })
-    }
-
     saveDraft() {
         const start = {
-            day: Number(this.state.startDate),
-            month: Number(this.state.startMonth),
-            year: Number(this.state.startYear)
+            day: Number(this.state.startDate.getDate()),
+            month: Number(this.state.startDate.getMonth() + 1),
+            year: Number(this.state.startDate.getFullYear() + 543)
         }
         const end = {
-            day: Number(this.state.endDate),
-            month: Number(this.state.endMonth),
-            year: Number(this.state.endYear)
+            day: Number(this.state.endDate.getDate()),
+            month: Number(this.state.endDate.getMonth() + 1),
+            year: Number(this.state.endDate.getFullYear() + 543)
         }
         console.log(start);
         console.log(end);
@@ -420,14 +404,14 @@ class EditSurvey extends Component {
 
     onSubmit() {
         const start = {
-            day: Number(this.state.startDate),
-            month: Number(this.state.startMonth),
-            year: Number(this.state.startYear)
+            day: Number(this.state.startDate.getDate()),
+            month: Number(this.state.startDate.getMonth() + 1),
+            year: Number(this.state.startDate.getFullYear() + 543)
         }
         const end = {
-            day: Number(this.state.endDate),
-            month: Number(this.state.endMonth),
-            year: Number(this.state.endYear)
+            day: Number(this.state.endDate.getDate()),
+            month: Number(this.state.endDate.getMonth() + 1),
+            year: Number(this.state.endDate.getFullYear() + 543)
         }
         console.log(start);
         console.log(end);
@@ -684,14 +668,14 @@ class EditSurvey extends Component {
         console.log(this.state.dateToDo);
 
         const start = {
-            day: Number(this.state.startDate),
-            month: Number(this.state.startMonth),
-            year: Number(this.state.startYear)
+            day: Number(this.state.startDate.getDate()),
+            month: Number(this.state.startDate.getMonth() + 1),
+            year: Number(this.state.startDate.getFullYear() + 543)
         }
         const end = {
-            day: Number(this.state.endDate),
-            month: Number(this.state.endMonth),
-            year: Number(this.state.endYear)
+            day: Number(this.state.endDate.getDate()),
+            month: Number(this.state.endDate.getMonth() + 1),
+            year: Number(this.state.endDate.getFullYear() + 543)
         }
         console.log(start);
         console.log(end);
@@ -761,12 +745,15 @@ class EditSurvey extends Component {
         return (
             <div>
                 <section className="content-header">
-
+                    <div className="progress active">
+                        <div className="progress-bar progress-bar-info progress-bar-striped" role="progressbar" aria-valuenow={50} aria-valuemin={0} aria-valuemax={50} style={{ width: '50%' }}>
+                            <span className="sr-only">EDIT SURVEY</span>
+                        </div>
+                    </div>
+                    <h3>{this.props.survey.status === "template" ? "แม่แบบแบบสอบถาม" : "แก้ไขแบบสอบถาม"}</h3>
                 </section>
 
                 <section className="content">
-                    <h1>{this.props.survey.status === "template" ? "แม่แบบแบบสอบถาม" : "แก้ไขแบบสอบถาม"}</h1>
-                    <br></br>
                     <h3>ส่วนที่ 1 : ข้อมูลทั่วไป</h3>
                     <div className="box box-primary">
                         <div className="box-header with-border">
@@ -1016,104 +1003,27 @@ class EditSurvey extends Component {
                             </div>
 
                             <div className="box-body">
-                                <label><i className="fa fa-calendar" /> วันเริ่มต้น :</label>
-                                <div className="row">
-                                    <div className="col-md-3">
-                                        <div className="form-group">
-                                            <input
-                                                type="text"
-                                                id="startDate"
-                                                className="form-control"
-                                                placeholder="วันที่"
-                                                value={this.state.startDate}
-                                                onChange={this.onChange}
-                                            />
-                                        </div>
-                                    </div>
-
-                                    <div className="col-md-3">
-                                        <select
-                                            className="form-control"
-                                            value={this.state.startMonth}
-                                            onChange={this.onChangeStartMonth}>
-                                            <option >เดือน ?</option>
-                                            <option value="1">มกราคม</option>
-                                            <option value="2">กุมภาพันธ์</option>
-                                            <option value="3">มีนาคม</option>
-                                            <option value="4">เมษายน</option>
-                                            <option value="5">พฤษภาคม</option>
-                                            <option value="6">มิถุนายน</option>
-                                            <option value="7">กรกฎาคม</option>
-                                            <option value="8">สิงหาคม</option>
-                                            <option value="9">กันยายน</option>
-                                            <option value="10">ตุลาคม</option>
-                                            <option value="11">พฤศจิกายน</option>
-                                            <option value="12">ธันวาคม</option>
-                                        </select>
-                                    </div>
-
-                                    <div className="col-md-3">
-                                        <div className="form-group">
-                                            <input
-                                                type="text"
-                                                id="startYear"
-                                                className="form-control"
-                                                placeholder="ปี พ.ศ."
-                                                value={this.state.startYear}
-                                                onChange={this.onChange}
-                                            />
-                                        </div>
-                                    </div>
+                                <div className="row-md-6">
+                                    <label>
+                                        <i className="fa fa-calendar" /> วันเริ่มต้น :
+                                        &nbsp;
+                                        <DatePicker
+                                            dateFormat="dd/MM/yyyy"
+                                            selected={this.state.startDate}
+                                            onChange={date => this.setState({ startDate: date })}
+                                        />
+                                    </label>
                                 </div>
-
-                                <label><i className="fa fa-calendar" /> วันสิ้นสุด :</label>
-                                <div className="row">
-                                    <div className="col-md-3">
-                                        <div className="form-group">
-                                            <input
-                                                type="text"
-                                                id="endDate"
-                                                className="form-control"
-                                                placeholder="วันที่"
-                                                value={this.state.endDate}
-                                                onChange={this.onChange}
-                                            />
-                                        </div>
-                                    </div>
-
-                                    <div className="col-md-3">
-                                        <select
-                                            className="form-control"
-                                            value={this.state.endMonth}
-                                            onChange={this.onChangeEndMonth}>
-                                            <option >เดือน ?</option>
-                                            <option value="1">มกราคม</option>
-                                            <option value="2">กุมภาพันธ์</option>
-                                            <option value="3">มีนาคม</option>
-                                            <option value="4">เมษายน</option>
-                                            <option value="5">พฤษภาคม</option>
-                                            <option value="6">มิถุนายน</option>
-                                            <option value="7">กรกฎาคม</option>
-                                            <option value="8">สิงหาคม</option>
-                                            <option value="9">กันยายน</option>
-                                            <option value="10">ตุลาคม</option>
-                                            <option value="11">พฤศจิกายน</option>
-                                            <option value="12">ธันวาคม</option>
-                                        </select>
-                                    </div>
-
-                                    <div className="col-md-3">
-                                        <div className="form-group">
-                                            <input
-                                                type="text"
-                                                id="endYear"
-                                                className="form-control"
-                                                placeholder="ปี พ.ศ."
-                                                value={this.state.endYear}
-                                                onChange={this.onChange}
-                                            />
-                                        </div>
-                                    </div>
+                                <div className="row-md-6">
+                                    <label>
+                                        <i className="fa fa-calendar" /> วันสิ้นสุด :
+                                        &nbsp;
+                                        <DatePicker
+                                            dateFormat="dd/MM/yyyy"
+                                            selected={this.state.endDate}
+                                            onChange={date => this.setState({ endDate: date })}
+                                        />
+                                    </label>
                                 </div>
                             </div>
                         </div>
@@ -1128,104 +1038,27 @@ class EditSurvey extends Component {
                             </div>
 
                             <div className="box-body">
-                                <label><i className="fa fa-calendar" /> วันเริ่มต้น :</label>
-                                <div className="row">
-                                    <div className="col-md-3">
-                                        <div className="form-group">
-                                            <input
-                                                type="text"
-                                                id="startDate"
-                                                className="form-control"
-                                                placeholder="วันที่"
-                                                value={this.state.startDate}
-                                                onChange={this.onChange}
-                                            />
-                                        </div>
-                                    </div>
-
-                                    <div className="col-md-3">
-                                        <select
-                                            className="form-control"
-                                            value={this.state.startMonth}
-                                            onChange={this.onChangeStartMonth}>
-                                            <option >เดือน ?</option>
-                                            <option value="1">มกราคม</option>
-                                            <option value="2">กุมภาพันธ์</option>
-                                            <option value="3">มีนาคม</option>
-                                            <option value="4">เมษายน</option>
-                                            <option value="5">พฤษภาคม</option>
-                                            <option value="6">มิถุนายน</option>
-                                            <option value="7">กรกฎาคม</option>
-                                            <option value="8">สิงหาคม</option>
-                                            <option value="9">กันยายน</option>
-                                            <option value="10">ตุลาคม</option>
-                                            <option value="11">พฤศจิกายน</option>
-                                            <option value="12">ธันวาคม</option>
-                                        </select>
-                                    </div>
-
-                                    <div className="col-md-3">
-                                        <div className="form-group">
-                                            <input
-                                                type="text"
-                                                id="startYear"
-                                                className="form-control"
-                                                placeholder="ปี พ.ศ."
-                                                value={this.state.startYear}
-                                                onChange={this.onChange}
-                                            />
-                                        </div>
-                                    </div>
+                                <div className="row-md-6">
+                                    <label>
+                                        <i className="fa fa-calendar" /> วันเริ่มต้น :
+                                        &nbsp;
+                                        <DatePicker
+                                            dateFormat="dd/MM/yyyy"
+                                            selected={this.state.startDate}
+                                            onChange={date => this.setState({ startDate: date })}
+                                        />
+                                    </label>
                                 </div>
-
-                                <label><i className="fa fa-calendar" /> วันสิ้นสุด :</label>
-                                <div className="row">
-                                    <div className="col-md-3">
-                                        <div className="form-group">
-                                            <input
-                                                type="text"
-                                                id="endDate"
-                                                className="form-control"
-                                                placeholder="วันที่"
-                                                value={this.state.endDate}
-                                                onChange={this.onChange}
-                                            />
-                                        </div>
-                                    </div>
-
-                                    <div className="col-md-3">
-                                        <select
-                                            className="form-control"
-                                            value={this.state.endMonth}
-                                            onChange={this.onChangeEndMonth}>
-                                            <option >เดือน ?</option>
-                                            <option value="1">มกราคม</option>
-                                            <option value="2">กุมภาพันธ์</option>
-                                            <option value="3">มีนาคม</option>
-                                            <option value="4">เมษายน</option>
-                                            <option value="5">พฤษภาคม</option>
-                                            <option value="6">มิถุนายน</option>
-                                            <option value="7">กรกฎาคม</option>
-                                            <option value="8">สิงหาคม</option>
-                                            <option value="9">กันยายน</option>
-                                            <option value="10">ตุลาคม</option>
-                                            <option value="11">พฤศจิกายน</option>
-                                            <option value="12">ธันวาคม</option>
-                                        </select>
-                                    </div>
-
-                                    <div className="col-md-3">
-                                        <div className="form-group">
-                                            <input
-                                                type="text"
-                                                id="endYear"
-                                                className="form-control"
-                                                placeholder="ปี พ.ศ."
-                                                value={this.state.endYear}
-                                                onChange={this.onChange}
-                                            />
-                                        </div>
-                                    </div>
+                                <div className="row-md-6">
+                                    <label>
+                                        <i className="fa fa-calendar" /> วันสิ้นสุด :
+                                        &nbsp;
+                                        <DatePicker
+                                            dateFormat="dd/MM/yyyy"
+                                            selected={this.state.endDate}
+                                            onChange={date => this.setState({ endDate: date })}
+                                        />
+                                    </label>
                                 </div>
                             </div>
                         </div>
