@@ -545,7 +545,7 @@ class EditSurvey extends Component {
                 console.log("3=" + nF);
                 nF /= f;
             }
-            nF++;
+            //nF++;
             console.log("nF/f=" + nF);
 
             let nDay = start.day;
