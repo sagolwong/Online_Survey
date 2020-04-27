@@ -23,7 +23,7 @@ class CreateSurvey3 extends Component {
         let date = newDate.getDate();
         let month = newDate.getMonth() + 1;
         let year = newDate.getFullYear() + 543;
-        let endDate = (year-542)+"/"+month+"/"+date;
+        let endDate = (year - 542) + "/" + month + "/" + date;
 
 
         this.state = {
@@ -447,7 +447,7 @@ class CreateSurvey3 extends Component {
 
     render() {
         return (
-            <div>
+            <div style={{ height: "570px" }}>
                 {console.log(this.state)}
                 <section className="content-header">
                     <div className="progress active">
@@ -627,9 +627,11 @@ class CreateSurvey3 extends Component {
                         </div>
                     }
 
-                    <button className="btn btn-danger" onClick={() => this.props.backToStep2()}>ย้อนกลับ</button>&nbsp;
-                    <button className="btn btn-warning" onClick={this.saveDraft.bind(this)}>บันทึกแบบร่าง</button>&nbsp;
-                    <button className="btn btn-info" onClick={this.onSubmit}>ต่อไป</button>
+                    <div >
+                        <button className="btn btn-danger" onClick={() => this.props.backToStep2()}>ย้อนกลับ</button>&nbsp;
+                        <button className="btn btn-warning" onClick={this.saveDraft.bind(this)}>บันทึกแบบร่าง</button>&nbsp;
+                        <button className="btn btn-info" onClick={this.onSubmit}>ต่อไป</button>
+                    </div>
 
                     {this.state.dateToDo[0] !== undefined ? this.sendData() : ""}
                 </section>
