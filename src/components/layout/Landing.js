@@ -16,15 +16,24 @@ class Landing extends Component {
         return (
             <div className="container">
                 <div align="center">
-                    <br /><br /><br /><br /><br /><br /><br /><br />
+                    <br /><br /><br /><br /><br /><br /><br />
                     <div className="row">
                         <div className="col s12 center-align">
                             <h4>
                                 <b>OnlineSurvey</b> for Reasearch
                             </h4>
                             <p className="flow-text grey-text text-darken-1">
-                                เว็บแอปพลิเคชันนี้ เป็นเว็บแอปที่ช่วยสนับสนุนการทำงานวิจัย
-                                ในขั้นตอนการรวบรวมข้อมูลเป็นอย่างมาก
+                                ระบบแบบสำรวจออนไลน์เพื่อการวิจัยมีฟังก์ชันมากมายที่ช่วยสนับสนุนการเก็บข้อมูลเพื่อทำงานวิจัย
+                            </p>
+                            <p className="flow-text grey-text text-darken-1">
+                                <b>สำหรับผู้วิจัย :</b> ระบบจะช่วยลดระยะเวลาและขั้นตอนในการจัดเก็บข้อมูล จัดการข้อมูล และการวิเคราะห์ข้อมูล
+                            </p>
+                            <p className="flow-text grey-text text-darken-1">
+                                <b>สำหรับผู้ทำแบบสอบถาม :</b> ระบบจะช่วยปกป้องข้อมูลที่ได้จากผู้ทำแบบสอบถามตามหลักมาตรการการคุ้มครอง
+                            </p>
+                            <p className="flow-text grey-text text-darken-1">
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                ความเป็นส่วนตัวของข้อมูลส่วนบุคคล หรือ ตามกฎหมาย GDPR
                             </p>
                             <br />
                             <div>
@@ -40,7 +49,7 @@ class Landing extends Component {
                                     เข้าสู่ระบบ
                                 </Link>
                             </div>
-                      
+
                             <div>
                                 <Link
                                     to="/register"

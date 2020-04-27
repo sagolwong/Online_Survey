@@ -412,9 +412,9 @@ class ReviewSurvey extends Component {
                     <button className="btn btn-danger" onClick={this.props.type !== undefined ? () => this.props.backToEditStep1() : () => this.props.backToStep3()}>ย้อนกลับ</button>&nbsp;
                     <button className="btn btn-warning" onClick={this.saveDraft.bind(this)}>บันทึกแบบร่าง</button>&nbsp;
                     {this.state.checkP ?
-                        <button className="btn btn-success" onClick={this.savePrototype.bind(this)} disabled>บันทึกต้นแบบ</button>
+                        <button className="btn btn-success" onClick={this.savePrototype.bind(this)} disabled>บันทึกแม่แบบ</button>
                         :
-                        <button className="btn btn-success" onClick={this.savePrototype.bind(this)}>บันทึกต้นแบบ</button>
+                        <button className="btn btn-success" onClick={this.savePrototype.bind(this)}>บันทึกแม่แบบ</button>
                     }&nbsp;
                     <button className="btn btn-info" onClick={this.publish.bind(this)}>เผยแพร่</button>
                 </section>
