@@ -113,6 +113,19 @@ class Agreement extends Component {
                     if (this.state.checkGroup) {
                         return this.showRequestGroup()
                     }
+                } else {
+                    return (
+                        <div style={{ fontSize: "25px" }}>
+                            <br /><br /><br /><br /><br />
+                            <div className="row text-center">
+                                คุณไม่ได้เป็นผู้เข้าร่วม ไม่สามารถเข้าทำแบบสอบถามนี้ได้
+                            </div>
+                            <br />
+                            <div className="row text-center">
+                                <button className="btn btn-success" onClick={() => window.location = "/requests"}>กลับสู่หน้าหลัก</button>
+                            </div>
+                        </div>
+                    )
                 }
             } else {
                 this.setState({
@@ -221,21 +234,42 @@ class Agreement extends Component {
     showAgreement() {
         if (this.state.survey.status === "DRAFT") {
             return (
-                <div>
-                    แบบสอบถามยังสร้างไม่เสร็จสิ้น
+                <div style={{ fontSize: "25px" }}>
+                    <br /><br /><br /><br /><br />
+                    <div className="row text-center">
+                        แบบสอบถามยังสร้างไม่เสร็จสิ้น
+                    </div>
+                    <br />
+                    <div className="row text-center">
+                        <button className="btn btn-success" onClick={() => window.location = "/requests"}>กลับสู่หน้าหลัก</button>
+                    </div>
                 </div>
             )
         } else if (this.state.survey.status === "FINISH") {
             return (
-                <div>
-                    แบบสอบถามหมดอายุแล้ว
+                <div style={{ fontSize: "25px" }}>
+                    <br /><br /><br /><br /><br />
+                    <div className="row text-center">
+                        แบบสอบถามปิดรับข้อมูลแล้ว
+                    </div>
+                    <br />
+                    <div className="row text-center">
+                        <button className="btn btn-success" onClick={() => window.location = "/requests"}>กลับสู่หน้าหลัก</button>
+                    </div>
                 </div>
             )
         } else {
             if ((this.state.nowYear <= this.state.syear && (this.state.nowMonth < this.state.smonth || (this.state.nowDate < this.state.sdate && this.state.nowDate >= this.state.sdate))) || (this.state.nowMonth === this.state.smonth && this.state.nowDate < this.state.sdate)) {
                 return (
-                    <div>
-                        ยังไม่ถึงกำหนดเปิด
+                    <div style={{ fontSize: "25px" }}>
+                        <br /><br /><br /><br /><br />
+                        <div className="row text-center">
+                            ยังไม่ถึงกำหนดเปิด
+                        </div>
+                        <br />
+                        <div className="row text-center">
+                            <button className="btn btn-success" onClick={() => window.location = "/requests"}>กลับสู่หน้าหลัก</button>
+                        </div>
                     </div>
                 )
             } else if (this.state.nowYear > this.state.eyear || (this.state.nowYear === this.state.eyear && (this.state.nowMonth > this.state.emonth || (this.state.nowMonth === this.state.emonth && this.state.nowDate > this.state.edate)))) {
@@ -247,8 +281,15 @@ class Agreement extends Component {
                     .then(res => { console.log(res.data) });
 
                 return (
-                    <div>
-                        แบบสอบถามหมดอายุแล้ว
+                    <div style={{ fontSize: "25px" }}>
+                        <br /><br /><br /><br /><br />
+                        <div className="row text-center">
+                            แบบสอบถามปิดรับข้อมูลแล้ว
+                        </div>
+                        <br />
+                        <div className="row text-center">
+                            <button className="btn btn-success" onClick={() => window.location = "/requests"}>กลับสู่หน้าหลัก</button>
+                        </div>
                     </div>
                 )
             } else {
@@ -305,8 +346,15 @@ class Agreement extends Component {
 
                     } else {
                         return (
-                            <div>
-                                ยังไม่ถึงกำหนดการครั้งต่อไป
+                            <div style={{ fontSize: "25px" }}>
+                                <br /><br /><br /><br /><br />
+                                <div className="row text-center">
+                                    ยังไม่ถึงกำหนดการครั้งต่อไป
+                                </div>
+                                <br />
+                                <div className="row text-center">
+                                    <button className="btn btn-success" onClick={() => window.location = "/requests"}>กลับสู่หน้าหลัก</button>
+                                </div>
                             </div>
                         )
                     }
@@ -321,7 +369,7 @@ class Agreement extends Component {
                                         </div>
 
                                         <div className="box-body">
-                                        <h4>แบบสอบถาม : <a onClick={() => window.location = "/survey-management/" + this.state.survey._id}>{this.state.survey.nameSurvey}</a> <small>{this.showStatus()}</small></h4>
+                                            <h4>แบบสอบถาม : <a onClick={() => window.location = "/survey-management/" + this.state.survey._id}>{this.state.survey.nameSurvey}</a> <small>{this.showStatus()}</small></h4>
                                             <ul>
                                                 {this.state.survey.shareTo === "CLOSE" ?
                                                     <li>แบบสอบถามนี้เป็นแบบสอบถามประเภทปิด ผู้ที่ไม่ใช่สมาชิกไม่สามารถเข้าทำได้</li> :
@@ -365,7 +413,7 @@ class Agreement extends Component {
                                             </div>
 
                                             <div className="box-body">
-                                            <h4>แบบสอบถาม : <a onClick={() => window.location = "/survey-management/" + this.state.survey._id}>{this.state.survey.nameSurvey}</a> <small>{this.showStatus()}</small></h4>
+                                                <h4>แบบสอบถาม : <a onClick={() => window.location = "/survey-management/" + this.state.survey._id}>{this.state.survey.nameSurvey}</a> <small>{this.showStatus()}</small></h4>
                                                 <ul>
                                                     <li>แบบสอบถามนี้เป็นแบบสอบถามประเภทสาธารณะสามารถเข้าทำได้ทุกคนแม้ไม่ใช่สมาชิก</li>
                                                     <li>แบบสอบถามนี้ต้องการทราบชื่อผู้ทำก่อนเข้าทำแบบสอบถาม</li>
@@ -420,7 +468,7 @@ class Agreement extends Component {
                                             </div>
 
                                             <div className="box-body">
-                                            <h4>แบบสอบถาม : <a onClick={() => window.location = "/survey-management/" + this.state.survey._id}>{this.state.survey.nameSurvey}</a> <small>{this.showStatus()}</small></h4>
+                                                <h4>แบบสอบถาม : <a onClick={() => window.location = "/survey-management/" + this.state.survey._id}>{this.state.survey.nameSurvey}</a> <small>{this.showStatus()}</small></h4>
                                                 <ul>
                                                     <li>แบบสอบถามนี้เป็นแบบสอบถามประเภทสาธารณะสามารถเข้าทำได้ทุกคนแม้ไม่ใช่สมาชิก</li>
                                                     <li>แบบสอบถามนี้ไม่ต้องการทราบชื่อผู้ทำก่อนเข้าทำแบบสอบถาม</li>

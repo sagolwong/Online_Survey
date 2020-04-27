@@ -392,14 +392,34 @@ class ManageSurvey extends Component {
                         <div className="col-md-6">
                             <div className="input-group">
                                 <span className="input-group-addon"><i className="fa fa-user-plus" /></span>
-                                <input
-                                    type="text"
-                                    className="form-control"
-                                    placeholder={this.state.survey.haveGroup ? "เพิ่มรายชื่อผู้ที่ต้องการให้เข้าร่วมกลุ่มทำแบบสอบถาม" : "เพิ่มรายชื่อผู้ที่ต้องการให้ทำแบบสอบถาม"}
-                                    value={this.state.search}
-                                    onChange={this.updateSearch.bind(this)}
-                                />
-
+                                {this.state.survey.haveGroup ?
+                                    <div>
+                                        {this.state.showLinkInvite ?
+                                            <input
+                                                type="text"
+                                                className="form-control"
+                                                placeholder="เพิ่มรายชื่อผู้ที่ต้องการให้เข้าร่วมกลุ่มทำแบบสอบถาม"
+                                                value={this.state.search}
+                                                onChange={this.updateSearch.bind(this)}
+                                            />
+                                            :
+                                            <input
+                                                type="text"
+                                                className="form-control"
+                                                placeholder="หมดเวลาส่งคำขอเชิญเข้าร่วมกลุ่ม"
+                                                disabled
+                                            />
+                                        }
+                                    </div>
+                                    :
+                                    <input
+                                        type="text"
+                                        className="form-control"
+                                        placeholder="เพิ่มรายชื่อผู้ที่ต้องการให้ทำแบบสอบถาม"
+                                        value={this.state.search}
+                                        onChange={this.updateSearch.bind(this)}
+                                    />
+                                }
                             </div>
                             {this.showListUser()}
                         </div>
@@ -440,7 +460,13 @@ class ManageSurvey extends Component {
                                         <div class="input-group">
                                             <input type="text" className="form-control" value={"http://localhost:3000/online-survey/" + this.props.surveyId} readOnly />
                                             <span class="input-group-btn">
-                                                <button type="button" className="btn btn-success btn-flat" onClick={() => { navigator.clipboard.writeText("http://localhost:3000/online-survey/" + this.props.surveyId) }}><i className="fa fa-clipboard" /></button>
+                                                <button type="button" className="btn btn-success btn-flat"
+                                                    onClick={() => {
+                                                        navigator.clipboard.writeText("http://localhost:3000/online-survey/" + this.props.surveyId)
+                                                        alert("คัดลอกลิงค์เสร็จสิ้น")
+                                                    }}>
+                                                    <i className="fa fa-clipboard" />
+                                                </button>
                                             </span>
                                         </div>
                                     </div>
