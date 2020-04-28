@@ -12,7 +12,8 @@ export default class ListAnswer extends Component {
             ready: false,
             keys: [],
             values: [],
-            user: {}
+            user: {},
+            frequency: []
         }
         this.decryptAnswer = this.decryptAnswer.bind(this);
         this.showName = this.showName.bind(this);
@@ -20,11 +21,24 @@ export default class ListAnswer extends Component {
     }
 
     componentDidMount() {
+        const surveyId = this.props.surveyId;
         const surveyType = this.props.surveyType;
         const surveyWantName = this.props.surveyWantName;
         var secretKey = "SJyevrus";
         var simpleCryptoSystem = new SimpleCrypto(secretKey);
         console.log(surveyType)
+
+        axios.get(`/frequency/find/` + surveyId)
+            .then(response => {
+                this.setState({
+                    frequency: response.data
+                })
+
+                console.log(this.state.frequency);
+            })
+            .catch((error) => {
+                console.log(error);
+            })
 
         if (surveyType === "OPEN" || surveyType === "CLOSE") {
             if (surveyWantName) {
@@ -71,7 +85,7 @@ export default class ListAnswer extends Component {
     }
 
     decryptAnswer() {
-        if ((this.props.answer.head !== ""&&this.props.answer.head !== undefined) && (this.props.answer.decryptKey !== ""&&this.props.answer.decryptKey !== undefined)) {
+        if ((this.props.answer.head !== "" && this.props.answer.head !== undefined) && (this.props.answer.decryptKey !== "" && this.props.answer.decryptKey !== undefined)) {
             var secretKey = "SJyevrus";
             var simpleCryptoSystem = new SimpleCrypto(secretKey);
             var decryptKey = simpleCryptoSystem.decrypt(this.props.answer.decryptKey);
@@ -131,6 +145,10 @@ export default class ListAnswer extends Component {
 
     showAnswer = () => this.setState({ ready: !this.state.ready })
 
+    showNoFrequency() {
+        return <p>ความถี่ประจำวันที่ : {this.props.answer.noFrequency}</p>
+    }
+
     render() {
         return (
             <div className="col-md-12">
@@ -145,6 +163,7 @@ export default class ListAnswer extends Component {
                             {this.state.ready ?
                                 <div className="box-body">
                                     {this.showName()}
+                                    {this.state.frequency !== null ? this.showNoFrequency() : ""}
                                     {this.showDetail()}
                                 </div>
                                 : ""

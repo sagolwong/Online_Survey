@@ -179,7 +179,7 @@ class baseEditSurvey extends Component {
                                         axios.post(`/frequency/create`, frequency)
                                             .then(res => console.log(res.data))
                                     }
-                                    //window.location = '/survey-management/' + response.data[0]._id;
+                                    window.location = '/survey-management/' + response.data[0]._id;
                                 } else if (this.props.survey.status === "DRAFT") {
                                     window.location = '/requests';
                                 }

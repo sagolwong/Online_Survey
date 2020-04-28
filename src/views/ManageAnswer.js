@@ -143,7 +143,7 @@ class ManageAnswer extends Component {
             this.state.listAnswer.map((res, index) => {
                 console.log(res)
                 console.log("index=" + index)
-                return <ListAnswer answer={res} surveyType={this.state.survey.shareTo} surveyWantName={this.state.survey.wantName} index={index} delete={this.deleteAnswer} user={res.userId} />
+                return <ListAnswer answer={res} surveyId={this.state.survey._id} surveyType={this.state.survey.shareTo} surveyWantName={this.state.survey.wantName} index={index} delete={this.deleteAnswer} user={res.userId} />
             })
         )
     }

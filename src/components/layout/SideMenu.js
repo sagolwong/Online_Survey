@@ -59,7 +59,7 @@ class SideMenu extends Component {
                                 } className="img-circle" alt="User" />
                             </div>
                             <div className="pull-left info">
-                                <p>{this.props.auth.user.role === "ADMIN" ? this.props.auth.user.firstname : this.props.auth.user.firstname + " " + this.props.auth.user.lastname}</p>
+                                <p style={{fontSize:"18px"}}>{this.props.auth.user.role === "ADMIN" ? this.props.auth.user.firstname : this.props.auth.user.firstname + " " + this.props.auth.user.lastname}</p>
                                 <Can
                                     role={this.props.auth.user.role}
                                     perform="sidebar:link-profile"
