@@ -42,7 +42,7 @@ export default class ListTemplate extends Component {
                             <span className="info-box-icon bg-blue"><i className="fa fa-file-o" /></span>
                             <div className="info-box-content">
                                 <h4>แม่แบบ</h4>
-                                <p>{this.props.template.nameSurvey}</p>
+                                {this.props.template.nameSurvey.length >= 27 ? <h6>{this.props.template.nameSurvey}</h6>:<h5>{this.props.template.nameSurvey}</h5>}
                             </div>
                         </div>
                     </div>

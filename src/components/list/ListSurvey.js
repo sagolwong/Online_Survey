@@ -124,7 +124,7 @@ class ListSurvey extends Component {
                                         : <span className="info-box-icon bg-aqua"><i className="fa fa-edit" /></span>
                                     }
                                     <div className="info-box-content">
-                                        <h4>{this.props.survey.nameSurvey}</h4>
+                                        {this.props.survey.nameSurvey.length >= 27 ? <h5>{this.props.survey.nameSurvey}</h5> : <h4>{this.props.survey.nameSurvey}</h4>}
                                     </div>
                                 </div>
                             </div>
@@ -151,7 +151,7 @@ class ListSurvey extends Component {
                                     : <span className="info-box-icon bg-aqua"><i className="fa fa-edit" /></span>
                                 }
                                 <div className="info-box-content">
-                                    <h4>{this.props.survey.nameSurvey}</h4>
+                                    {this.props.survey.nameSurvey.length >= 27 ? <h5>{this.props.survey.nameSurvey}</h5> : <h4>{this.props.survey.nameSurvey}</h4>}
                                 </div>
                             </div>
                         </div>

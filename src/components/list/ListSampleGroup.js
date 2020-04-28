@@ -11,7 +11,7 @@ class ListSampleGroup extends Component {
 
         this.goToSampleGroup = this.goToSampleGroup.bind(this);
 
-        this.state={
+        this.state = {
             userId: ""
         }
 
@@ -116,7 +116,7 @@ class ListSampleGroup extends Component {
                                 <div className="info-box" onClick={this.goToSampleGroup}>
                                     <span className="info-box-icon bg-yellow"><i className="fa fa-users" /></span>
                                     <div className="info-box-content">
-                                        <h4>{this.props.sampleGroup.nameSampleGroup}</h4>
+                                        {this.props.sampleGroup.nameSampleGroup.length >= 27 ? <h5>{this.props.sampleGroup.nameSampleGroup}</h5> : <h4>{this.props.sampleGroup.nameSampleGroup}</h4>}
                                     </div>
                                 </div>
                             </div>
@@ -135,7 +135,7 @@ class ListSampleGroup extends Component {
                             <div className="info-box" onClick={this.goToSampleGroup}>
                                 <span className="info-box-icon bg-yellow"><i className="fa fa-users" /></span>
                                 <div className="info-box-content">
-                                    <h4>{this.props.sampleGroup.nameSampleGroup}</h4>
+                                    {this.props.sampleGroup.nameSampleGroup.length >= 27 ? <h5>{this.props.sampleGroup.nameSampleGroup}</h5> : <h4>{this.props.sampleGroup.nameSampleGroup}</h4>}
                                 </div>
                             </div>
                         </div>
