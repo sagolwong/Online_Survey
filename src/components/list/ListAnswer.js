@@ -34,7 +34,7 @@ export default class ListAnswer extends Component {
                     frequency: response.data
                 })
 
-                console.log(this.state.frequency);
+                console.log(this.state.frequency[0]);
             })
             .catch((error) => {
                 console.log(error);
@@ -163,7 +163,7 @@ export default class ListAnswer extends Component {
                             {this.state.ready ?
                                 <div className="box-body">
                                     {this.showName()}
-                                    {this.state.frequency !== null ? this.showNoFrequency() : ""}
+                                    {this.state.frequency[0] !== undefined ? this.showNoFrequency() : ""}
                                     {this.showDetail()}
                                 </div>
                                 : ""

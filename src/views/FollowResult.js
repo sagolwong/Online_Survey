@@ -190,14 +190,14 @@ class FollowResult extends Component {
                 </section>
                 <br />
                 <section className="content">
-                    <div class="row">
-                        <div class="col-xs-12">
-                            <div class="box">
-                                <div class="box-header">
-                                    <h3 class="box-title">ติดตามผลการทำแบบสอบถาม</h3>
+                    <div className="row">
+                        <div className="col-xs-12">
+                            <div className="box">
+                                <div className="box-header">
+                                    <h3 className="box-title">ติดตามผลการทำแบบสอบถาม</h3>
                                 </div>
-                                <div class="box-body">
-                                    <table id="example2" class="table table-bordered table-hover">
+                                <div className="box-body">
+                                    <table id="example2" className="table table-bordered table-hover">
                                         <thead>
                                             <tr>
                                                 <th>ชื่อ-นามสกุล</th>

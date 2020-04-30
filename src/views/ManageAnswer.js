@@ -135,6 +135,7 @@ class ManageAnswer extends Component {
                 console.log(userIds);
             }
         })
+        alert("ส่งคำขออนุญาตขอดูคำตอบเสร็จสิ้น")
     }
 
     showAnswers() {
@@ -214,7 +215,7 @@ class ManageAnswer extends Component {
                             <p>มีจำนวนคำตอบ {this.state.amountAnswer} คำตอบ</p>
                         </div>
                         <div className="col-md-3">
-                            <p>มีจำนวนผู้ตอบ {this.state.amountUser} คน</p>
+                            {/*<p>มีจำนวนผู้ตอบ {this.state.amountUser} คน</p>*/}
                         </div>
                         <div className="col-md-3">
                             {this.state.checkType ? this.state.checkEncrypt ?

@@ -83,7 +83,7 @@ class App extends Component {
         <PrivateResearcherRoute exact path="/create-survey/:projectId/:sampleGroupId" component={baseCreateSurvey} />
         <PrivateResearcherRoute exact path="/edit-survey/:type/:id" component={baseEditSurvey} />
         <PrivateResearcherRoute exact path="/edit-survey/:type/:id/:projectId/:sampleGroupId" component={baseEditSurvey} />
-        
+
         <PrivateAdminRoute exact path="/manage-members" component={ManageMembers} />
         <PrivateAdminRoute exact path="/manage-project" component={ManageProject} />
       </Switch>
