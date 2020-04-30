@@ -806,7 +806,7 @@ class EditSurvey extends Component {
                                     /> ต้องการทราบชื่อผู้ทำแบบสอบถาม
                                     </label>
                             </div>
-                            {this.state.shareTo !== "PUBLIC" && this.state.shareTo !== "" ?
+                            {this.state.shareTo !== "PUBLIC" && this.state.shareTo !== "" && this.state.shareTo !== "OPEN" ?
                                 <div className="form-group">
                                     <label>
                                         <input
