@@ -196,7 +196,7 @@ class FollowResult extends Component {
                                 <div className="box-header">
                                     <h3 className="box-title">ติดตามผลการทำแบบสอบถาม</h3>
                                 </div>
-                                <div className="box-body">
+                                <div className="box-body" style={{ overflowX: "scroll", overflowY: "visible" }}>
                                     <table id="example2" className="table table-bordered table-hover">
                                         <thead>
                                             <tr>
