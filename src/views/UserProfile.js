@@ -12,6 +12,7 @@ class UserProfile extends Component {
         super(props);
 
         this.onSubmit = this.onSubmit.bind(this);
+        this.showRole = this.showRole.bind(this);
 
         this.state = {
             user: {},
@@ -106,6 +107,12 @@ class UserProfile extends Component {
         window.location = '/requests';
     }
 
+    showRole(){
+        if(this.state.user.role === "ADMIN") return "ผู้ดูแลระบบ"
+        else if (this.state.user.role === "RESPONDER") return "ผู้ทำแบบสอบถาม"
+        else if (this.state.user.role === "RESEARCHER") return "ผู้วิจัย"
+    }
+
     render() {
         return (
             <div className="content-wrapper">
@@ -131,7 +138,7 @@ class UserProfile extends Component {
                                             : "/dist/img/responder.png"
                                     } alt="User" />
                                     <h4 className="profile-username text-center">{this.state.user.firstname + " " + this.state.user.lastname}</h4>
-                                    <p className="text-muted text-center">{this.state.user.role}</p>
+                                    <p className="text-muted text-center">{this.showRole()}</p>
                                     <Can
                                         role={this.state.user.role}
                                         perform="user-profile:show-more-profile"

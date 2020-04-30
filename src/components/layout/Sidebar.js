@@ -105,7 +105,7 @@ class Sidebar extends Component {
             <div>
                 <aside className="main-sidebar">
                     {/* sidebar: style can be found in sidebar.less */}
-                    <section className="sidebar">
+                    <section className="sidebar" style={{overflow:"hidden"}}>
                         <br />
                         {/* Sidebar user panel */}
                         <div className="user-panel">

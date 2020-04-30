@@ -14,6 +14,7 @@ class Navbar extends Component {
         this.state = {
             countRequests: 0
         };
+        this.showRole = this.showRole.bind(this);
     }
 
     componentDidMount() {
@@ -35,7 +36,13 @@ class Navbar extends Component {
         e.preventDefault();
         this.props.logoutUser();
         this.props.setBlankPage();
-    };
+    }
+
+    showRole(){
+        if(this.props.auth.user.role === "ADMIN") return "ผู้ดูแลระบบ"
+        else if (this.props.auth.user.role === "RESPONDER") return "ผู้ทำแบบสอบถาม"
+        else if (this.props.auth.user.role === "RESEARCHER") return "ผู้วิจัย"
+    }
 
     render() {
         return (
@@ -164,7 +171,7 @@ class Navbar extends Component {
                                                     } className="img-circle" alt="User" />
                                                     <p>
                                                         {this.props.auth.user.firstname + " " + this.props.auth.user.lastname}
-                                                        <small>{this.props.auth.user.role}</small>
+                                                        <small>{this.showRole()}</small>
                                                     </p>
                                                 </li>
 
